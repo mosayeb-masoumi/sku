@@ -37,8 +37,8 @@ public class Presenter implements Contract.Presenter {
     private void gotoLogin() {
 
 
-//        context.startActivity(new Intent(context, LoginActivity.class));
-        context.startActivity(new Intent(context, MainActivity.class));
+        context.startActivity(new Intent(context, LoginActivity.class));
+//        context.startActivity(new Intent(context, MainActivity.class));
         ((Activity) context).finish();
 
     }

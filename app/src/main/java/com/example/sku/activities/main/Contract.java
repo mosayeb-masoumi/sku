@@ -2,9 +2,13 @@ package com.example.sku.activities.main;
 
 import android.content.Context;
 
+import java.util.List;
+
 public interface Contract {
     interface View{
 
+
+        void setFamilySpinner();
     }
 
     interface Presenter {
@@ -15,10 +19,11 @@ public interface Contract {
 
         void sopListResult(int result);
 
-
-
-
         void btnNewShopPressed();
+
+        void requestCategoryList();
+
+        void getCategoryListResult(int result);
     }
 
     interface Model{
@@ -26,5 +31,7 @@ public interface Contract {
         void attachPresenter (Presenter presenter ,Context context);
 
         void requestShopList();
+
+        void requestCategoryList();
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="rtl">
 
     <android.support.v7.widget.Toolbar
@@ -19,10 +19,11 @@
 
     </android.support.v7.widget.Toolbar>
 
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
 
         <LinearLayout
@@ -50,15 +51,15 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/etFirstName"
+                android:id="@+id/edtShopName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:background="@drawable/bg_input_layout"
                 android:gravity="center"
                 android:inputType="text"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_3sdp"
                 android:textColor="@color/colorTextDark"
@@ -85,16 +86,16 @@
 
 
             <EditText
-                android:id="@+id/etLastName"
+                android:id="@+id/edtShopAddress"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:background="@drawable/bg_input_layout"
                 android:gravity="center"
                 android:inputType="text"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_3sdp"
                 android:textColor="@color/colorTextDark"
@@ -119,15 +120,15 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/phone"
+                android:id="@+id/edtShopTel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:background="@drawable/bg_input_layout"
                 android:gravity="center"
                 android:inputType="text"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_3sdp"
                 android:textColor="@color/colorTextDark"
@@ -139,9 +140,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:orientation="vertical">
 
 
@@ -181,9 +182,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:orientation="vertical">
 
 
@@ -223,9 +224,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:orientation="vertical">
 
                 <TextView
@@ -264,16 +265,31 @@
 
         </LinearLayout>
 
-
     </ScrollView>
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView.Large"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_above="@+id/rlButtons"
+        android:visibility="visible"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_centerHorizontal="true"
+        app:indicatorColor="@color/colorAccent"
+        app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+
+
     <RelativeLayout
         android:id="@+id/rlButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_5sdp">
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_10sdp">
 
         <Button
             android:id="@+id/btRegister"
@@ -293,7 +309,7 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:background="@drawable/bg_button"
-            android:indeterminateTint="#fff"
+            android:indeterminateTint="@color/colorAccent"
             android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

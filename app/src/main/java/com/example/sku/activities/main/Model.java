@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.Toaster;
+import com.example.sku.models.category.CategoryList;
 import com.example.sku.models.shop.ShopList;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
@@ -37,7 +38,6 @@ public class Model implements Contract.Model {
                 if(response.code()==200){
 
                     App.shopList = response.body();
-                    Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
                     presenter.sopListResult(1);
 
                 }else{
@@ -53,6 +53,34 @@ public class Model implements Contract.Model {
                 presenter.sopListResult(-5);
             }
         });
+    }
+
+
+    @Override
+    public void requestCategoryList() {
+
+        APIService apiService=APIClient.getClient().create(APIService.class);
+        Call<CategoryList> call = apiService.getCategoryList();
+        call.enqueue(new Callback<CategoryList>() {
+            @Override
+            public void onResponse(Call<CategoryList> call, Response<CategoryList> response) {
+                if(response.code()==200){
+                    App.categoryList=response.body();
+                    presenter.getCategoryListResult(1);
+                }else{
+                    Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show();
+                    presenter.getCategoryListResult(-4);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryList> call, Throwable t) {
+
+                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                presenter.getCategoryListResult(-5);
+            }
+        });
+
     }
 
 }
