@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SKU</string>
+    <string name="askInternetConnection">لطفا اینترنت خود را متصل نمایید</string>
+    <string name="mobileNumber">شماره موبایل</string>
+    <string name="password">کلمه عبور</string>
+    <string name="enter">ورود</string>
+    <string name="enterEmail">ایمیل خود را وارد کنید</string>
+
+    <string name="connectionFaield">خطا در برقراری ارتباط</string>
+    <string name="serverFaield">خطا در اطلاعات دریافتی از سرور</string>
+</resources>

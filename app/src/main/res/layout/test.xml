@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.main.MainActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/_6sdp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/rahbarlogo1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:gravity="left"
+                android:textSize="@dimen/_15ssp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:text="hhhgggg"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtToolbarMain"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/toolbar_main"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="فروشگاه"
+                    android:textColor="@color/colorsecondarytext"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/txt_shop"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@drawable/spiner_background"
+                    android:layoutDirection="rtl"
+                    android:padding="@dimen/_3sdp">
+
+                    <Spinner
+                        android:id="@+id/spinnerShop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
+
+                        <requestFocus />
+                    </Spinner>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="فروشگاه جدید"
+                    android:textColor="@color/colorsecondarytext"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/txt_shop"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@drawable/spiner_background"
+                    android:layoutDirection="rtl"
+                    android:padding="@dimen/_3sdp">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="#000"
+                        android:background="@null"
+                        android:id="@+id/txtNewShop"
+                        android:gravity="center"
+                        android:hint="کلیک کنید"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"/>
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="خانواده"
+                    android:textColor="@color/colorsecondarytext"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/txt_shop"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@drawable/spiner_background"
+                    android:layoutDirection="rtl"
+                    android:padding="@dimen/_3sdp">
+
+                    <Spinner
+                        android:id="@+id/spinnerFamily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
+
+                        <requestFocus />
+                    </Spinner>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="خانواده جدید"
+                    android:textColor="@color/colorsecondarytext"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rlSpinnerProvince"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/txt_shop"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@drawable/spiner_background"
+                    android:layoutDirection="rtl"
+                    android:padding="@dimen/_3sdp">
+
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="#000"
+                        android:background="@null"
+                        android:id="@+id/txtNewFamily"
+                        android:gravity="center"
+                        android:hint="کلیک کنید"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
