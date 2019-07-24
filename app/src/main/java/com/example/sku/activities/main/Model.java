@@ -1,6 +1,9 @@
 package com.example.sku.activities.main;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
 import com.example.sku.helpers.App;
@@ -81,6 +84,12 @@ public class Model implements Contract.Model {
             }
         });
 
+    }
+
+
+    @Override
+    public void requestPermissionCamera() {
+        ActivityCompat.requestPermissions((Activity) context,new String[]{Manifest.permission.CAMERA},1);
     }
 
 }

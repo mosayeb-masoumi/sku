@@ -8,12 +8,10 @@ public class Result {
     public String name;
     @SerializedName("email")
     public String email;
-    @SerializedName("apiKey")
+    @SerializedName("password")
+    public String password;
+    @SerializedName("api_key")
     public String apiKey;
-
-    @SerializedName("message")
-    public String message;
-
 
     public String getName() {
         return name;
@@ -31,19 +29,19 @@ public class Result {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getApiKey() {
         return apiKey;
     }
 
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

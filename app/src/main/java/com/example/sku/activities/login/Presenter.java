@@ -1,9 +1,24 @@
 package com.example.sku.activities.login;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.example.sku.activities.main.MainActivity;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 public class Presenter implements Contract.Presenter {
     private Context context;
@@ -43,6 +58,48 @@ public class Presenter implements Contract.Presenter {
         }
 
 
+    }
+
+
+
+//    @Override
+//    public boolean gpsPermission() {
+//        if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
+//                ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+//            return false;
+//        }
+//     return true;
+//    }
+
+    @Override
+    public void getGpsPermission() {
+        ActivityCompat.requestPermissions((Activity) context
+                ,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},3);
+    }
+
+    @Override
+    public boolean gpsOn() {
+        final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
+    public void saveEmailPassword(String email, String password) {
+
+        model.saveEmailPassword(email,password);
+    }
+
+    @Override
+    public boolean checkGpsPermission() {
+        if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+            return false;
+        }
+        return true;
     }
 
 

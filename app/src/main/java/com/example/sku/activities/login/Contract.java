@@ -4,14 +4,11 @@ import android.content.Context;
 
 public interface Contract {
     interface View{
-
-      
-
+        
         void showEmpetyPassword();
 
         void hideBtnLogin();
-
-
+        
         void showErrorEmpetyEmail();
     }
 
@@ -23,6 +20,17 @@ public interface Contract {
 
 
         void loginResult(int result);
+        
+
+//        boolean gpsPermission();
+
+        void getGpsPermission();
+
+        boolean gpsOn();
+
+        void saveEmailPassword(String email, String password);
+
+        boolean checkGpsPermission();
     }
 
     interface Model{
@@ -30,5 +38,7 @@ public interface Contract {
         void attachPresenter (Presenter presenter , Context context);
 
         void requestLogin(String email, String password);
+
+        void saveEmailPassword(String email, String password);
     }
 }

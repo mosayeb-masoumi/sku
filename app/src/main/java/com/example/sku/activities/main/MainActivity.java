@@ -3,20 +3,24 @@ package com.example.sku.activities.main;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sku.R;
+
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.PersianAppcompatActivity;
 
@@ -31,6 +35,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     Context context;
 
     boolean doubleBackToExitPressedOnce = false;
+
     @BindView(R.id.txtToolbarMain)
     TextView txtToolbarMain;
     @BindView(R.id.toolbar)
@@ -43,9 +48,11 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     Button btnNewFamily;
     @BindView(R.id.btn_family)
     Button btnFamily;
-    @BindView(R.id.btn_registerCode)
-    Button btnRegisterCode;
+    @BindView(R.id.btn_registerBarCode)
+    Button btnRegisterBarCode;
 
+
+//    EditText edtQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,9 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 
         context = this;
         presenter.attachView(context, this);
+
+
+//        edtQR=findViewById(R.id.edtQRcode);
 
 
         setSupportActionBar(toolbar);
@@ -77,6 +87,13 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         btnShop.setOnClickListener(v -> {
             inflateChooseShop();
         });
+
+
+        btnRegisterBarCode.setOnClickListener(v -> {
+            presenter.btnRegiserCodePressed();
+        });
+
+
 
     }
 
@@ -184,4 +201,31 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 
         dialog.show();
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+          switch (requestCode){
+              case 1 :
+                  if(grantResults[0]== PackageManager.PERMISSION_GRANTED ){
+
+                  }else {
+                      Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
+                  }
+
+          }
+
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (ResultScan != null && ResultScan.length() > 0) {
+//            edtQR.setText(ResultScan);
+//            ResultScan = "";
+//        }
+//    }
 }

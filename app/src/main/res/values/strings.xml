@@ -8,4 +8,7 @@
 
     <string name="connectionFaield">خطا در برقراری ارتباط</string>
     <string name="serverFaield">خطا در اطلاعات دریافتی از سرور</string>
+    <string name="register">ثبت</string>
+    <string name="scanner">اسکنر</string>
+    <string name="pleaseTypeBarcode">لطفا بارکد را تایپ نمایید</string>
 </resources>

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.sku.helpers.App;
+import com.example.sku.helpers.Cache;
+import com.example.sku.helpers.GpsTracker;
 import com.example.sku.helpers.Toaster;
 import com.example.sku.models.login.LoginResult;
 import com.example.sku.models.login.LoginSendData;
@@ -19,6 +21,8 @@ public class Model implements Contract.Model {
 
     private Contract.Presenter presenter;
     private Context context;
+    private GpsTracker gpsTracker;
+    String strLat,strLng;
 
     @Override
     public void attachPresenter(Contract.Presenter presenter , Context context) {
@@ -29,10 +33,13 @@ public class Model implements Contract.Model {
     @Override
     public void requestLogin(String email, String password) {
 
+        getLocation();
 
         LoginSendData senddata = new LoginSendData();
         senddata.email=email;
         senddata.password=password;
+        senddata.lat = strLat;
+        senddata.lng = strLng;
 
 
 
@@ -44,8 +51,9 @@ public class Model implements Contract.Model {
 
                if (response.code()==200){
 
-                    presenter.loginResult(1);
+                   presenter.loginResult(1);
                    App.loginResult = response.body();
+                   presenter.saveEmailPassword(response.body().result.email ,response.body().result.password);
 
                }else {
 
@@ -70,6 +78,26 @@ public class Model implements Contract.Model {
        });
 
 
+    }
 
+
+    public void getLocation(){
+        gpsTracker = new GpsTracker(context);
+        if(gpsTracker.canGetLocation()){
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
+            strLat = (String.valueOf(latitude));
+            strLng = (String.valueOf(longitude));
+        }else{
+            gpsTracker.showSettingsAlert();
+        }
+    }
+
+
+
+    @Override
+    public void saveEmailPassword(String email, String password) {
+        Cache.setString("email",email);
+        Cache.setString("password",password);
     }
 }

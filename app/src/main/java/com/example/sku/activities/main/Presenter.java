@@ -1,11 +1,18 @@
 package com.example.sku.activities.main;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
+
+import com.example.sku.activities.qrcode.QRCodeActivity;
+import com.example.sku.activities.qrcode.QRcodeScaner;
 import com.example.sku.R;
 import com.example.sku.activities.new_shop.NewShopActivity;
+
 
 
 public class Presenter implements Contract.Presenter {
@@ -67,5 +74,13 @@ public class Presenter implements Contract.Presenter {
          }
     }
 
+    @Override
+    public void btnRegiserCodePressed() {
+        if(ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED ){
+            model.requestPermissionCamera();
+        }else{
+            context.startActivity(new Intent(context, QRCodeActivity.class));
+        }
+    }
 
 }

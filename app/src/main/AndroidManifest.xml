@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".helpers.App"
@@ -13,10 +17,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.new_shop.NewShopActivity"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".activities.new_family.NewFamilyActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activities.qrcode.QRCodeActivity"></activity>
+        <activity
+            android:name=".activities.new_shop.NewShopActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.new_family.NewFamilyActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activities.login.LoginActivity" />
         <activity android:name=".activities.main.MainActivity" />
         <activity android:name=".activities.splash.SplashActivity" />
@@ -27,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.qrcode.QRcodeScaner"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

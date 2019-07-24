@@ -24,6 +24,8 @@ public interface Contract {
         void requestCategoryList();
 
         void getCategoryListResult(int result);
+
+        void btnRegiserCodePressed();
     }
 
     interface Model{
@@ -33,5 +35,7 @@ public interface Contract {
         void requestShopList();
 
         void requestCategoryList();
+
+        void requestPermissionCamera();
     }
 }
