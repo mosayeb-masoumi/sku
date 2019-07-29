@@ -1,6 +1,7 @@
 package com.example.sku.services;
 
-import com.example.sku.models.category.Category;
+import com.example.sku.models.barcode_check.BarcodeProductsList;
+import com.example.sku.models.barcode_check.BarcodeSendData;
 import com.example.sku.models.category.CategoryList;
 import com.example.sku.models.city.CityList;
 import com.example.sku.models.city.CitySendData;
@@ -53,5 +54,11 @@ public interface APIService {
     @Headers({"Authorization: Bearer user1@sku.com"})
     @GET("Category")
     Call<CategoryList> getCategoryList();
+
+
+//    @Headers({"Authorization: Bearer user1@sku.com","Accept: application/json"})
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Barcode/Check")
+    Call<BarcodeProductsList> getBarcodeProductList(@Body BarcodeSendData barcodeSendData);
 
 }

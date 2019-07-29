@@ -9,6 +9,10 @@ public interface Contract {
 
 
         void setFamilySpinner();
+
+        void hideBtnFamily();
+
+        void showBtnFamily();
     }
 
     interface Presenter {

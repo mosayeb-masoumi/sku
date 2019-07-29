@@ -57,6 +57,7 @@ public class Presenter implements Contract.Presenter {
     @Override
     public void requestCategoryList() {
 
+        view.hideBtnFamily();
         model.requestCategoryList();
 
     }
@@ -65,6 +66,7 @@ public class Presenter implements Contract.Presenter {
     public void getCategoryListResult(int result) {
          if(result ==1){
 
+             view.showBtnFamily();
              view.setFamilySpinner();
 
          }else if(result == -4){

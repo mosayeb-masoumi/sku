@@ -82,4 +82,10 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
         btRegisterScannerResult.setVisibility(View.GONE);
         pbRegister.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void showBtn() {
+        btRegisterScannerResult.setVisibility(View.VISIBLE);
+        pbRegister.setVisibility(View.GONE);
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.sku.activities.qrcode;
+package com.example.sku.activities.barcode_list;
 
 import android.content.Context;
 
@@ -6,23 +6,20 @@ public interface Contract {
     interface View{
 
         void hideBtn();
-
-        void showBtn();
     }
 
     interface Presenter {
 
         void attachView (Context context,View view);
 
-        void btnRegisterPressed(String barcodResult);
+        void btnProductRegisterPressed();
 
-        void barcodeProductsList(int result);
+        void btnBarcodeRegisterPressed();
     }
 
     interface Model{
 
         void attachPresenter (Presenter presenter , Context context);
 
-        void requestSendBarcode(String barcodResult);
     }
 }

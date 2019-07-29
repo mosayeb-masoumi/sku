@@ -10,17 +10,15 @@ import android.os.Handler;
 import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
-
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sku.R;
-
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.PersianAppcompatActivity;
 
@@ -50,6 +48,8 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     Button btnFamily;
     @BindView(R.id.btn_registerBarCode)
     Button btnRegisterBarCode;
+    @BindView(R.id.pb_family)
+    ProgressBar pbFamily;
 
 
 //    EditText edtQR;
@@ -94,10 +94,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         });
 
 
-
     }
-
-
 
 
 //    private void inflateChooseFamily() {
@@ -122,7 +119,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         dialog.setTitle("Title...");
 
         List<String> listSpnChooseShop = new ArrayList<String>();
-        for (int i = 0; i < App.shopList.data.size() ; i++) {
+        for (int i = 0; i < App.shopList.data.size(); i++) {
             listSpnChooseShop.add(App.shopList.data.get(i).name);
         }
 
@@ -130,11 +127,9 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         Button btnShop = dialog.findViewById(R.id.btRegisterChooseShop);
         ProgressBar pbShop = dialog.findViewById(R.id.pbRegisterChooseShop);
 
-        ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, listSpnChooseShop);
+        ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSpnChooseShop);
         spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
         spnShop.setAdapter(spnChooseShopAdapter);
-
-
 
 
         dialog.show();
@@ -144,8 +139,6 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.inflate_alert_new_family);
         dialog.setTitle("Title...");
-
-
 
 
         dialog.show();
@@ -190,7 +183,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         ProgressBar pbFamily = dialog.findViewById(R.id.pbRegisterChooseFamily);
 
         List<String> categoryList = new ArrayList<>();
-        for (int i = 0; i <App.categoryList.data.size() ; i++) {
+        for (int i = 0; i < App.categoryList.data.size(); i++) {
             categoryList.add(App.categoryList.data.get(i).title);
         }
 
@@ -203,17 +196,29 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     }
 
     @Override
+    public void hideBtnFamily() {
+        btnFamily.setVisibility(View.GONE);
+        pbFamily.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showBtnFamily() {
+        btnFamily.setVisibility(View.VISIBLE);
+        pbFamily.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-          switch (requestCode){
-              case 1 :
-                  if(grantResults[0]== PackageManager.PERMISSION_GRANTED ){
+        switch (requestCode) {
+            case 1:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                  }else {
-                      Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
-                  }
+                } else {
+                    Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
+                }
 
-          }
+        }
 
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

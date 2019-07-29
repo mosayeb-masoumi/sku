@@ -38,7 +38,7 @@
         android:layout_height="@dimen/_75sdp"
         android:layout_below="@id/toolbar"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/rahbarlogo1"/>
+        android:src="@drawable/rahbarlogo1" />
 
 
     <RelativeLayout
@@ -56,20 +56,20 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_newShop"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button"
                 android:text="فروشگاه جدید"
-                android:id="@+id/btn_newShop"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp" />
 
             <Button
+                android:id="@+id/btnShop"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_weight="1"
-                android:id="@+id/btnShop"
                 android:background="@drawable/bg_button"
                 android:text="انتخاب فروشگاه"
                 android:textColor="@color/white"
@@ -86,33 +86,60 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_newFamily"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button"
                 android:text="خانواده جدید"
-                android:id="@+id/btn_newFamily"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp" />
 
-            <Button
+
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_button"
-                android:text="انتخاب خانواده"
-                android:id="@+id/btn_family"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp" />
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btn_family"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_button"
+                    android:text="انتخاب خانواده"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ProgressBar
+                    android:id="@+id/pb_family"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_button"
+                    android:indeterminateTint="@color/colorAccent"
+                    android:theme="@style/ProgressBar"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
+            <!--<Button-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="@dimen/_50sdp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/bg_button"-->
+            <!--android:text="انتخاب خانواده"-->
+            <!--android:id="@+id/btn_family"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="@dimen/_12ssp" />-->
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_registerBarCode"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_below="@+id/ll2"
             android:layout_margin="@dimen/_5sdp"
             android:layout_weight="1"
-            android:id="@+id/btn_registerBarCode"
             android:background="@drawable/bg_button"
             android:text="ثبت بارکد"
             android:textColor="@color/white"

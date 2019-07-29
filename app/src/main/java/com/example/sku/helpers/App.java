@@ -3,6 +3,7 @@ package com.example.sku.helpers;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.sku.models.barcode_check.BarcodeProductsList;
 import com.example.sku.models.category.CategoryList;
 import com.example.sku.models.city.CityList;
 import com.example.sku.models.login.LoginResult;
@@ -22,6 +23,7 @@ public class App extends Application {
     public static ProvinceList provinceList = new ProvinceList();
     public static CityList cityList = new CityList();
     public static CategoryList categoryList = new CategoryList();
+    public static BarcodeProductsList barcodeProductsList = new BarcodeProductsList();
 
 
 

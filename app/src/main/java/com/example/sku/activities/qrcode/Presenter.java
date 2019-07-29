@@ -1,6 +1,11 @@
 package com.example.sku.activities.qrcode;
 
 import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+
+import com.example.sku.R;
+import com.example.sku.activities.barcode_list.BarcodeListActivity;
 
 public class Presenter implements Contract.Presenter {
     private Context context;
@@ -22,4 +27,19 @@ public class Presenter implements Contract.Presenter {
 
 
     }
+
+    @Override
+    public void barcodeProductsList(int result) {
+        if (result==1){
+            view.showBtn();
+            context.startActivity(new Intent(context, BarcodeListActivity.class));
+
+        }else if(result==-4){
+            Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
+        }else if(result == -5){
+            Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }

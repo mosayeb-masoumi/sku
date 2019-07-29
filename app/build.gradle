@@ -55,4 +55,9 @@ dependencies {
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
     implementation 'com.google.android.gms:play-services-location:11.0.0'
 
+    implementation('com.squareup.picasso:picasso:2.71828') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+    }
+
 }
