@@ -12,7 +12,8 @@ import com.example.sku.models.shop.ShopList;
 
 public class App extends Application {
 
- public static String ServerURL = "https://sku.rahbarbazar.com/sku/api/v1/";
+// public static String ServerURL = "https://sku.rahbarbazar.com/sku/api/v1/";
+ public static String ServerURL = "https://test.rahbarbazar.com/sku/api/v1/";
 
     public static Context context;
 

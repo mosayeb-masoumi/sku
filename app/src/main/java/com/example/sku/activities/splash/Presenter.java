@@ -1,14 +1,14 @@
 package com.example.sku.activities.splash;
 
-import android.Manifest;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.content.pm.PackageManager;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.net.Uri;
+import android.provider.Settings;
+
 import com.example.sku.activities.login.LoginActivity;
 import com.example.sku.helpers.Cache;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -44,7 +44,27 @@ public class Presenter implements Contract.Presenter {
           String password = Cache.getString("password");
 
           if(!email.equals("") && !password.equals("")){
-              model.requestLogin();
+
+//              new Timer().schedule(new TimerTask() {
+//                  @Override
+//                  public void run() {
+//                      if(model.checkGpsON()){
+//                          model.requestLogin();
+//                      }else{
+//                          displayLocationSettingsRequest(context,125);
+//                      }
+//                  }
+//              }, 2700);
+
+              if(model.checkGpsON()){
+                  model.requestLogin();
+              }else{
+                  displayLocationSettingsRequest(context,125);
+              }
+
+
+
+
 
           }else{
               new Timer().schedule(new TimerTask() {
@@ -56,19 +76,14 @@ public class Presenter implements Contract.Presenter {
           }
     }
 
+
+
     @Override
     public void requestLogin() {
        model.requestLogin();
     }
 
-    @Override
-    public boolean checkGpsPermission() {
-        if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-            return false;
-        }
-        return true;
-    }
+
 
     @Override
     public boolean checkGpsON() {
@@ -77,12 +92,6 @@ public class Presenter implements Contract.Presenter {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void getPermissionRequest() {
-        ActivityCompat.requestPermissions((Activity) context
-                ,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},4);
     }
 
 
@@ -95,6 +104,30 @@ public class Presenter implements Contract.Presenter {
 
 
 
+    // turn on gps as google
+    private void displayLocationSettingsRequest(Context context, int requestCode) {
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
+                .addApi(LocationServices.API).build();
+        googleApiClient.connect();
 
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(10000 / 2);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(result1 -> {
+            final Status status = result1.getStatus();
+            if (status.getStatusCode() == LocationSettingsStatusCodes.RESOLUTION_REQUIRED)
+                try {
+                    status.startResolutionForResult((Activity) context, requestCode);
+
+                } catch (IntentSender.SendIntentException ignored) {
+                }
+        });
+    }
 
 }

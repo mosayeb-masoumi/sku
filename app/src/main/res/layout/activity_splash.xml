@@ -58,25 +58,46 @@
             android:layout_marginTop="@dimen/_100sdp"
             android:layout_height="wrap_content">
 
-            <LinearLayout android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:background="#00695C"/>
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/progressSplash"
-                android:theme="@style/ProgressBar"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"/>
+                <!--<Button-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@drawable/bg_button"-->
+                    <!--android:layout_marginStart="@dimen/_80sdp"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="@dimen/_15ssp"-->
+                    <!--android:layout_marginEnd="@dimen/_80sdp"-->
+                    <!--android:text="شروع"/>-->
+            <!--</RelativeLayout>-->
 
-            <LinearLayout android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:background="#00695C"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00695C"/>
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressSplash"
+                    android:theme="@style/ProgressBar"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+                <LinearLayout android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:background="#00695C"/>
+            </RelativeLayout>
+
         </RelativeLayout>
 
 

@@ -15,11 +15,9 @@ public interface Contract {
 
         void requestLogin();
 
-        boolean checkGpsPermission();
 
         boolean checkGpsON();
 
-        void getPermissionRequest();
 
 
     }
@@ -30,5 +28,7 @@ public interface Contract {
 
 
         void requestLogin();
+
+        boolean checkGpsON();
     }
 }

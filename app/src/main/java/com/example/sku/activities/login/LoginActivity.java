@@ -64,17 +64,31 @@ public class LoginActivity extends PersianAppcompatActivity implements Contract.
 
 
         btLogin.setOnClickListener(v -> {
-            if (presenter.gpsOn()) {
-                if (presenter.checkGpsPermission()) {
+//            if (presenter.gpsOn()) {
+//                if (presenter.checkGpsPermission()) {
+//                    email = etEmail.getText().toString().trim();
+//                    password = etPassword.getText().toString().trim();
+//                    presenter.btLoginClicked(email, password);
+//                } else {
+//                    presenter.getGpsPermission();
+//                }
+//            } else {
+//                displayLocationSettingsRequest(context, 123);
+//            }
+
+            if (presenter.checkGpsPermission()) {
+                if (presenter.gpsOn()) {
                     email = etEmail.getText().toString().trim();
                     password = etPassword.getText().toString().trim();
                     presenter.btLoginClicked(email, password);
                 } else {
-                    presenter.getGpsPermission();
+                    displayLocationSettingsRequest(context, 123);
                 }
             } else {
-                displayLocationSettingsRequest(context, 123);
+
+                presenter.getGpsPermission();
             }
+
         });
 
     }
@@ -129,11 +143,30 @@ public class LoginActivity extends PersianAppcompatActivity implements Contract.
         switch (requestCode){
             case 3 :
                 if(grantResults[0]== PackageManager.PERMISSION_GRANTED ){
-                    email = etEmail.getText().toString().trim();
-                    password = etPassword.getText().toString().trim();
-                    presenter.btLoginClicked(email, password);
+
+                    if (presenter.gpsOn()) {
+                        email = etEmail.getText().toString().trim();
+                        password = etPassword.getText().toString().trim();
+                        presenter.btLoginClicked(email, password);
+                    } else {
+                        displayLocationSettingsRequest(context,123);
+                    }
+//                    email = etEmail.getText().toString().trim();
+//                    password = etPassword.getText().toString().trim();
+//                    presenter.btLoginClicked(email, password);
                 }else {
                     Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
+                }
+
+            case 123 :
+                if(grantResults[0]== PackageManager.PERMISSION_GRANTED ){
+
+//                    email = etEmail.getText().toString().trim();
+//                    password = etPassword.getText().toString().trim();
+//                    presenter.btLoginClicked(email, password);
+//                    presenter.btLoginClicked(email, password);
+
+                }else {
                 }
 
         }
