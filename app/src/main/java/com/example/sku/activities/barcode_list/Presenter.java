@@ -3,6 +3,7 @@ package com.example.sku.activities.barcode_list;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.sku.activities.product_mainlist_registerproduct.RegisterProduct_ProductMainList;
 import com.example.sku.activities.qrcode.QRCodeActivity;
 import com.example.sku.activities.qrcode.QRcodeScaner;
 
@@ -20,7 +21,10 @@ public class Presenter implements Contract.Presenter {
 
     @Override
     public void btnProductRegisterPressed() {
-        view.hideBtn();
+//        view.hideBtn();
+//        model.requestGetListOfSpinners();
+
+        context.startActivity(new Intent(context, RegisterProduct_ProductMainList.class));
 
 //        model.requestProductMainList();
     }

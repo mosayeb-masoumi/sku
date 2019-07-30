@@ -17,6 +17,13 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/toolbar_Scanner"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:src="@drawable/rahbarlogo1"
+        android:layout_height="@dimen/_150sdp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

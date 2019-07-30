@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.sku.R;
 import com.example.sku.helpers.App;
+import com.example.sku.helpers.Cache;
 import com.example.sku.helpers.PersianAppcompatActivity;
 
 import java.util.ArrayList;
@@ -182,6 +183,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         Button btnFamily = dialog.findViewById(R.id.btRegisterChooseFamily);
         ProgressBar pbFamily = dialog.findViewById(R.id.pbRegisterChooseFamily);
 
+
         List<String> categoryList = new ArrayList<>();
         for (int i = 0; i < App.categoryList.data.size(); i++) {
             categoryList.add(App.categoryList.data.get(i).title);
@@ -190,6 +192,18 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         ArrayAdapter<String> spnCityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryList);
         spnCityAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
         spnFamily.setAdapter(spnCityAdapter);
+
+
+
+        btnFamily.setOnClickListener(v -> {
+           int position =  spnFamily.getSelectedItemPosition();
+            String idSpnFamily = App.categoryList.data.get(position).getId();
+            App.idSpnFamily = idSpnFamily;
+            //todo we can save it in sharePref too
+//             Cache.setString("idSpnFamily",idSpnFamily);
+
+            dialog.dismiss();
+        });
 
 
         dialog.show();

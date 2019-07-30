@@ -95,7 +95,8 @@ public class Model implements Contract.Model {
         registerShopSendData.tel = shopTel;
         // TODO: 7/23/2019  send lat lng
         registerShopSendData.lat = "10";
-        registerShopSendData.city_id = String.valueOf(App.cityList.data.get(cityItemPosition).id);
+//        registerShopSendData.city_id = String.valueOf(App.cityList.data.get(cityItemPosition).id);
+        registerShopSendData.city_id = String.valueOf(App.cityList.data.get(cityItemPosition).getId());
         registerShopSendData.region = String.valueOf(areaItemPosition);
 
 

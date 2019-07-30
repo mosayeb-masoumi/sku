@@ -121,6 +121,7 @@ public class NewShopActivity extends PersianAppcompatActivity implements Contrac
 
     @Override
     public void setSpinnerCity() {
+
         List<String> cityList = new ArrayList<>();
         for (int i = 0; i < App.cityList.data.size(); i++) {
             cityList.add(App.cityList.data.get(i).city);

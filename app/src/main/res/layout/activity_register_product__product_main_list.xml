@@ -1,9 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.product_mainlist_registerproduct.RegisterProduct_ProductMainList">
 
-</android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="گروه"
+                android:textColor="@color/colorsecondarytext"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlSpnCategory"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/txt_shop"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:background="@drawable/spiner_background"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/_3sdp">
+
+                <Spinner
+                    android:id="@+id/spnCategoty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <requestFocus />
+                </Spinner>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/etAddCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/bg_input_layout"
+            android:gravity="center"
+            android:hint="گروه"
+            android:inputType="text"
+            android:maxLength="50"
+            android:padding="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorText"
+            android:textDirection="ltr"
+            android:textSize="@dimen/_13ssp" />
+
+
+        <LinearLayout
+            android:id="@+id/llSpnSubCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ریز گروه"
+                android:textColor="@color/colorsecondarytext"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlSpnSubCategory"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/txt_shop"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:background="@drawable/spiner_background"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/_3sdp">
+
+                <Spinner
+                    android:id="@+id/spnSubCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <requestFocus />
+                </Spinner>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="تولید کننده"
+                android:textColor="@color/colorsecondarytext"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlSpnOwner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/txt_shop"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:background="@drawable/spiner_background"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/_3sdp">
+
+                <Spinner
+                    android:id="@+id/SpnOwner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <requestFocus />
+                </Spinner>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etAddOwner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/bg_input_layout"
+            android:gravity="center"
+            android:hint="تولید کننده یا وارد کننده"
+            android:inputType="text"
+            android:maxLength="50"
+            android:padding="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorText"
+            android:textDirection="ltr"
+            android:textSize="@dimen/_13ssp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="برند"
+                android:textColor="@color/colorsecondarytext"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlSpnBrand"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/txt_shop"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:background="@drawable/spiner_background"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/_3sdp">
+
+                <Spinner
+                    android:id="@+id/spnBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <requestFocus />
+                </Spinner>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etAddBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/bg_input_layout"
+            android:gravity="center"
+            android:hint="تولید کننده یا وارد کننده"
+            android:inputType="text"
+            android:maxLength="50"
+            android:padding="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorText"
+            android:textDirection="ltr"
+            android:textSize="@dimen/_13ssp" />
+
+
+
+
+        <LinearLayout
+            android:id="@+id/llSpnSubBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="زیر برند"
+                android:textColor="@color/colorsecondarytext"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlSpnSubBrand"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/txt_shop"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:background="@drawable/spiner_background"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/_3sdp">
+
+                <Spinner
+                    android:id="@+id/spnSubBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <requestFocus />
+                </Spinner>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView.Large"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_above="@+id/btnReister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:visibility="visible"
+        app:indicatorColor="@color/colorAccent"
+        app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+    <Button
+        android:id="@+id/btnReister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/bg_button" />
+</RelativeLayout>

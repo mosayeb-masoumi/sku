@@ -7,10 +7,14 @@ import com.example.sku.models.city.CityList;
 import com.example.sku.models.city.CitySendData;
 import com.example.sku.models.login.LoginResult;
 import com.example.sku.models.login.LoginSendData;
+import com.example.sku.models.product_register.TotalSpnLists;
+import com.example.sku.models.product_register.TotalSpnListsSendData;
 import com.example.sku.models.province.ProvinceList;
 import com.example.sku.models.register_shop.RegisterShop;
 import com.example.sku.models.register_shop.RegisterShopSendData;
 import com.example.sku.models.shop.ShopList;
+import com.example.sku.models.sub_brandList_spn.SubBrandList;
+import com.example.sku.models.sub_brandList_spn.SubBrandListSendData;
 
 
 import retrofit2.Call;
@@ -56,9 +60,19 @@ public interface APIService {
     Call<CategoryList> getCategoryList();
 
 
-//    @Headers({"Authorization: Bearer user1@sku.com","Accept: application/json"})
+    //    @Headers({"Authorization: Bearer user1@sku.com","Accept: application/json"})
     @Headers({"Authorization: Bearer user1@sku.com"})
     @POST("Barcode/Check")
     Call<BarcodeProductsList> getBarcodeProductList(@Body BarcodeSendData barcodeSendData);
+
+    //    @Headers({"Authorization: Bearer user1@sku.com", "Accept: application/json"})
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Product/MainList")
+    Call<TotalSpnLists> getMainSpnLists(@Body TotalSpnListsSendData totalSpnListsSendData);
+
+
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Product/SubBrandList")
+    Call<SubBrandList> getSubBrandList(@Body SubBrandListSendData subBrandListSendData);
 
 }

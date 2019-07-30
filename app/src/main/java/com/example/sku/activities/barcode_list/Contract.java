@@ -21,5 +21,6 @@ public interface Contract {
 
         void attachPresenter (Presenter presenter , Context context);
 
+        void requestGetListOfSpinners();
     }
 }

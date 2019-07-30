@@ -12,4 +12,11 @@ public class Model implements Contract.Model {
         this.presenter = presenter;
         this.context=context;
     }
+
+
+
+    @Override
+    public void requestGetListOfSpinners() {
+
+    }
 }
