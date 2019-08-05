@@ -51,6 +51,7 @@ public class Presenter implements Contract.Presenter {
     @Override
     public void loginResult(int result) {
 
+        view.showBtn();
         if(result == 1 ){
             context.startActivity(new Intent(context, MainActivity.class));
         }else if(result== -4){

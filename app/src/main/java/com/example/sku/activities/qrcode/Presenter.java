@@ -30,10 +30,9 @@ public class Presenter implements Contract.Presenter {
 
     @Override
     public void barcodeProductsList(int result) {
+        view.showBtn();
         if (result==1){
             view.showBtn();
-            context.startActivity(new Intent(context, BarcodeListActivity.class));
-
         }else if(result==-4){
             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
         }else if(result == -5){

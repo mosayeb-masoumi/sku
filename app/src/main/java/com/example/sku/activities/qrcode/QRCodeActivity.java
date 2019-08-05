@@ -51,7 +51,13 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
 
 
         btnScanner.setOnClickListener(v -> startActivity(new Intent(QRCodeActivity.this, QRcodeScaner.class)));
-        btRegisterScannerResult.setOnClickListener(v -> { presenter.btnRegisterPressed(edtQR.getText().toString());});
+
+        btRegisterScannerResult.setOnClickListener(v -> {
+            if(edtQR.getText().toString().equals("")){
+                edtQR.setError("لطفا بارکد را وارد نمایید");
+            }else
+            presenter.btnRegisterPressed(edtQR.getText().toString());
+        });
 
     }
 
@@ -63,7 +69,7 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
             edtQR.setText(ResultScan);
             ResultScan = "";
         }else{
-            edtQR.setText(R.string.pleaseTypeBarcode);
+//            edtQR.setText(R.string.pleaseTypeBarcode);
         }
     }
 

@@ -1,7 +1,9 @@
 package com.example.sku.services;
 
-import com.example.sku.models.barcode_check.BarcodeProductsList;
-import com.example.sku.models.barcode_check.BarcodeSendData;
+import com.example.sku.models.barcode_check.BarcodeCheck;
+import com.example.sku.models.barcode_check.BarcodeCheckSendData;
+import com.example.sku.models.barcode_list.BarcodeProductsList;
+import com.example.sku.models.barcode_list.BarcodeSendData;
 import com.example.sku.models.category.CategoryList;
 import com.example.sku.models.city.CityList;
 import com.example.sku.models.city.CitySendData;
@@ -9,12 +11,18 @@ import com.example.sku.models.login.LoginResult;
 import com.example.sku.models.login.LoginSendData;
 import com.example.sku.models.product_register.TotalSpnLists;
 import com.example.sku.models.product_register.TotalSpnListsSendData;
+import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
+import com.example.sku.models.product_register_detail.ProductRegisterDetail_SendData;
+import com.example.sku.models.product_register_send.ProductRegisterSend;
+import com.example.sku.models.product_register_send.ProductRegisterSend_SendData;
 import com.example.sku.models.province.ProvinceList;
 import com.example.sku.models.register_shop.RegisterShop;
 import com.example.sku.models.register_shop.RegisterShopSendData;
 import com.example.sku.models.shop.ShopList;
 import com.example.sku.models.sub_brandList_spn.SubBrandList;
 import com.example.sku.models.sub_brandList_spn.SubBrandListSendData;
+import com.example.sku.models.sub_categoryList_spn.SubCategoryList2;
+import com.example.sku.models.sub_categoryList_spn.SubCategoryList2SendData;
 
 
 import retrofit2.Call;
@@ -60,10 +68,19 @@ public interface APIService {
     Call<CategoryList> getCategoryList();
 
 
+
     //    @Headers({"Authorization: Bearer user1@sku.com","Accept: application/json"})
     @Headers({"Authorization: Bearer user1@sku.com"})
-    @POST("Barcode/Check")
+    @POST("Barcode/Check")                                                              ////////////////////////////////////////
+    Call<BarcodeCheck> getBarcodeCheck(@Body BarcodeCheckSendData barcodeCheckSendData);
+
+
+    //    @Headers({"Authorization: Bearer user1@sku.com","Accept: application/json"})
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Barcode/List")
     Call<BarcodeProductsList> getBarcodeProductList(@Body BarcodeSendData barcodeSendData);
+
+
 
     //    @Headers({"Authorization: Bearer user1@sku.com", "Accept: application/json"})
     @Headers({"Authorization: Bearer user1@sku.com"})
@@ -74,5 +91,24 @@ public interface APIService {
     @Headers({"Authorization: Bearer user1@sku.com"})
     @POST("Product/SubBrandList")
     Call<SubBrandList> getSubBrandList(@Body SubBrandListSendData subBrandListSendData);
+
+
+
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Product/SubCategoryList")
+    Call<SubCategoryList2> getSubCategoryList2(@Body SubCategoryList2SendData subCategoryList2SendData);
+
+
+
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Product/Create")
+    Call<ProductRegisterSend> getProductRegisterSend(@Body ProductRegisterSend_SendData productRegisterSend_sendData);
+
+
+
+
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Option/List")
+    Call<ProductRegisterDetailDataList> getProductRegisterDetailDatalist(@Body ProductRegisterDetail_SendData productRegisterDetail_sendData);
 
 }

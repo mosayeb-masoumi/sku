@@ -105,6 +105,12 @@ public class LoginActivity extends PersianAppcompatActivity implements Contract.
     }
 
     @Override
+    public void showBtn() {
+        btLogin.setVisibility(View.VISIBLE);
+        pbLogin.setVisibility(View.GONE);
+    }
+
+    @Override
     public void hideBtnLogin() {
         btLogin.setVisibility(View.GONE);
         pbLogin.setVisibility(View.VISIBLE);

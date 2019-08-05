@@ -11,6 +11,7 @@ import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -52,6 +53,9 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     @BindView(R.id.pb_family)
     ProgressBar pbFamily;
 
+    String idSpnShop;
+    String idSpnFamily;
+
 
 //    EditText edtQR;
 
@@ -83,7 +87,8 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
             presenter.btnNewShopPressed();
         });
         btnFamily.setOnClickListener(v -> {
-            presenter.requestCategoryList();
+
+            inflateChooseFamily();
         });
         btnShop.setOnClickListener(v -> {
             inflateChooseShop();
@@ -94,7 +99,10 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
             presenter.btnRegiserCodePressed();
         });
 
+    }
 
+    public void inflateChooseFamily() {
+        presenter.requestCategoryList();
     }
 
 
@@ -114,26 +122,44 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 //    }
 
 
-    private void inflateChooseShop() {
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.inflate_choose_shop);
-        dialog.setTitle("Title...");
+    public void inflateChooseShop() {
 
-        List<String> listSpnChooseShop = new ArrayList<String>();
-        for (int i = 0; i < App.shopList.data.size(); i++) {
-            listSpnChooseShop.add(App.shopList.data.get(i).name);
-        }
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.inflate_choose_shop);
+            dialog.setTitle("Title...");
 
-        Spinner spnShop = dialog.findViewById(R.id.spinnerChooseShop);
-        Button btnShop = dialog.findViewById(R.id.btRegisterChooseShop);
-        ProgressBar pbShop = dialog.findViewById(R.id.pbRegisterChooseShop);
+            List<String> listSpnChooseShop = new ArrayList<String>();
+            for (int i = 0; i < App.shopList.data.size(); i++) {
+                listSpnChooseShop.add(App.shopList.data.get(i).name);
+            }
 
-        ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSpnChooseShop);
-        spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
-        spnShop.setAdapter(spnChooseShopAdapter);
+            Spinner spnShop = dialog.findViewById(R.id.spinnerChooseShop);
+            Button btnShop = dialog.findViewById(R.id.btRegisterChooseShop);
+            ProgressBar pbShop = dialog.findViewById(R.id.pbRegisterChooseShop);
 
+            ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSpnChooseShop);
+            spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+            spnShop.setAdapter(spnChooseShopAdapter);
 
-        dialog.show();
+            spnShop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    int spnShopPosition = spnShop.getSelectedItemPosition();
+                    idSpnShop = App.shopList.data.get(spnShopPosition).getId();
+                    App.idSpnShop = idSpnShop;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            btnShop.setOnClickListener(v -> {
+                App.idSpnShop = idSpnShop;
+                dialog.dismiss();
+            });
+
+            dialog.show();
     }
 
     private void inflateNewCategory() {
@@ -194,14 +220,25 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         spnFamily.setAdapter(spnCityAdapter);
 
 
+        spnFamily.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int spnFamilyPosition =  spnFamily.getSelectedItemPosition();
+                idSpnFamily = App.categoryList.data.get(spnFamilyPosition).getId();
+                App.idSpnFamily = idSpnFamily;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnFamily.setOnClickListener(v -> {
-           int position =  spnFamily.getSelectedItemPosition();
-            String idSpnFamily = App.categoryList.data.get(position).getId();
-            App.idSpnFamily = idSpnFamily;
+
+           App.idSpnFamily = idSpnFamily;
             //todo we can save it in sharePref too
 //             Cache.setString("idSpnFamily",idSpnFamily);
-
             dialog.dismiss();
         });
 

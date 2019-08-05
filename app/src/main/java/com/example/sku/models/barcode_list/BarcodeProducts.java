@@ -1,4 +1,4 @@
-package com.example.sku.models.barcode_check;
+package com.example.sku.models.barcode_list;
 
 import com.google.gson.annotations.SerializedName;
 

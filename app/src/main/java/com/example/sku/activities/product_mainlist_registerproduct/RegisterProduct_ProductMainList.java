@@ -2,12 +2,14 @@ package com.example.sku.activities.product_mainlist_registerproduct;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -59,6 +61,14 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
     EditText etAddOwner;
     @BindView(R.id.etAddBrand)
     EditText etAddBrand;
+    @BindView(R.id.toolbar_registerproduct)
+    Toolbar toolbarRegisterproduct;
+    @BindView(R.id.etAddSubCategory)
+    EditText etAddSubCategory;
+    @BindView(R.id.etAddSubBrand)
+    EditText etAddSubBrand;
+    @BindView(R.id.pbRegisterProducts)
+    ProgressBar pbRegisterProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +80,27 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
         presenter.attachView(context, this);
 
         presenter.viewLoaded();
+
+        btnReister.setOnClickListener(v -> {
+
+            String edtCategory= etAddCategory.getText().toString();
+            String edtSubCategoty = etAddSubCategory.getText().toString();
+            String edtOwner = etAddOwner.getText().toString();
+            String edtBrand = etAddBrand.getText().toString();
+            String edtSubBrand= etAddSubBrand.getText().toString();
+
+            int spnCategoryPosition = spnCategoty.getSelectedItemPosition();
+            int spnSubCategoryPosition = spnSubCategory.getSelectedItemPosition();
+            int spnOwnerPosition = SpnOwner.getSelectedItemPosition();
+            int spnBrandPosition = spnBrand.getSelectedItemPosition();
+            int spnSubBrandPosition = spnSubBrand.getSelectedItemPosition();
+
+            presenter.btnRegisterPressed(edtCategory,edtSubCategoty,edtOwner,edtBrand,edtSubBrand,
+                    spnCategoryPosition,spnSubCategoryPosition,spnOwnerPosition,spnBrandPosition,spnSubBrandPosition);
+
+        });
     }
+
 
 
     @Override
@@ -101,6 +131,7 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     etAddOwner.setVisibility(View.VISIBLE);
+                    stopAnim();
                 } else {
                     etAddOwner.setVisibility(View.GONE);
                 }
@@ -132,11 +163,14 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
                 if (position == 0) {
                     llSpnSubBrand.setVisibility(View.GONE);
                     etAddBrand.setVisibility(View.VISIBLE);
+                    etAddSubBrand.setVisibility(View.VISIBLE);
+                    stopAnim();
                 } else {
-                    llSpnSubBrand.setVisibility(View.VISIBLE);
-                    etAddBrand.setVisibility(View.GONE);
+//                    llSpnSubBrand.setVisibility(View.VISIBLE);
+//                    etAddBrand.setVisibility(View.GONE);
                     int itemPositionBrand = spnBrand.getSelectedItemPosition();
                     presenter.requestDataSpnSubBrand(itemPositionBrand);
+                    startAnim();
 
                 }
 
@@ -149,6 +183,27 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
         });
 
     }
+
+
+    @Override
+    public void setSpnSubBrand() {
+
+        llSpnSubBrand.setVisibility(View.VISIBLE);
+        etAddBrand.setVisibility(View.GONE);
+        etAddSubBrand.setVisibility(View.GONE);
+        stopAnim();
+
+        List<String> subBrandList = new ArrayList<>();
+        for (int i = 0; i < App.subBrandList.data.size(); i++) {
+            subBrandList.add(App.subBrandList.data.get(i).title);
+        }
+        ArrayAdapter<String> spnSubBrandAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subBrandList);
+        spnSubBrandAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spnSubBrand.setAdapter(spnSubBrandAdapter);
+
+
+    }
+
 
     @Override
     public void setSpnCategory() {
@@ -167,11 +222,15 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 startAnim();
                 if (position == 0) {
-                    llSpnSubCategory.setVisibility(View.GONE);
                     etAddCategory.setVisibility(View.VISIBLE);
+                    etAddSubCategory.setVisibility(View.VISIBLE);
+                    llSpnSubCategory.setVisibility(View.GONE);
+                    stopAnim();
                 } else {
-                    llSpnSubCategory.setVisibility(View.VISIBLE);
-                    etAddCategory.setVisibility(View.GONE);
+                    int itemPositionSpnCategory = spnCategoty.getSelectedItemPosition();
+                    presenter.requestDataSpnSubCategory(itemPositionSpnCategory);
+
+                    startAnim();
                 }
 
             }
@@ -181,9 +240,60 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
 
             }
         });
+    }
+
+    @Override
+    public void setSpnSubCategory() {
+        stopAnim();
+        llSpnSubCategory.setVisibility(View.VISIBLE);
+        etAddCategory.setVisibility(View.GONE);
+        etAddSubCategory.setVisibility(View.GONE);
+        List<String> subCategoryList2 = new ArrayList<>();
+        for (int i = 0; i < App.subCategoryList2.data.size(); i++) {
+            subCategoryList2.add(App.subCategoryList2.data.get(i).title);
+        }
+        ArrayAdapter<String> spnSubCategoryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategoryList2);
+        spnSubCategoryAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spnSubCategory.setAdapter(spnSubCategoryAdapter);
 
     }
 
+    @Override
+    public void hideBtn() {
+        btnReister.setVisibility(View.GONE);
+        pbRegisterProducts.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setErrorEdtCategory(String strError) {
+        etAddCategory.setError(strError);
+    }
+
+    @Override
+    public void setErrorEdtSubCategory(String strError) {
+      etAddSubCategory.setError(strError);
+    }
+
+    @Override
+    public void setErrorEdtOwner(String strError) {
+        etAddOwner.setError(strError);
+    }
+
+    @Override
+    public void setErrorEdtBrand(String strError) {
+        etAddBrand.setError(strError);
+    }
+
+    @Override
+    public void setErrorEdtSubBrand(String strError) {
+       etAddSubBrand.setError(strError);
+    }
+
+    @Override
+    public void showBtn() {
+        btnReister.setVisibility(View.VISIBLE);
+        pbRegisterProducts.setVisibility(View.GONE);
+    }
 
     void startAnim() {
         avi.show();

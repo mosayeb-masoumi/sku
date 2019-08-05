@@ -14,7 +14,6 @@ import com.example.sku.R;
 import com.example.sku.activities.new_shop.NewShopActivity;
 
 
-
 public class Presenter implements Contract.Presenter {
     private Context context;
     private Contract.View view;
@@ -24,9 +23,8 @@ public class Presenter implements Contract.Presenter {
     public void attachView(Context context, Contract.View view) {
         this.view = view;
         this.context = context;
-        model.attachPresenter(this,context);
+        model.attachPresenter(this, context);
     }
-
 
 
     @Override
@@ -35,16 +33,14 @@ public class Presenter implements Contract.Presenter {
     }
 
 
-
     @Override
     public void sopListResult(int result) {
-        if(result == -4){
+        if (result == -4) {
             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
-        }else if(result == -5){
+        } else if (result == -5) {
             Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     @Override
@@ -53,34 +49,30 @@ public class Presenter implements Contract.Presenter {
     }
 
 
-
     @Override
     public void requestCategoryList() {
-
         view.hideBtnFamily();
         model.requestCategoryList();
-
     }
 
     @Override
     public void getCategoryListResult(int result) {
-         if(result ==1){
-
-             view.showBtnFamily();
-             view.setFamilySpinner();
-
-         }else if(result == -4){
-             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
-         }else if(result == -5){
-             Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();
-         }
+        view.hideBtnFamily();
+        if (result == 1) {
+            view.setFamilySpinner();
+            view.showBtnFamily();
+        } else if (result == -4) {
+            Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
+        } else if (result == -5) {
+            Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void btnRegiserCodePressed() {
-        if(ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED ){
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             model.requestPermissionCamera();
-        }else{
+        } else {
             context.startActivity(new Intent(context, QRCodeActivity.class));
         }
     }

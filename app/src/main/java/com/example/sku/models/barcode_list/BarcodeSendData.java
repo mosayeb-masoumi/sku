@@ -1,4 +1,4 @@
-package com.example.sku.models.barcode_check;
+package com.example.sku.models.barcode_list;
 
 public class BarcodeSendData {
     private String code;

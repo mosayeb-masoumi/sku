@@ -38,11 +38,7 @@ public class BarcodeListActivity extends PersianAppcompatActivity implements Con
         context = this;
         presenter.attachView(context, this);
 
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        adapter = new AdapterBarcodelist(App.barcodeProductsList, getApplicationContext());
-        recyclerView.setAdapter(adapter);
-
+        presenter.viewLoaded();
 
         btnProductRegister.setOnClickListener(v -> {
             presenter.btnProductRegisterPressed();
@@ -57,5 +53,13 @@ public class BarcodeListActivity extends PersianAppcompatActivity implements Con
     public void hideBtn() {
         btnProductRegister.setVisibility(View.GONE);
         pbProductRegister.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setRecyclerview() {
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        adapter = new AdapterBarcodelist(App.barcodeProductsList, getApplicationContext());
+        recyclerView.setAdapter(adapter);
     }
 }

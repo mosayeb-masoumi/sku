@@ -66,7 +66,6 @@ public class Model implements Contract.Model {
            }
 
 
-
            @Override
            public void onFailure(Call<LoginResult> call, Throwable t) {
 //               Toast.makeText(context, ""+t.getMessage().toString(), Toast.LENGTH_SHORT).show();

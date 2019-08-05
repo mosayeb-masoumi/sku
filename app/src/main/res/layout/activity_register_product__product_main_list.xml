@@ -7,9 +7,36 @@
     tools:context=".activities.product_mainlist_registerproduct.RegisterProduct_ProductMainList">
 
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_registerproduct"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/_6sdp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ثبت محصول"
+                android:layout_alignParentEnd="true"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/_7sdp"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_registerproduct"
         android:orientation="vertical">
 
         <LinearLayout
@@ -71,6 +98,24 @@
             android:textColorHint="@color/colorText"
             android:textDirection="ltr"
             android:textSize="@dimen/_13ssp" />
+        <EditText
+            android:id="@+id/etAddSubCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/bg_input_layout"
+            android:gravity="center"
+            android:hint="زیرگروه"
+            android:inputType="text"
+            android:maxLength="50"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:padding="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorText"
+            android:textDirection="ltr"
+            android:textSize="@dimen/_13ssp" />
 
 
         <LinearLayout
@@ -81,7 +126,7 @@
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -226,8 +271,26 @@
             android:layout_marginEnd="@dimen/_5sdp"
             android:background="@drawable/bg_input_layout"
             android:gravity="center"
-            android:hint="تولید کننده یا وارد کننده"
+            android:hint="برند"
             android:inputType="text"
+            android:maxLength="50"
+            android:padding="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorText"
+            android:textDirection="ltr"
+            android:textSize="@dimen/_13ssp" />
+        <EditText
+            android:id="@+id/etAddSubBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/bg_input_layout"
+            android:gravity="center"
+            android:hint="زیر برند"
+            android:inputType="text"
+            android:layout_marginTop="@dimen/_3sdp"
             android:maxLength="50"
             android:padding="10dp"
             android:paddingBottom="5dp"
@@ -247,7 +310,7 @@
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -294,15 +357,51 @@
         android:layout_above="@+id/btnReister"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_20sdp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:indicatorColor="@color/colorAccent"
         app:indicatorName="BallSpinFadeLoaderIndicator" />
 
-    <Button
-        android:id="@+id/btnReister"
+
+    <!--<Button-->
+        <!--android:id="@+id/btnReister"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--android:background="@drawable/bg_button" />-->
+
+    <RelativeLayout
+        android:id="@+id/rlButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:background="@drawable/bg_button" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/_25sdp">
+
+        <Button
+            android:id="@+id/btnReister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/bg_button"
+            android:foreground="?selectableItemBackground"
+            android:text="@string/register"
+            android:textColor="#fff"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/pbRegisterProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/bg_button"
+            android:indeterminateTint="@color/colorAccent"
+            android:theme="@style/ProgressBar"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 </RelativeLayout>

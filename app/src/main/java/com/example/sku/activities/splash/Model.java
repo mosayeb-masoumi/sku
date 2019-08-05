@@ -29,16 +29,11 @@ public class Model implements Contract.Model {
     private GpsTracker gpsTracker;
     String strLat,strLng;
 
-
     @Override
     public void attachPresenter(Contract.Presenter presenter ,Context context) {
         this.presenter = presenter;
         this.context=context;
     }
-
-
-
-
 
     @Override
     public void requestLogin() {
@@ -49,8 +44,6 @@ public class Model implements Contract.Model {
         senddata.lat = strLat;
         senddata.lng = strLng;
 
-
-
         APIService apiService = APIClient.getClient().create(APIService.class);
         Call<LoginResult> call = apiService.getLogin(senddata);
         call.enqueue(new Callback<LoginResult>() {
@@ -58,7 +51,6 @@ public class Model implements Contract.Model {
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
 
                 if (response.code()==200){
-
 //                    presenter.loginResult(1);
                     App.loginResult = response.body();
                     context.startActivity(new Intent(context, MainActivity.class));
@@ -74,8 +66,6 @@ public class Model implements Contract.Model {
                 }
             }
 
-
-
             @Override
             public void onFailure(Call<LoginResult> call, Throwable t) {
 //               Toast.makeText(context, ""+t.getMessage().toString(), Toast.LENGTH_SHORT).show();
@@ -85,9 +75,9 @@ public class Model implements Contract.Model {
 //                presenter.loginResult(-5);
             }
         });
+
+
     }
-
-
 
     public void getLocation(){
         gpsTracker = new GpsTracker(context);
@@ -100,8 +90,6 @@ public class Model implements Contract.Model {
             gpsTracker.showSettingsAlert();
         }
     }
-
-
     @Override
     public boolean checkGpsON() {
         final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);

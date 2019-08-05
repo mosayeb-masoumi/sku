@@ -11,6 +11,7 @@
     <string name="register">ثبت</string>
     <string name="scanner">اسکنر</string>
     <string name="pleaseTypeBarcode">لطفا بارکد را تایپ نمایید</string>
-    <string name="product_register">ثبت محصول</string>
+    <string name="product_register"> ادامه ثبت محصول</string>
     <string name="barcode_register">ثبت بارکد</string>
+    <string name="enterBarcode">بارکد را وارد نمایید</string>
 </resources>

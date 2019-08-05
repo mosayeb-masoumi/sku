@@ -8,15 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sku.R;
-import com.example.sku.helpers.Toaster;
-import com.example.sku.models.barcode_check.BarcodeProducts;
-import com.example.sku.models.barcode_check.BarcodeProductsList;
+import com.example.sku.models.barcode_list.BarcodeProducts;
+import com.example.sku.models.barcode_list.BarcodeProductsList;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class AdapterBarcodelist extends RecyclerView.Adapter<AdapterBarcodelist.ViewHolder> {
     BarcodeProductsList barcodeProductsList;

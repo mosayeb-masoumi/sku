@@ -10,6 +10,8 @@ public interface Contract {
         void hideBtnLogin();
         
         void showErrorEmpetyEmail();
+
+        void showBtn();
     }
 
     interface Presenter {

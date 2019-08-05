@@ -107,7 +107,7 @@
                     android:layout_height="@dimen/_50sdp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_button"
-                    android:text="انتخاب خانواده"
+                    android:text="خانواده محصول"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12ssp" />
 
