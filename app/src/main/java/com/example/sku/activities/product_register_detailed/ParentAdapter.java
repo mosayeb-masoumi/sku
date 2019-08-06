@@ -7,22 +7,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.example.sku.R;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailData;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
+
 
 public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder> {
 
     ProductRegisterDetailDataList productRegisterDetailDataList;
     Context context;
     private LayoutInflater layoutInflater;
+    Presenter presenter;
 
-    public ParentAdapter(ProductRegisterDetailDataList productRegisterDetailDataList, Context context) {
+
+    public ParentAdapter(ProductRegisterDetailDataList productRegisterDetailDataList, Context context ,Presenter presenter ) {
         this.productRegisterDetailDataList = productRegisterDetailDataList;
         this.context = context;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -41,9 +45,46 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
 
         String type = model.type;
 
+        if (type.equals("dropdown")) {
+            holder.rlSpn_row_parent_registerDatail.setVisibility(View.VISIBLE);
+
+            presenter.setSpinner(holder.spinnerRowParent,position);
 
 
+//            List<String> listSpnDetail = new ArrayList<String>();
+//
+//            for (int j = 0; j < App.productRegisterDetailDataList.data.get(position).option.size(); j++) {
+//                listSpnDetail.add(App.productRegisterDetailDataList.data.get(position).option.get(j).title);
+//            }
+//
+//
+//            ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listSpnDetail);
+////            ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(context, R.layout.spinner_text, listSpnDetail);
+//            spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+//            holder.spinnerRowParent.setAdapter(spnChooseShopAdapter);
+//
+//
+//            holder.spinnerRowParent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                @Override
+//                public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
+//
+//                    // to get a list of id of selected spnItems
+//                    int position2 = holder.spinnerRowParent.getSelectedItemPosition();
+//                    String strSpnId = App.productRegisterDetailDataList.data.get(position).option.get(position2).id;
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> parent) {
+//
+//                }
+//            });
 
+
+        }
+
+        if (type.equals("text")) {
+            holder.editText.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -57,12 +98,17 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
         Spinner spinnerRowParent;
         TextView txtTitle;
         EditText editText;
+        RelativeLayout rlSpn_row_parent_registerDatail, rlFlavour_row_parent_registerDatail;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtTitle=itemView.findViewById(R.id.row_txtTitleTypeTextParent);
+            txtTitle = itemView.findViewById(R.id.row_txtTitleTypeTextParent);
             editText = itemView.findViewById(R.id.row_edtTitleTypeTextParent);
             spinnerRowParent = itemView.findViewById(R.id.spinnerRowParent);
+
+            rlFlavour_row_parent_registerDatail = itemView.findViewById(R.id.rlFlavour_row_parent_registerDatail);
+            rlSpn_row_parent_registerDatail = itemView.findViewById(R.id.rlSpn_row_parent_registerDatail);
         }
     }
 }

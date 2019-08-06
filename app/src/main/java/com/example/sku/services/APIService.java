@@ -11,6 +11,7 @@ import com.example.sku.models.login.LoginResult;
 import com.example.sku.models.login.LoginSendData;
 import com.example.sku.models.product_register.TotalSpnLists;
 import com.example.sku.models.product_register.TotalSpnListsSendData;
+import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
 import com.example.sku.models.product_register_detail.ProductRegisterDetail_SendData;
 import com.example.sku.models.product_register_send.ProductRegisterSend;
@@ -110,5 +111,11 @@ public interface APIService {
     @Headers({"Authorization: Bearer user1@sku.com"})
     @POST("Option/List")
     Call<ProductRegisterDetailDataList> getProductRegisterDetailDatalist(@Body ProductRegisterDetail_SendData productRegisterDetail_sendData);
+
+
+
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Product/Detail")
+    Call<ProductDetailInfoParent> getProductDetailInfoParent(@Body ProductRegisterDetail_SendData productRegisterDetail_sendData);
 
 }

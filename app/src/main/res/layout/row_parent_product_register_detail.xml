@@ -10,64 +10,81 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:gravity="end"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/row_txtStatusParent"
-            android:text="فعال"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="وضعیت"/>
+            android:textSize="@dimen/_13sdp"
+            android:textColor="@color/colorTextDark"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:id="@+id/row_txtTitleTypeTextParent"
+            android:text="title"/>
+
     </LinearLayout>
-    <LinearLayout
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/row_llTypeText"
+        android:id="@+id/rlFlavour_row_parent_registerDatail"
+        android:visibility="visible"
         android:layout_height="wrap_content">
 
         <EditText
-            android:layout_width="0dp"
             android:id="@+id/row_edtTitleTypeTextParent"
-            android:hint="طعم"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:id="@+id/row_txtTitleTypeTextParent"
-            android:text="عنوان"/>
-
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlSpinnerProvince"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_below="@+id/txt_shop"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/_1sdp"
-        android:layout_marginBottom="@dimen/_3sdp"
-        android:background="@drawable/spiner_background"
-        android:layoutDirection="rtl"
-        android:padding="@dimen/_3sdp">
-
-        <Spinner
-            android:id="@+id/spinnerRowParent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:background="@drawable/spiner_background"
+            android:gravity="center"
+            android:hint="طعم را وارد نمایید"
+            android:inputType="textEmailAddress"
+            android:maxLength="40"
+            android:padding="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorText"
+            android:textDirection="ltr"
+            android:visibility="gone"
+            android:textSize="@dimen/_12ssp" />
 
-            <requestFocus />
-        </Spinner>
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/rlSpn_row_parent_registerDatail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@+id/txt_shop"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/spiner_background"
+            android:layoutDirection="rtl"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:padding="@dimen/_3sdp"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/spinnerRowParent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <requestFocus />
+            </Spinner>
+        </RelativeLayout>
+
+
+
+
     </RelativeLayout>
-
-
 
 
 </LinearLayout>

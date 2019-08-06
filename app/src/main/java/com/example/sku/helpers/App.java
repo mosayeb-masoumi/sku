@@ -8,6 +8,7 @@ import com.example.sku.models.category.CategoryList;
 import com.example.sku.models.city.CityList;
 import com.example.sku.models.login.LoginResult;
 import com.example.sku.models.product_register.TotalSpnLists;
+import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
 import com.example.sku.models.province.ProvinceList;
 import com.example.sku.models.shop.ShopList;
@@ -34,6 +35,7 @@ public class App extends Application {
     public static SubCategoryList2 subCategoryList2 = new SubCategoryList2();
 
     public static ProductRegisterDetailDataList productRegisterDetailDataList = new ProductRegisterDetailDataList();
+    public static ProductDetailInfoParent productDetailInfoParent= new ProductDetailInfoParent();
 
 
     public static String idSpnFamily = "";

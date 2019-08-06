@@ -174,6 +174,8 @@ public class Model implements Contract.Model {
             public void onResponse(Call<ProductRegisterSend> call, Response<ProductRegisterSend> response) {
                 if (response.code() == 200) {
                     App.productId = response.body().data;
+
+
                     presenter.productRegisterSendResult(1);
                     context.startActivity(new Intent(context, ProductRegisterDetailActivity.class));
                 } else {
