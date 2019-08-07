@@ -42,6 +42,8 @@ public class App extends Application {
     public static String idSpnShop = "";
     public static String barcodeResult = "";
     public static String productId = "";
+    public static int spnPosition ;
+    public static int spnPosition2;
 
 
     @Override

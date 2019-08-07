@@ -2,21 +2,26 @@ package com.example.sku.activities.product_register_detailed;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sku.R;
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.PersianAppcompatActivity;
+import com.example.sku.models.product_register_detail.ProductRegisterDetailData;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,7 +51,20 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
     TextView txtBrand;
     @BindView(R.id.txt_owner)
     TextView txtOwner;
+    @BindView(R.id.btnRegisterDetail)
+    Button btnRegisterDetail;
+    @BindView(R.id.pbRegisterDetail)
+    ProgressBar pbRegisterDetail;
 
+
+//
+//    String strSpnId;
+    ArrayList<Integer> listChildPosition = new ArrayList<>();
+    ArrayList<Integer> listParentPosition = new ArrayList<>();
+
+    ArrayList<String> listSpnId = new ArrayList<>();
+    ArrayList<String> mainListSpnId = new ArrayList<>();
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +77,15 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         presenter.viewLoaded();
 
 
+        btnRegisterDetail.setOnClickListener(v -> {
+
+//            for (int i = 0; i <App.productRegisterDetailDataList.data.size() ; i++) {
+//                for (int j = 0; j <App.productRegisterDetailDataList.data.get(i).option.size() ; j++) {
+//
+//                }
+//            }
+
+        });
     }
 
     @Override
@@ -93,16 +120,78 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
         spinnerRowParent.setAdapter(spnChooseShopAdapter);
 
+        spinner = spinnerRowParent;
 
-         spinnerRowParent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerRowParent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
 
-                // to get a list of id of selected spnItems
-                int position2 =  spinnerRowParent.getSelectedItemPosition();
-                String strSpnId = App.productRegisterDetailDataList.data.get(position).option.get(position2).id;
 
-                // todo here we shoud add strSpnId in an list tehn finally send a list (array)of IDs to server
+                // to get a list of id of selected spnItems
+
+               int position2 = spinnerRowParent.getSelectedItemPosition();
+//                strSpnId = App.productRegisterDetailDataList.data.get(position).option.get(position2).id;
+
+
+
+                if(!mainListSpnId.contains(App.productRegisterDetailDataList.data.get(position).option.get(position2).id)){
+
+                    if(mainListSpnId.size()>0){
+
+////                        mainListSpnId.remove(mainListSpnId.get(position));
+//                        mainListSpnId.removeAll(Collections.singleton(mainListSpnId.get(position)));
+////                        mainListSpnId.removeAll(mainListSpnId);
+                    }
+
+
+                    listSpnId.removeAll(listSpnId);
+                    listSpnId.add(App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
+                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+
+                    for (String s:listSpnId) {
+                        mainListSpnId.add(s);
+                        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
+
+
+ /////////////////////////////////////////////////////////////////////////////////////
+//                if(listParentPosition.contains(position)){
+//                    listParentPosition.remove(position);
+//                    listParentPosition.add(position);
+//                }else{
+//                    listParentPosition.add(position);
+//                }
+//
+//
+//                List<Integer> list = new ArrayList<>();
+//                for (Integer a : listParentPosition) {
+//                    list.add(a);
+//                }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//                if(listParentPosition.contains(position) && listChildPosition.contains(position2)){
+////                if(listChildPosition.contains(position2)){
+//                    listChildPosition.remove(position2);
+//                    listChildPosition.add(position2);
+//                }else{
+//                    listChildPosition.add(position2);
+//                }
+//
+//
+//                List<Integer> list2 = new ArrayList<>();
+//                for (Integer a2 : listChildPosition) {
+//                    list2.add(a2);
+//                }
+ //////////////////////////////////////////////////////////////////////////////
 
             }
 

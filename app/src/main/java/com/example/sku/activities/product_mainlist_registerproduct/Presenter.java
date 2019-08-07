@@ -154,6 +154,16 @@ public class Presenter implements Contract.Presenter {
 
          }
 
+         if(spnCategoryPosition!=0){
+             status=true;
+         }
+         if(spnOwnerPosition!=0){
+             status=true;
+         }
+         if(spnBrandPosition!=0){
+             status=true;
+         }
+
 
         if (App.idSpnFamily.equals("")) {
             context.startActivity(new Intent(context, MainActivity.class));

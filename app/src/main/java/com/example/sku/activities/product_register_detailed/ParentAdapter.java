@@ -11,8 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.sku.R;
+import com.example.sku.helpers.App;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailData;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder> {
@@ -22,6 +26,8 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
     private LayoutInflater layoutInflater;
     Presenter presenter;
 
+    List<String> listId = new ArrayList<>();
+
 
     public ParentAdapter(ProductRegisterDetailDataList productRegisterDetailDataList, Context context ,Presenter presenter ) {
         this.productRegisterDetailDataList = productRegisterDetailDataList;
@@ -29,12 +35,17 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
         this.presenter = presenter;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_parent_product_register_detail, parent, false);
         return new ViewHolder(view);
     }
+
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -50,6 +61,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
 
             presenter.setSpinner(holder.spinnerRowParent,position);
 
+            App.spnPosition = position;
 
 //            List<String> listSpnDetail = new ArrayList<String>();
 //
@@ -111,4 +123,9 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
             rlSpn_row_parent_registerDatail = itemView.findViewById(R.id.rlSpn_row_parent_registerDatail);
         }
     }
+
+
+
+
+
 }
