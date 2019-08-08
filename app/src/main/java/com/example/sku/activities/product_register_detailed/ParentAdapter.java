@@ -63,6 +63,12 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
 
             App.spnPosition = position;
 
+
+
+
+
+
+
 //            List<String> listSpnDetail = new ArrayList<String>();
 //
 //            for (int j = 0; j < App.productRegisterDetailDataList.data.get(position).option.size(); j++) {

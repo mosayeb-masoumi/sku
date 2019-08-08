@@ -1,5 +1,6 @@
 package com.example.sku.activities.product_register_detailed;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,13 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sku.R;
+import com.example.sku.activities.product_register_detailed.database.AppDatabase;
+import com.example.sku.activities.product_register_detailed.database.MyModelSaveDB;
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.PersianAppcompatActivity;
-import com.example.sku.models.product_register_detail.ProductRegisterDetailData;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,7 +57,11 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
     ProgressBar pbRegisterDetail;
 
 
-//
+    AppDatabase db;
+    List<MyModelSaveDB> myModelSaveDBS;
+
+
+    //
 //    String strSpnId;
     ArrayList<Integer> listChildPosition = new ArrayList<>();
     ArrayList<Integer> listParentPosition = new ArrayList<>();
@@ -65,6 +69,13 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
     ArrayList<String> listSpnId = new ArrayList<>();
     ArrayList<String> mainListSpnId = new ArrayList<>();
     Spinner spinner;
+
+    List<SendDataId> myModelSavesArray = new ArrayList<SendDataId>();
+    SendDataId mModel;
+    List<Integer> poslist = new ArrayList<>();
+
+    int firstCheck = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +88,23 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         presenter.viewLoaded();
 
 
+         db = Room.databaseBuilder(context,AppDatabase.class,"detail")
+                .allowMainThreadQueries()
+                .build();
+
+        db.detailDAO().deleteAll();
+
+
         btnRegisterDetail.setOnClickListener(v -> {
 
-//            for (int i = 0; i <App.productRegisterDetailDataList.data.size() ; i++) {
-//                for (int j = 0; j <App.productRegisterDetailDataList.data.get(i).option.size() ; j++) {
-//
-//                }
-//            }
+           
+            List<MyModelSaveDB>listdata=new ArrayList<>();
+            listdata=db.detailDAO().getAllMyModelSaveDB();
+            List<SendDataId>senddata=new ArrayList<>();
+            for (MyModelSaveDB m:listdata){
+                senddata.add(new SendDataId(m.getValue()));
+            }
+            Toast.makeText(context, "dfsdfdsf", Toast.LENGTH_SHORT).show();
 
         });
     }
@@ -110,6 +131,11 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
     public void setSpinner(Spinner spinnerRowParent, int position) {
         List<String> listSpnDetail = new ArrayList<String>();
 
+
+
+
+
+        // to insert data in spinners
         for (int j = 0; j < App.productRegisterDetailDataList.data.get(position).option.size(); j++) {
             listSpnDetail.add(App.productRegisterDetailDataList.data.get(position).option.get(j).title);
         }
@@ -127,71 +153,85 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
             public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
 
 
+                db = Room.databaseBuilder(context,AppDatabase.class,"detail")
+                        .allowMainThreadQueries()
+                        .build();
+
                 // to get a list of id of selected spnItems
 
-               int position2 = spinnerRowParent.getSelectedItemPosition();
-//                strSpnId = App.productRegisterDetailDataList.data.get(position).option.get(position2).id;
+                int position2 = spinnerRowParent.getSelectedItemPosition();
 
+                if (firstCheck <= position) {
+//                    myModelSavesArray.add(new SendDataId(App.productRegisterDetailDataList.data.get(position).option.get(position2).id, position));
 
+                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position,
+                            App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
 
-                if(!mainListSpnId.contains(App.productRegisterDetailDataList.data.get(position).option.get(position2).id)){
+                    db.detailDAO().insertAll(myModelSaveDB);
 
-                    if(mainListSpnId.size()>0){
-
-////                        mainListSpnId.remove(mainListSpnId.get(position));
-//                        mainListSpnId.removeAll(Collections.singleton(mainListSpnId.get(position)));
-////                        mainListSpnId.removeAll(mainListSpnId);
-                    }
-
-
-                    listSpnId.removeAll(listSpnId);
-                    listSpnId.add(App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
-                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-
-                    for (String s:listSpnId) {
-                        mainListSpnId.add(s);
-                        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
                 }
 
 
+                if(firstCheck>position){
+                    for (MyModelSaveDB model:db.detailDAO().getAllMyModelSaveDB())
+                        if (model.getSpnId()==position) {
+                            db.detailDAO().deleteItem(model);
+                            MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position,
+                                    App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
+                            db.detailDAO().insertAll(myModelSaveDB);
+                        }
+                }
+
+                firstCheck++;
 
 
 
+//                if(db.detailDAO().getAllMyModelSaveDB().get(position).getSpnId() == position){
 
+//                    db.detailDAO().deleteItem(myModelSaveDBS.get(position));
+//                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position,
+//                            App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
+//
+//                    db.detailDAO().insertAll(myModelSaveDB);
 
- /////////////////////////////////////////////////////////////////////////////////////
-//                if(listParentPosition.contains(position)){
-//                    listParentPosition.remove(position);
-//                    listParentPosition.add(position);
 //                }else{
-//                    listParentPosition.add(position);
-//                }
+//                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position,
+//                            App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
 //
-//
-//                List<Integer> list = new ArrayList<>();
-//                for (Integer a : listParentPosition) {
-//                    list.add(a);
+//                    db.detailDAO().insertAll(myModelSaveDB);
 //                }
 
-//////////////////////////////////////////////////////////////////////////////////////////
+//                if (myModelSavesArray.size() > 0 && myModelSavesArray != null) {
+//                    for (MyModelSaveDB m : db.detailDAO().getAllMyModelSaveDB()) {
+//                        if (m.getSpnId() == position) {
+//
+//                            db.detailDAO().deleteItem(myModelSaveDBS.get(position));
+//
+//                            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(context, "el", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
 
-//                if(listParentPosition.contains(position) && listChildPosition.contains(position2)){
-////                if(listChildPosition.contains(position2)){
-//                    listChildPosition.remove(position2);
-//                    listChildPosition.add(position2);
-//                }else{
-//                    listChildPosition.add(position2);
+//                    ListIterator<SendDataId> iter = myModelSavesArray.listIterator();
+//                    while(iter.hasNext()){
+//                        if(iter.next().posId==position){
+//                            iter.remove();
+//                            String value=App.productRegisterDetailDataList.data.get(position).option.get(position2).id;
+//                            myModelSavesArray.add(new SendDataId(value, position));
+//                        }
+//                    }
+//                    for (SendDataId m : myModelSavesArray) {
+//                        if (m.posId == position) {
+//                            myModelSavesArray.remove(m);
+//                            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(context, "el", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                    Toast.makeText(context, "asdsad", Toast.LENGTH_SHORT).show();
+//                } else {
 //                }
-//
-//
-//                List<Integer> list2 = new ArrayList<>();
-//                for (Integer a2 : listChildPosition) {
-//                    list2.add(a2);
-//                }
- //////////////////////////////////////////////////////////////////////////////
 
             }
 
