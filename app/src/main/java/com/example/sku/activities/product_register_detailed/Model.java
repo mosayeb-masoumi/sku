@@ -1,6 +1,7 @@
 package com.example.sku.activities.product_register_detailed;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.example.sku.helpers.App;
 import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
@@ -32,9 +33,8 @@ public class Model implements Contract.Model {
 
         ProductRegisterDetail_SendData sendData = new ProductRegisterDetail_SendData();
 
-        //todo reinstead with dynamic data
-//        sendData.setId(App.productId);
-        sendData.setId("34b6cae58fbc4f57bcd7298dead76349");
+        sendData.setId(App.productId);
+//        sendData.setId("34b6cae58fbc4f57bcd7298dead76349");
 
         APIService apiService = APIClient.getClient().create(APIService.class);
         Call<ProductRegisterDetailDataList> call = apiService.getProductRegisterDetailDatalist(sendData);
@@ -46,7 +46,10 @@ public class Model implements Contract.Model {
                     App.productRegisterDetailDataList = response.body();
                     String productId = sendData.getId();
                     presenter.productRegisterDetailDataListResult(1, productId);
-                } else {
+                } else if(response.code()==204){
+                    Toast.makeText(context, "take pic", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     presenter.productRegisterDetailDataListResult(-4, productId);
                 }
             }
