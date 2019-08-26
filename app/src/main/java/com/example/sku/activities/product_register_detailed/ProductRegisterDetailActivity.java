@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,7 +23,9 @@ import com.example.sku.helpers.App;
 import com.example.sku.helpers.PersianAppcompatActivity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,6 +80,8 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
     int firstCheck = 0;
 
 
+    int positioncopy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,23 +93,44 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         presenter.viewLoaded();
 
 
-         db = Room.databaseBuilder(context,AppDatabase.class,"detail")
+        db = Room.databaseBuilder(context, AppDatabase.class, "detail")
                 .allowMainThreadQueries()
                 .build();
-
         db.detailDAO().deleteAll();
 
 
         btnRegisterDetail.setOnClickListener(v -> {
 
-           
-            List<MyModelSaveDB>listdata=new ArrayList<>();
-            listdata=db.detailDAO().getAllMyModelSaveDB();
-            List<SendDataId>senddata=new ArrayList<>();
-            for (MyModelSaveDB m:listdata){
+            List<MyModelSaveDB> listdata = new ArrayList<>();
+
+            listdata = db.detailDAO().getAllMyModelSaveDB();
+
+            List<SendDataId> senddata = new ArrayList<>();
+            for (MyModelSaveDB m : listdata) {
                 senddata.add(new SendDataId(m.getValue()));
             }
-            Toast.makeText(context, "dfsdfdsf", Toast.LENGTH_SHORT).show();
+
+
+            // to get RecyclerView EditTexts
+            EditText edt = findViewById(R.id.row_edtTitleTypeTextParent);
+            List<EditTextContents> edtList = new ArrayList<>();
+            //getEditTextofRecyclereView
+            for (int j = 0; j < App.productRegisterDetailDataList.data.size(); j++) {
+//                listSpnDetail.add(App.productRegisterDetailDataList.data.get(position).option.get(j).title);
+                if (App.productRegisterDetailDataList.data.get(j).type.equals("text")) {
+                    String id = App.productRegisterDetailDataList.data.get(j).id;
+                    String title = App.productRegisterDetailDataList.data.get(j).title;
+                    String content = edt.getText().toString();
+                    edtList.add(new EditTextContents(id,title,content));
+                }
+
+            }
+
+            if(edtList!= null){
+                presenter.sendList(edtList);
+            }
+
+//            Toast.makeText(context, "dfsdfdsf", Toast.LENGTH_SHORT).show();
 
         });
     }
@@ -128,11 +154,8 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
     }
 
     @Override
-    public void setSpinner(Spinner spinnerRowParent, int position) {
+    public void setSpinner(Spinner spinnerRowParent, int position, String SpnRowParentTitleId, String SpnRowParentTitle) {
         List<String> listSpnDetail = new ArrayList<String>();
-
-
-
 
 
         // to insert data in spinners
@@ -153,85 +176,34 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
             public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
 
 
-                db = Room.databaseBuilder(context,AppDatabase.class,"detail")
+                db = Room.databaseBuilder(context, AppDatabase.class, "detail")
                         .allowMainThreadQueries()
                         .build();
 
                 // to get a list of id of selected spnItems
-
                 int position2 = spinnerRowParent.getSelectedItemPosition();
 
                 if (firstCheck <= position) {
 //                    myModelSavesArray.add(new SendDataId(App.productRegisterDetailDataList.data.get(position).option.get(position2).id, position));
 
-                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position,
-                            App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
+                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position, App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
 
                     db.detailDAO().insertAll(myModelSaveDB);
 
                 }
 
 
-                if(firstCheck>position){
-                    for (MyModelSaveDB model:db.detailDAO().getAllMyModelSaveDB())
-                        if (model.getSpnId()==position) {
+                if (firstCheck > position) {
+                    for (MyModelSaveDB model : db.detailDAO().getAllMyModelSaveDB())
+                        if (model.getSpnId() == position) {
                             db.detailDAO().deleteItem(model);
-                            MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position,
-                                    App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
+                            MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position, App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
                             db.detailDAO().insertAll(myModelSaveDB);
                         }
                 }
 
                 firstCheck++;
 
-
-
-//                if(db.detailDAO().getAllMyModelSaveDB().get(position).getSpnId() == position){
-
-//                    db.detailDAO().deleteItem(myModelSaveDBS.get(position));
-//                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position,
-//                            App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
-//
-//                    db.detailDAO().insertAll(myModelSaveDB);
-
-//                }else{
-//                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position,
-//                            App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
-//
-//                    db.detailDAO().insertAll(myModelSaveDB);
-//                }
-
-//                if (myModelSavesArray.size() > 0 && myModelSavesArray != null) {
-//                    for (MyModelSaveDB m : db.detailDAO().getAllMyModelSaveDB()) {
-//                        if (m.getSpnId() == position) {
-//
-//                            db.detailDAO().deleteItem(myModelSaveDBS.get(position));
-//
-//                            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(context, "el", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-
-//                    ListIterator<SendDataId> iter = myModelSavesArray.listIterator();
-//                    while(iter.hasNext()){
-//                        if(iter.next().posId==position){
-//                            iter.remove();
-//                            String value=App.productRegisterDetailDataList.data.get(position).option.get(position2).id;
-//                            myModelSavesArray.add(new SendDataId(value, position));
-//                        }
-//                    }
-//                    for (SendDataId m : myModelSavesArray) {
-//                        if (m.posId == position) {
-//                            myModelSavesArray.remove(m);
-//                            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(context, "el", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                    Toast.makeText(context, "asdsad", Toast.LENGTH_SHORT).show();
-//                } else {
-//                }
 
             }
 

@@ -4,11 +4,14 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.sku.helpers.App;
+import com.example.sku.models.option_create.OptionCreate;
 import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
 import com.example.sku.models.product_register_detail.ProductRegisterDetail_SendData;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,8 +62,6 @@ public class Model implements Contract.Model {
                 presenter.productRegisterDetailDataListResult(-5, productId);
             }
         });
-
-
     }
 
     @Override
@@ -70,8 +71,8 @@ public class Model implements Contract.Model {
 
         //todo reinstead with dynamic data
 //        sendData.setId(App.productId); or
-//        sendData.setId(productId);
-        sendData.setId("34b6cae58fbc4f57bcd7298dead76349");
+        sendData.setId(productId);
+//        sendData.setId("34b6cae58fbc4f57bcd7298dead76349");
 
 
         APIService apiService = APIClient.getClient().create(APIService.class);
@@ -92,7 +93,33 @@ public class Model implements Contract.Model {
                 presenter.productDetailInfoResult(-5);
             }
         });
+    }
 
+
+    @Override
+//    public void requestSendList(List<SendDataId> senddata) {
+    public void requestSendList(List<EditTextContents> editTextContents) {
+
+        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<ProductDetailInfoParent> call = apiService.get_option_create(sendData);
+//        Call<OptionCreate> call = apiService.get_option_create(editTextContents);
+        Call<Boolean> call = apiService.get_option_create(editTextContents, productId);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+
+                if(response.code()==200){
+                    Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

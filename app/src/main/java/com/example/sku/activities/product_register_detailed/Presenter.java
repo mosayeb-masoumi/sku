@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import com.example.sku.R;
 
+import java.util.List;
+
 public class Presenter implements Contract.Presenter {
     private Context context;
     private Contract.View view;
@@ -49,7 +51,14 @@ public class Presenter implements Contract.Presenter {
     }
 
 
-    public void setSpinner(Spinner spinnerRowParent, int position) {
-        view.setSpinner(spinnerRowParent,position);
+    public void setSpinner(Spinner spinnerRowParent, int position, String SpnRowParentTitleId,String SpnRowParentTitle) {
+        view.setSpinner(spinnerRowParent,position , SpnRowParentTitleId,SpnRowParentTitle);
+    }
+
+
+    @Override
+    public void sendList(List<EditTextContents> editTextContents) {
+
+        model.requestSendList(editTextContents);
     }
 }

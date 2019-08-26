@@ -47,6 +47,7 @@ public class Model implements Contract.Model {
                     BarcodeCheck result = response.body();
                     if(result.data == true){
                         context.startActivity(new Intent(context, RegisterProduct_ProductMainList.class));
+                        App.barcodeResult = barcodResult;
                     }else{
                         context.startActivity(new Intent(context, BarcodeListActivity.class)); //ok
 //                        App.barcodeResult = "QuaggaJS";

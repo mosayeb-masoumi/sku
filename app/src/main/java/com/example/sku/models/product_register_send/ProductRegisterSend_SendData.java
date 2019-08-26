@@ -15,6 +15,14 @@ public class ProductRegisterSend_SendData {
  public String new_sub_brand ;
  public String new_brand ;
 
+ public String new_company;
+ public String price;
+ public String company_id;
+ public String country_id;
+
+ public String barcode;
+
+
     public String getId() {
         return id;
     }
@@ -109,5 +117,45 @@ public class ProductRegisterSend_SendData {
 
     public void setNew_brand(String new_brand) {
         this.new_brand = new_brand;
+    }
+
+    public String getNew_company() {
+        return new_company;
+    }
+
+    public void setNew_company(String new_company) {
+        this.new_company = new_company;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
+    }
+
+    public String getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(String country_id) {
+        this.country_id = country_id;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 }

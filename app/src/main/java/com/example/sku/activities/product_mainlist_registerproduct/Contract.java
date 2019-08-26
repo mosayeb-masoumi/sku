@@ -33,6 +33,14 @@ public interface Contract {
         void setErrorEdtSubBrand(String strError);
 
         void showBtn();
+
+        void setSpnCountry();
+
+        void setSpnCompany();
+
+        void setErrorEdtCost(String strError);
+
+        void setErrorEdtCompany(String strError);
     }
 
     interface Presenter {
@@ -51,8 +59,8 @@ public interface Contract {
 
         void responseResultSpnSubCategoryList2(int result);
 
-        void btnRegisterPressed(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand, 
-                                int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition, int spnSubBrandPosition);
+        void btnRegisterPressed(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand,
+                                String edtProducer, String edtCost, int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition, int spnSubBrandPosition, int spnCompanyPosition, int spnCountryPosition);
 
         void productRegisterSendResult(int result);
     }
@@ -67,6 +75,6 @@ public interface Contract {
 
         void requestSpnSubCategory(String spnCategoryId);
 
-        void requestRegisterProduct(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand, int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition, int spnSubBrandPosition);
+        void requestRegisterProduct(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand, String edtProducer, String edtCost, int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition, int spnSubBrandPosition, int spnCompanyPosition, int spnCountryPosition);
     }
 }

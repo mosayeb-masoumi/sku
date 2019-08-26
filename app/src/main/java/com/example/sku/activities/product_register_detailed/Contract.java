@@ -3,6 +3,8 @@ package com.example.sku.activities.product_register_detailed;
 import android.content.Context;
 import android.widget.Spinner;
 
+import java.util.List;
+
 public interface Contract {
     interface View{
 
@@ -10,7 +12,7 @@ public interface Contract {
 
         void setDetailInfo();
 
-        void setSpinner(Spinner spinnerRowParent, int position);
+        void setSpinner(Spinner spinnerRowParent, int position ,String SpnRowParentTitleId,String SpnRowParentTitle);
     }
 
     interface Presenter {
@@ -24,7 +26,9 @@ public interface Contract {
         void productDetailInfoResult(int result);
 
 
-         void setSpinner(Spinner spinnerRowParent, int position);
+         void setSpinner(Spinner spinnerRowParent, int position ,String SpnRowParentTitleId,String SpnRowParentTitle);
+
+        void sendList(List<EditTextContents> editTextContents);
     }
 
     interface Model{
@@ -34,5 +38,7 @@ public interface Contract {
         void viewLoade();
 
         void requestRegisterDetailInfo(String productId);
+
+        void requestSendList(List<EditTextContents> senddata);
     }
 }

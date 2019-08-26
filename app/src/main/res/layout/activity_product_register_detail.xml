@@ -220,7 +220,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/rlButtons"
         android:layout_below="@+id/llinfo"
-        android:layout_marginBottom="@dimen/_5sdp"></android.support.v7.widget.RecyclerView>
+        android:layout_marginBottom="@dimen/_5sdp"/>
 
     <RelativeLayout
         android:id="@+id/rlButtons"

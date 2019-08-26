@@ -40,7 +40,6 @@
             android:layout_marginTop="@dimen/_3sdp"
             android:background="@drawable/spiner_background"
             android:gravity="center"
-            android:hint="طعم را وارد نمایید"
             android:inputType="textEmailAddress"
             android:maxLength="40"
             android:padding="10dp"

@@ -38,6 +38,8 @@ public class Presenter implements Contract.Presenter {
             view.setSpnOwner();
             view.setSpnBrand();
             view.setSpnCategory();
+            view.setSpnCountry();
+            view.setSpnCompany();
         } else if (result == -4) {
             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
         } else if (result == -5) {
@@ -96,73 +98,88 @@ public class Presenter implements Contract.Presenter {
 
     @Override
     public void btnRegisterPressed(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand,
-                                   int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition, int spnSubBrandPosition) {
-
-
+                                   String edtProducer, String edtCost,
+                                   int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition,
+                                   int spnSubBrandPosition, int spnCompanyPosition, int spnCountryPosition) {
 
 
         if (spnCategoryPosition == 0) {
 
-            if(edtCategory.equals("") && edtSubCategoty.equals("")){
+            if (edtCategory.equals("") && edtSubCategoty.equals("")) {
                 view.setErrorEdtCategory("لطفا گروه را تایپ نمایید");
                 view.setErrorEdtSubCategory("لطفا زیرگروه را تایپ نمایید");
-                status =false;
+                status = false;
             } else if (edtCategory.equals("")) {
                 view.setErrorEdtCategory("لطفا گروه را تایپ نمایید");
-                status =false;
+                status = false;
             } else if (edtSubCategoty.equals("")) {
                 view.setErrorEdtSubCategory("لطفا زیرگروه را تایپ نمایید");
-                status =false;
-            }else{
-                status=true;
+                status = false;
+            } else {
+                status = true;
             }
         }
 
         if (spnOwnerPosition == 0) {
             if (edtOwner.equals("")) {
                 view.setErrorEdtOwner("لطفا تولیدکننده یا وارد کننده را تایپ نمایید");
-                status =false;
-            }else{
-                status=true;
+                status = false;
+            } else {
+                status = true;
             }
         }
-         if(spnBrandPosition==0){
-             if (edtBrand.equals("") && edtSubBrand.equals("")) {
-                 view.setErrorEdtBrand("لطفا برند را تایپ نمایید");
-                 view.setErrorEdtSubBrand("لطفا زیربرند را تایپ نمایید");
-                 status =false;
-             } else if(edtBrand.equals("")){
-                 view.setErrorEdtBrand("لطفا برند را تایپ نمایید");
-                 status =false;
-             }
-             else if (edtSubBrand.equals("")) {
-                 view.setErrorEdtSubBrand("لطفا زیربرند را تایپ نمایید");
-                 status =false;
-             }else if(edtOwner.equals("")){
-                 view.setErrorEdtOwner("لطفا تولیدکننده یا وارد کننده را تایپ نمایید");                                ///////////////////////////
-                 status =false;
-             }else if(edtCategory.equals("")){
-                 view.setErrorEdtCategory("لطفا گروه را تایپ نمایید");
-                 status =false;
-             }else if(edtSubCategoty.equals("")){
-                 view.setErrorEdtSubCategory("لطفا زیرگروه را تایپ نمایید");
-                 status =false;
-             }
-             else{
-                 status=true;
-             }
+        if (spnBrandPosition == 0) {
+            if (edtBrand.equals("") && edtSubBrand.equals("")) {
+                view.setErrorEdtBrand("لطفا برند را تایپ نمایید");
+                view.setErrorEdtSubBrand("لطفا زیربرند را تایپ نمایید");
+                status = false;
+            } else if (edtBrand.equals("")) {
+                view.setErrorEdtBrand("لطفا برند را تایپ نمایید");
+                status = false;
+            } else if (edtSubBrand.equals("")) {
+                view.setErrorEdtSubBrand("لطفا زیربرند را تایپ نمایید");
+                status = false;
+            } else if (edtOwner.equals("")) {
+                view.setErrorEdtOwner("لطفا تولیدکننده یا وارد کننده را تایپ نمایید");                                ///////////////////////////
+                status = false;
+            } else if (edtCategory.equals("")) {
+                view.setErrorEdtCategory("لطفا گروه را تایپ نمایید");
+                status = false;
+            } else if (edtSubCategoty.equals("")) {
+                view.setErrorEdtSubCategory("لطفا زیرگروه را تایپ نمایید");
+                status = false;
+            } else {
+                status = true;
+            }
 
-         }
+        }
 
-         if(spnCategoryPosition!=0){
-             status=true;
-         }
-         if(spnOwnerPosition!=0){
-             status=true;
-         }
-         if(spnBrandPosition!=0){
-             status=true;
-         }
+        if(spnCompanyPosition == 0){
+            if (edtProducer.equals("")) {
+                view.setErrorEdtCompany("لطفا کمپانی را وارد نمایید");
+                status = false;
+            }else{
+                status = true;
+            }
+        }
+
+//        if (spnCategoryPosition != 0) {
+//            status = true;
+//        }
+//        if (spnOwnerPosition != 0) {
+//            status = true;
+//        }
+//        if (spnBrandPosition != 0) {
+//            status = true;
+//        }
+//
+//        if (spnCompanyPosition != 0) {
+//            status = true;
+//        }
+        if(edtCost.equals("") || edtCost.isEmpty()){
+            view.setErrorEdtCost("لطفا قیمت را وارد نمایید");
+            status = false;
+        }
 
 
         if (App.idSpnFamily.equals("")) {
@@ -172,10 +189,11 @@ public class Presenter implements Contract.Presenter {
             context.startActivity(new Intent(context, MainActivity.class));
             Toast.makeText(context, "لطفا فروشگاه را انتخاب کنید", Toast.LENGTH_SHORT).show();
 
-        } else if (status){
+        } else if (status) {
             view.hideBtn();
-            model.requestRegisterProduct(edtCategory, edtSubCategoty, edtOwner, edtBrand, edtSubBrand,
-                    spnCategoryPosition, spnSubCategoryPosition, spnOwnerPosition, spnBrandPosition, spnSubBrandPosition);
+            model.requestRegisterProduct(edtCategory, edtSubCategoty, edtOwner, edtBrand, edtSubBrand, edtProducer, edtCost,
+                    spnCategoryPosition, spnSubCategoryPosition, spnOwnerPosition, spnBrandPosition,
+                    spnSubBrandPosition, spnCompanyPosition, spnCountryPosition);
         }
 
     }
@@ -183,11 +201,11 @@ public class Presenter implements Contract.Presenter {
     @Override
     public void productRegisterSendResult(int result) {
         view.showBtn();
-        if(result ==1){
+        if (result == 1) {
 
-        }else if(result==-4){
+        } else if (result == -4) {
             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
-        }else if(result == -5){
+        } else if (result == -5) {
             Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();
         }
     }

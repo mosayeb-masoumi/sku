@@ -69,6 +69,20 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
     EditText etAddSubBrand;
     @BindView(R.id.pbRegisterProducts)
     ProgressBar pbRegisterProducts;
+    @BindView(R.id.SpnCompany)
+    Spinner SpnCompany;
+    @BindView(R.id.rlSpnCompany)
+    RelativeLayout rlSpnCompany;
+    @BindView(R.id.etAddCompany)
+    EditText etAddCompany;
+    @BindView(R.id.spnCountry)
+    Spinner spnCountry;
+    @BindView(R.id.rlSpnCountry)
+    RelativeLayout rlSpnCountry;
+    @BindView(R.id.etAddCost)
+    EditText etAddCost;
+    @BindView(R.id.rlButtons)
+    RelativeLayout rlButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,24 +97,29 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
 
         btnReister.setOnClickListener(v -> {
 
-            String edtCategory= etAddCategory.getText().toString();
+            String edtCategory = etAddCategory.getText().toString();
             String edtSubCategoty = etAddSubCategory.getText().toString();
             String edtOwner = etAddOwner.getText().toString();
             String edtBrand = etAddBrand.getText().toString();
-            String edtSubBrand= etAddSubBrand.getText().toString();
+            String edtSubBrand = etAddSubBrand.getText().toString();
+            String edtProducer = etAddCompany.getText().toString();
+            String edtCost = etAddCost.getText().toString();
 
             int spnCategoryPosition = spnCategoty.getSelectedItemPosition();
             int spnSubCategoryPosition = spnSubCategory.getSelectedItemPosition();
             int spnOwnerPosition = SpnOwner.getSelectedItemPosition();
             int spnBrandPosition = spnBrand.getSelectedItemPosition();
             int spnSubBrandPosition = spnSubBrand.getSelectedItemPosition();
+            int spnCompanyPosition = SpnCompany.getSelectedItemPosition();
+            int spnCountryPosition = spnCountry.getSelectedItemPosition();
 
-            presenter.btnRegisterPressed(edtCategory,edtSubCategoty,edtOwner,edtBrand,edtSubBrand,
-                    spnCategoryPosition,spnSubCategoryPosition,spnOwnerPosition,spnBrandPosition,spnSubBrandPosition);
+
+            presenter.btnRegisterPressed(edtCategory, edtSubCategoty, edtOwner, edtBrand, edtSubBrand,edtProducer,edtCost,
+                    spnCategoryPosition, spnSubCategoryPosition, spnOwnerPosition,
+                    spnBrandPosition, spnSubBrandPosition,spnCompanyPosition,spnCountryPosition);
 
         });
     }
-
 
 
     @Override
@@ -258,6 +277,61 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
 
     }
 
+
+    @Override
+    public void setSpnCountry() {
+        stopAnim();
+        List<String> countryList = new ArrayList<>();
+        for (int i = 0; i < App.totalSpnLists.data.country.size(); i++) {
+            countryList.add(App.totalSpnLists.data.country.get(i).title);
+        }
+        ArrayAdapter<String> spnCountryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, countryList);
+        spnCountryAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spnCountry.setAdapter(spnCountryAdapter);
+    }
+
+    @Override
+    public void setSpnCompany() {
+        stopAnim();
+        List<String> companyList = new ArrayList<>();
+        for (int i = 0; i < App.totalSpnLists.data.company.size(); i++) {
+            companyList.add(App.totalSpnLists.data.company.get(i).title);
+        }
+        ArrayAdapter<String> spnCompanyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, companyList);
+        spnCompanyAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        SpnCompany.setAdapter(spnCompanyAdapter);
+
+        SpnCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                startAnim();
+                if (position == 0) {
+                    etAddCompany.setVisibility(View.VISIBLE);
+                    stopAnim();
+                } else {
+                    etAddCompany.setVisibility(View.GONE);
+                    stopAnim();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void setErrorEdtCost(String strError) {
+        etAddCost.setError(strError);
+    }
+
+    @Override
+    public void setErrorEdtCompany(String strError) {
+        etAddCompany.setError(strError);
+    }
+
+
     @Override
     public void hideBtn() {
         btnReister.setVisibility(View.GONE);
@@ -271,7 +345,7 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
 
     @Override
     public void setErrorEdtSubCategory(String strError) {
-      etAddSubCategory.setError(strError);
+        etAddSubCategory.setError(strError);
     }
 
     @Override
@@ -286,7 +360,7 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
 
     @Override
     public void setErrorEdtSubBrand(String strError) {
-       etAddSubBrand.setError(strError);
+        etAddSubBrand.setError(strError);
     }
 
     @Override
@@ -294,6 +368,8 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
         btnReister.setVisibility(View.VISIBLE);
         pbRegisterProducts.setVisibility(View.GONE);
     }
+
+
 
     void startAnim() {
         avi.show();

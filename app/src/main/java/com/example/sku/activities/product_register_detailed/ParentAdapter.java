@@ -26,7 +26,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
     private LayoutInflater layoutInflater;
     Presenter presenter;
 
-    List<String> listId = new ArrayList<>();
+    List<ParentAdapterGetIdText> parentIdValueList = new ArrayList<>();
 
 
     public ParentAdapter(ProductRegisterDetailDataList productRegisterDetailDataList, Context context ,Presenter presenter ) {
@@ -51,53 +51,25 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         ProductRegisterDetailData model = productRegisterDetailDataList.data.get(position);
-
         holder.txtTitle.setText(model.title);
 
-        String type = model.type;
 
+        // to get id and text of title of each row
+        parentIdValueList.add(new ParentAdapterGetIdText(model.id ,model.title));
+
+
+
+
+        String type = model.type;
         if (type.equals("dropdown")) {
             holder.rlSpn_row_parent_registerDatail.setVisibility(View.VISIBLE);
-
-            presenter.setSpinner(holder.spinnerRowParent,position);
-
+            presenter.setSpinner(holder.spinnerRowParent,position,model.id , model.title);
             App.spnPosition = position;
-
-
-
-
-
-
-
-//            List<String> listSpnDetail = new ArrayList<String>();
+//            String a =model.id;
+//            String b = model.title;
 //
-//            for (int j = 0; j < App.productRegisterDetailDataList.data.get(position).option.size(); j++) {
-//                listSpnDetail.add(App.productRegisterDetailDataList.data.get(position).option.get(j).title);
-//            }
-//
-//
-//            ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listSpnDetail);
-////            ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(context, R.layout.spinner_text, listSpnDetail);
-//            spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
-//            holder.spinnerRowParent.setAdapter(spnChooseShopAdapter);
-//
-//
-//            holder.spinnerRowParent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                @Override
-//                public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
-//
-//                    // to get a list of id of selected spnItems
-//                    int position2 = holder.spinnerRowParent.getSelectedItemPosition();
-//                    String strSpnId = App.productRegisterDetailDataList.data.get(position).option.get(position2).id;
-//                }
-//
-//                @Override
-//                public void onNothingSelected(AdapterView<?> parent) {
-//
-//                }
-//            });
-
-
+//            String aa = a;
+//            String bb = b;
         }
 
         if (type.equals("text")) {

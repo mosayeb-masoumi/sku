@@ -37,10 +37,7 @@ public class Model implements Contract.Model {
     public void requestSpnLists() {
 
         TotalSpnListsSendData totalSpnListsSendData = new TotalSpnListsSendData();
-
         totalSpnListsSendData.setId(App.idSpnFamily);
-//        totalSpnListsSendData.setId("d2bd2f67-0b2c-4537-becc-d6bc0bb22ad4");
-
 
         APIService apiService = APIClient.getClient().create(APIService.class);
         Call<TotalSpnLists> call = apiService.getMainSpnLists(totalSpnListsSendData);
@@ -127,7 +124,9 @@ public class Model implements Contract.Model {
 
     @Override
     public void requestRegisterProduct(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand,
-                                       int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition, int spnSubBrandPosition) {
+                                       String edtProducer, String edtCost,
+                                       int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition,
+                                       int spnBrandPosition, int spnSubBrandPosition, int spnCompanyPosition, int spnCountryPosition) {
 
         ProductRegisterSend_SendData sendData = new ProductRegisterSend_SendData();
         sendData.setId(App.idSpnFamily);
@@ -145,6 +144,15 @@ public class Model implements Contract.Model {
             sendData.setBrand_id(App.totalSpnLists.data.brand.get(spnBrandPosition).id);
         }
 
+        if (spnCompanyPosition != 0) {
+            sendData.setCompany_id(App.totalSpnLists.data.company.get(spnCompanyPosition).id);
+        } else {
+            sendData.setNew_company(edtProducer);
+        }
+
+
+        sendData.setCountry_id(App.totalSpnLists.data.country.get(spnCompanyPosition).id);
+        sendData.setPrice(edtCost);
 
         sendData.setNew_category(edtCategory);
 
@@ -167,6 +175,8 @@ public class Model implements Contract.Model {
         sendData.setNew_sub_brand(edtSubBrand);
         sendData.setNew_brand(edtBrand);
 
+        sendData.setBarcode(App.barcodeResult);
+
         APIService apiService = APIClient.getClient().create(APIService.class);
         Call<ProductRegisterSend> call = apiService.getProductRegisterSend(sendData);
         call.enqueue(new Callback<ProductRegisterSend>() {
@@ -174,7 +184,6 @@ public class Model implements Contract.Model {
             public void onResponse(Call<ProductRegisterSend> call, Response<ProductRegisterSend> response) {
                 if (response.code() == 200) {
                     App.productId = response.body().data;
-
 
                     presenter.productRegisterSendResult(1);
                     context.startActivity(new Intent(context, ProductRegisterDetailActivity.class));
