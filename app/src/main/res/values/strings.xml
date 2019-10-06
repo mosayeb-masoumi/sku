@@ -14,4 +14,8 @@
     <string name="product_register"> ادامه ثبت محصول</string>
     <string name="barcode_register">ثبت بارکد</string>
     <string name="enterBarcode">بارکد را وارد نمایید</string>
+    <string name="warning">اخطار</string>
+    <string name="no_internet_text">برای استفاده از برنامه از اتصال به اینترنت مطمئن شوید و دوباره امتحان کنید</string>
+    <string name="internet_setting">تنظیمات wifi</string>
+    <string name="data_setting">تنظیمات دیتا</string>
 </resources>

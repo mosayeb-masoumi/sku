@@ -1,9 +1,12 @@
 package com.example.sku.activities.main;
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,13 +18,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sku.R;
 import com.example.sku.helpers.App;
-import com.example.sku.helpers.Cache;
+import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
 
 import java.util.ArrayList;
@@ -35,6 +39,8 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     Context context;
 
     boolean doubleBackToExitPressedOnce = false;
+    BroadcastReceiver connectivityReceiver = null;
+
 
     @BindView(R.id.txtToolbarMain)
     TextView txtToolbarMain;
@@ -55,6 +61,10 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 
     String idSpnShop;
     String idSpnFamily;
+    @BindView(R.id.pb_chooseshop)
+    ProgressBar pbChooseshop;
+    @BindView(R.id.rl_root)
+    RelativeLayout rlRoot;
 
 
 //    EditText edtQR;
@@ -69,6 +79,15 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         presenter.attachView(context, this);
 
 
+        //check network broadcast reciever
+        GeneralTools tools = GeneralTools.getInstance();
+        connectivityReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                tools.doCheckNetwork(MainActivity.this, findViewById(R.id.rl_root));
+            }
+
+        };
 //        edtQR=findViewById(R.id.edtQRcode);
 
 
@@ -77,7 +96,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         toolbar.setTitle("داشبورد");
 
         txtToolbarMain.setText(App.loginResult.result.getEmail());
-        presenter.loadView();
+//        presenter.loadView();
 
 
         btnNewFamily.setOnClickListener(v -> {
@@ -91,7 +110,8 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
             inflateChooseFamily();
         });
         btnShop.setOnClickListener(v -> {
-            inflateChooseShop();
+//            inflateChooseShop();
+            presenter.requestShopList();
         });
 
 
@@ -106,61 +126,45 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     }
 
 
-//    private void inflateChooseFamily() {
+//    public void inflateChooseShop() {
+//
 //        final Dialog dialog = new Dialog(context);
-//        dialog.setContentView(R.layout.inflate_choose_family);
+//        dialog.setContentView(R.layout.inflate_choose_shop);
 //        dialog.setTitle("Title...");
 //
-//        Spinner spnFamily = dialog.findViewById(R.id.spinnerChooseFamily);
-//        Button btnFamily = dialog.findViewById(R.id.btRegisterChooseFamily);
-//        ProgressBar pbFamily = dialog.findViewById(R.id.pbRegisterChooseFamily);
+//        List<String> listSpnChooseShop = new ArrayList<String>();
+//        for (int i = 0; i < App.shopList.data.size(); i++) {
+//            listSpnChooseShop.add(App.shopList.data.get(i).name);
+//        }
 //
+//        Spinner spnShop = dialog.findViewById(R.id.spinnerChooseShop);
+//        Button btnShop = dialog.findViewById(R.id.btRegisterChooseShop);
+//        ProgressBar pbShop = dialog.findViewById(R.id.pbRegisterChooseShop);
 //
+//        ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSpnChooseShop);
+//        spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+//        spnShop.setAdapter(spnChooseShopAdapter);
 //
+//        spnShop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                int spnShopPosition = spnShop.getSelectedItemPosition();
+//                idSpnShop = App.shopList.data.get(spnShopPosition).getId();
+//                App.idSpnShop = idSpnShop;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        btnShop.setOnClickListener(v -> {
+//            App.idSpnShop = idSpnShop;
+//            dialog.dismiss();
+//        });
 //
 //        dialog.show();
 //    }
-
-
-    public void inflateChooseShop() {
-
-            final Dialog dialog = new Dialog(context);
-            dialog.setContentView(R.layout.inflate_choose_shop);
-            dialog.setTitle("Title...");
-
-            List<String> listSpnChooseShop = new ArrayList<String>();
-            for (int i = 0; i < App.shopList.data.size(); i++) {
-                listSpnChooseShop.add(App.shopList.data.get(i).name);
-            }
-
-            Spinner spnShop = dialog.findViewById(R.id.spinnerChooseShop);
-            Button btnShop = dialog.findViewById(R.id.btRegisterChooseShop);
-            ProgressBar pbShop = dialog.findViewById(R.id.pbRegisterChooseShop);
-
-            ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSpnChooseShop);
-            spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
-            spnShop.setAdapter(spnChooseShopAdapter);
-
-            spnShop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    int spnShopPosition = spnShop.getSelectedItemPosition();
-                    idSpnShop = App.shopList.data.get(spnShopPosition).getId();
-                    App.idSpnShop = idSpnShop;
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            btnShop.setOnClickListener(v -> {
-                App.idSpnShop = idSpnShop;
-                dialog.dismiss();
-            });
-
-            dialog.show();
-    }
 
     private void inflateNewCategory() {
         final Dialog dialog = new Dialog(context);
@@ -223,7 +227,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         spnFamily.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int spnFamilyPosition =  spnFamily.getSelectedItemPosition();
+                int spnFamilyPosition = spnFamily.getSelectedItemPosition();
                 idSpnFamily = App.categoryList.data.get(spnFamilyPosition).getId();
                 App.idSpnFamily = idSpnFamily;
             }
@@ -236,7 +240,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 
         btnFamily.setOnClickListener(v -> {
 
-           App.idSpnFamily = idSpnFamily;
+            App.idSpnFamily = idSpnFamily;
             //todo we can save it in sharePref too
 //             Cache.setString("idSpnFamily",idSpnFamily);
             dialog.dismiss();
@@ -245,6 +249,59 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 
         dialog.show();
     }
+
+    @Override
+    public void setShopSpinner() {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.inflate_choose_shop);
+        dialog.setTitle("Title...");
+
+        List<String> listSpnChooseShop = new ArrayList<String>();
+        for (int i = 0; i < App.shopList.data.size(); i++) {
+            listSpnChooseShop.add(App.shopList.data.get(i).name);
+        }
+
+        Spinner spnShop = dialog.findViewById(R.id.spinnerChooseShop);
+        Button btnShop = dialog.findViewById(R.id.btRegisterChooseShop);
+        ProgressBar pbShop = dialog.findViewById(R.id.pbRegisterChooseShop);
+
+        ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSpnChooseShop);
+        spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spnShop.setAdapter(spnChooseShopAdapter);
+
+        spnShop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int spnShopPosition = spnShop.getSelectedItemPosition();
+                idSpnShop = App.shopList.data.get(spnShopPosition).getId();
+                App.idSpnShop = idSpnShop;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        btnShop.setOnClickListener(v -> {
+            App.idSpnShop = idSpnShop;
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    @Override
+    public void hideBtnChooseShop() {
+        btnShop.setVisibility(View.GONE);
+        pbChooseshop.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showBtnChooseshop() {
+        btnShop.setVisibility(View.VISIBLE);
+        pbChooseshop.setVisibility(View.GONE);
+    }
+
 
     @Override
     public void hideBtnFamily() {
@@ -257,6 +314,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         btnFamily.setVisibility(View.VISIBLE);
         pbFamily.setVisibility(View.GONE);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -276,12 +334,16 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (ResultScan != null && ResultScan.length() > 0) {
-//            edtQR.setText(ResultScan);
-//            ResultScan = "";
-//        }
-//    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(connectivityReceiver);
+        super.onDestroy();
+    }
 }

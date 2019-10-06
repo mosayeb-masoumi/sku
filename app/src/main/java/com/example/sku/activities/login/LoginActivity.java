@@ -1,10 +1,13 @@
 package com.example.sku.activities.login;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.sku.R;
 import com.example.sku.activities.main.MainActivity;
+import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -48,6 +52,8 @@ public class LoginActivity extends PersianAppcompatActivity implements Contract.
     RelativeLayout llLogin;
     String email, password;
 
+    BroadcastReceiver connectivityReceiver = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +63,15 @@ public class LoginActivity extends PersianAppcompatActivity implements Contract.
         context = this;
         presenter.attachView(context, this);
 
+        //check network broadcast reciever
+        GeneralTools tools = GeneralTools.getInstance();
+        connectivityReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                tools.doCheckNetwork(LoginActivity.this, findViewById(R.id.llLogin));
+            }
+
+        };
 
         //todo test
         etEmail.setText("user2@sku.com");
@@ -180,5 +195,17 @@ public class LoginActivity extends PersianAppcompatActivity implements Contract.
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(connectivityReceiver);
+        super.onDestroy();
     }
 }

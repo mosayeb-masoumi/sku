@@ -29,13 +29,23 @@ public class Presenter implements Contract.Presenter {
 
     @Override
     public void loadView() {
-        model.requestShopList();
+//        model.requestShopList();
     }
 
+    @Override
+    public void requestShopList() {
+        model.requestShopList();
+        view.hideBtnChooseShop();
+    }
 
     @Override
     public void sopListResult(int result) {
-        if (result == -4) {
+        if(result == 1){
+
+            view.showBtnChooseshop();
+            view.setShopSpinner();
+
+        }else if (result == -4) {
             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
         } else if (result == -5) {
             Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();
@@ -76,5 +86,7 @@ public class Presenter implements Contract.Presenter {
             context.startActivity(new Intent(context, QRCodeActivity.class));
         }
     }
+
+
 
 }

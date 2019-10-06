@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/rl_root"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
@@ -65,15 +66,31 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp" />
 
-            <Button
-                android:id="@+id/btnShop"
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_button"
-                android:text="انتخاب فروشگاه"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp" />
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/btnShop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_button"
+                    android:text="انتخاب فروشگاه"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ProgressBar
+                    android:id="@+id/pb_chooseshop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_button"
+                    android:indeterminateTint="@color/colorAccent"
+                    android:theme="@style/ProgressBar"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 

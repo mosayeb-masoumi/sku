@@ -13,6 +13,12 @@ public interface Contract {
         void hideBtnFamily();
 
         void showBtnFamily();
+
+        void setShopSpinner();
+
+        void hideBtnChooseShop();
+
+        void showBtnChooseshop();
     }
 
     interface Presenter {
@@ -30,6 +36,8 @@ public interface Contract {
         void getCategoryListResult(int result);
 
         void btnRegiserCodePressed();
+
+        void requestShopList();
     }
 
     interface Model{

@@ -1,10 +1,13 @@
 package com.example.sku.activities.splash;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +16,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.sku.R;
+import com.example.sku.activities.photo_activity.PhotoActivity;
+import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -30,6 +35,8 @@ public class SplashActivity extends PersianAppcompatActivity implements Contract
     Contract.Presenter presenter = new Presenter();
     Context context;
 
+    BroadcastReceiver connectivityReceiver = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +44,17 @@ public class SplashActivity extends PersianAppcompatActivity implements Contract
 
         context = this;
         presenter.attachView(context, this);
+
+        //check network broadcast reciever
+        GeneralTools tools = GeneralTools.getInstance();
+        connectivityReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                tools.doCheckNetwork(SplashActivity.this, findViewById(R.id.rl_root));
+            }
+
+        };
+
         presenter.activityLoaded();
     }
 
@@ -55,5 +73,17 @@ public class SplashActivity extends PersianAppcompatActivity implements Contract
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(connectivityReceiver);
+        super.onDestroy();
     }
 }

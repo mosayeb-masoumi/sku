@@ -1,11 +1,17 @@
 package com.example.sku.activities.product_register_detailed;
 
 import android.arch.persistence.room.Room;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,12 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sku.R;
+import com.example.sku.activities.photo_activity.PhotoActivity;
 import com.example.sku.activities.product_register_detailed.database.AppDatabase;
 import com.example.sku.activities.product_register_detailed.database.MyModelSaveDB;
 import com.example.sku.helpers.App;
+import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,6 +68,7 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
     @BindView(R.id.pbRegisterDetail)
     ProgressBar pbRegisterDetail;
 
+    BroadcastReceiver connectivityReceiver = null;
 
     AppDatabase db;
     List<MyModelSaveDB> myModelSaveDBS;
@@ -79,8 +89,10 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
     int firstCheck = 0;
 
-
     int positioncopy;
+
+
+    String content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +102,16 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         context = this;
         presenter.attachView(context, this);
 
+        //check network broadcast reciever
+        GeneralTools tools = GeneralTools.getInstance();
+        connectivityReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                tools.doCheckNetwork(ProductRegisterDetailActivity.this, findViewById(R.id.rl_root));
+            }
+
+        };
+
         presenter.viewLoaded();
 
 
@@ -97,6 +119,13 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
                 .allowMainThreadQueries()
                 .build();
         db.detailDAO().deleteAll();
+
+
+
+
+
+
+
 
 
         btnRegisterDetail.setOnClickListener(v -> {
@@ -110,29 +139,48 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
                 senddata.add(new SendDataId(m.getValue()));
             }
 
+//            // to get RecyclerView EditTexts
+//            EditText edt = findViewById(R.id.row_edtTitleTypeTextParent);
 
-            // to get RecyclerView EditTexts
-            EditText edt = findViewById(R.id.row_edtTitleTypeTextParent);
+
+            String[] edtStrings = adapter.edtStrings;
+            List<String> stringList = new ArrayList<String>(Arrays.asList(edtStrings));
+
+
             List<EditTextContents> edtList = new ArrayList<>();
             //getEditTextofRecyclereView
             for (int j = 0; j < App.productRegisterDetailDataList.data.size(); j++) {
 //                listSpnDetail.add(App.productRegisterDetailDataList.data.get(position).option.get(j).title);
                 if (App.productRegisterDetailDataList.data.get(j).type.equals("text")) {
+
+
                     String id = App.productRegisterDetailDataList.data.get(j).id;
                     String title = App.productRegisterDetailDataList.data.get(j).title;
-                    String content = edt.getText().toString();
-                    edtList.add(new EditTextContents(id,title,content));
+
+
+//                    String content1 = stringList.get(j);
+
+                    if (stringList.get(j)== null) {
+                        content = "ندارد";
+                    }else{
+                        content =stringList.get(j);
+                    }
+
+
+//                    String content = edt.getText().toString();
+
+                    edtList.add(new EditTextContents(id, title, content));
                 }
 
             }
 
-            if(edtList!= null){
+            if (edtList != null) {
                 presenter.sendList(edtList);
             }
 
-//            Toast.makeText(context, "dfsdfdsf", Toast.LENGTH_SHORT).show();
-
         });
+
+
     }
 
     @Override
@@ -153,6 +201,12 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         txtOwner.setText(App.productDetailInfoParent.data.getOwner());
     }
 
+
+
+
+
+
+    List<ModelSpinner> modelSpinners = new ArrayList<>();
     @Override
     public void setSpinner(Spinner spinnerRowParent, int position, String SpnRowParentTitleId, String SpnRowParentTitle) {
         List<String> listSpnDetail = new ArrayList<String>();
@@ -171,11 +225,43 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
         spinner = spinnerRowParent;
 
+
+
+
+
         spinnerRowParent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
 
 
+//                // text and id child spinner
+//                String txtChildContent = spinnerRowParent.getSelectedItem().toString();
+//                int position2 = spinnerRowParent.getSelectedItemPosition();
+//
+//                // id and title parent spinner
+//              String titleId =   App.productRegisterDetailDataList.data.get(position).id;
+//              String titleContent =   App.productRegisterDetailDataList.data.get(position).title;
+//
+//
+//
+//
+//                if(modelSpinners.){
+//
+//                }else{
+//                    modelSpinners.add(new ModelSpinner(titleId,txtChildContent));
+//                }
+//
+//
+//                int a = 5;
+//
+
+
+
+
+
+
+
+                //////////////////////////////////meisam////////////////////////////////////////////
                 db = Room.databaseBuilder(context, AppDatabase.class, "detail")
                         .allowMainThreadQueries()
                         .build();
@@ -214,5 +300,16 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(connectivityReceiver);
+        super.onDestroy();
+    }
 
 }

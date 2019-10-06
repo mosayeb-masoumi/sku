@@ -6,6 +6,9 @@ public class EditTextContents {
     String title;
     String content;
 
+    public EditTextContents() {
+    }
+
     public EditTextContents(String id, String title, String content) {
         this.id = id;
         this.title = title;

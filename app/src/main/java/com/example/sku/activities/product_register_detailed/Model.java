@@ -72,7 +72,7 @@ public class Model implements Contract.Model {
         //todo reinstead with dynamic data
 //        sendData.setId(App.productId); or
         sendData.setId(productId);
-//        sendData.setId("34b6cae58fbc4f57bcd7298dead76349");
+;
 
 
         APIService apiService = APIClient.getClient().create(APIService.class);

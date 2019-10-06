@@ -188,7 +188,6 @@ public class Model implements Contract.Model {
                     presenter.productRegisterSendResult(1);
                     context.startActivity(new Intent(context, ProductRegisterDetailActivity.class));
                 } else {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                     presenter.productRegisterSendResult(-4);
                 }
             }

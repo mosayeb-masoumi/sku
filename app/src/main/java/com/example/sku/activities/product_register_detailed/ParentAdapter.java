@@ -3,6 +3,8 @@ package com.example.sku.activities.product_register_detailed;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +31,21 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
     List<ParentAdapterGetIdText> parentIdValueList = new ArrayList<>();
 
 
+   List<EditTextContents> editTextContents = new ArrayList<>();
+
+
+    String[] edtStrings;
+
+    boolean allow= false;
+
+
     public ParentAdapter(ProductRegisterDetailDataList productRegisterDetailDataList, Context context ,Presenter presenter ) {
         this.productRegisterDetailDataList = productRegisterDetailDataList;
         this.context = context;
         this.presenter = presenter;
+
+        edtStrings = new String[productRegisterDetailDataList.data.size()];
+
     }
 
 
@@ -42,8 +55,6 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_parent_product_register_detail, parent, false);
         return new ViewHolder(view);
     }
-
-
 
 
 
@@ -63,26 +74,64 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
         String type = model.type;
         if (type.equals("dropdown")) {
             holder.rlSpn_row_parent_registerDatail.setVisibility(View.VISIBLE);
+
+            holder.editText.setVisibility(View.GONE);
+
             presenter.setSpinner(holder.spinnerRowParent,position,model.id , model.title);
             App.spnPosition = position;
-//            String a =model.id;
-//            String b = model.title;
-//
-//            String aa = a;
-//            String bb = b;
+
         }
 
         if (type.equals("text")) {
             holder.editText.setVisibility(View.VISIBLE);
+            holder.rlSpn_row_parent_registerDatail.setVisibility(View.GONE);
+
+            holder.editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    allow = true;
+
+                    if(allow){
+                        edtStrings[holder.getAdapterPosition()]=s.toString();
+
+                        editTextContents.add(new EditTextContents(model.id,model.title, edtStrings[holder.getAdapterPosition()]));
+                    }
+                    allow = false;
+                }
+
+            });
+
+          allow = false;
+
         }
 
     }
+
 
     @Override
     public int getItemCount() {
         return productRegisterDetailDataList.data.size();
     }
 
+
+    public String[] getEdtStrings() {
+        return edtStrings;
+    }
+
+    public List<EditTextContents> getEditTextContents() {
+        return editTextContents;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         Spinner spinnerRowParent;
@@ -99,11 +148,8 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
 
             rlFlavour_row_parent_registerDatail = itemView.findViewById(R.id.rlFlavour_row_parent_registerDatail);
             rlSpn_row_parent_registerDatail = itemView.findViewById(R.id.rlSpn_row_parent_registerDatail);
+
         }
     }
-
-
-
-
 
 }

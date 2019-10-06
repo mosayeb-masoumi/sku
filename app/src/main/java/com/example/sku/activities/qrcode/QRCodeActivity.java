@@ -1,7 +1,10 @@
 package com.example.sku.activities.qrcode;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.sku.R;
+import com.example.sku.activities.photo_activity.PhotoActivity;
+import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
 
 import butterknife.BindView;
@@ -33,6 +38,7 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
     Button btRegisterScannerResult;
     @BindView(R.id.pbRegister)
     ProgressBar pbRegister ;
+    BroadcastReceiver connectivityReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,15 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
         context = this;
         presenter.attachView(context, this);
 
+        //check network broadcast reciever
+        GeneralTools tools = GeneralTools.getInstance();
+        connectivityReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                tools.doCheckNetwork(QRCodeActivity.this, findViewById(R.id.rl_root));
+            }
+
+        };
 
         setSupportActionBar(toolbarScanner);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,6 +80,8 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
     @Override
     public void onResume() {
         super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
         if (ResultScan != null && ResultScan.length() > 0) {
             edtQR.setText(ResultScan);
             ResultScan = "";
@@ -93,5 +110,11 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
     public void showBtn() {
         btRegisterScannerResult.setVisibility(View.VISIBLE);
         pbRegister.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(connectivityReceiver);
+        super.onDestroy();
     }
 }

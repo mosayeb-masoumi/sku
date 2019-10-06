@@ -1,6 +1,10 @@
 package com.example.sku.activities.new_shop;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,7 +18,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.sku.R;
+import com.example.sku.activities.main.MainActivity;
 import com.example.sku.helpers.App;
+import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -48,7 +54,7 @@ public class NewShopActivity extends PersianAppcompatActivity implements Contrac
     RelativeLayout rlButtons;
     @BindView(R.id.avi)
     AVLoadingIndicatorView avi;
-
+    BroadcastReceiver connectivityReceiver = null;
     Contract.Presenter presenter = new Presenter();
     Context context;
 
@@ -60,6 +66,18 @@ public class NewShopActivity extends PersianAppcompatActivity implements Contrac
 
         context = this;
         presenter.attachView(context, this);
+
+
+        //check network broadcast reciever
+        GeneralTools tools = GeneralTools.getInstance();
+        connectivityReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                tools.doCheckNetwork(NewShopActivity.this, findViewById(R.id.rl_root));
+            }
+
+        };
+
         presenter.viewLoaded();
         presenter.loadDataSpinnerArea();
 
@@ -169,6 +187,18 @@ public class NewShopActivity extends PersianAppcompatActivity implements Contrac
 
     void stopAnim() {
         avi.hide();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(connectivityReceiver);
+        super.onDestroy();
     }
 
 }
