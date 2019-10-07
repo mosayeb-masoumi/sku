@@ -94,6 +94,8 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
     String content;
 
+    List<ModelSpinner> modelSpinners = new ArrayList<>() ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,10 +126,6 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
 
 
-
-
-
-
         btnRegisterDetail.setOnClickListener(v -> {
 
             List<MyModelSaveDB> listdata = new ArrayList<>();
@@ -141,7 +139,6 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
 //            // to get RecyclerView EditTexts
 //            EditText edt = findViewById(R.id.row_edtTitleTypeTextParent);
-
 
             String[] edtStrings = adapter.edtStrings;
             List<String> stringList = new ArrayList<String>(Arrays.asList(edtStrings));
@@ -175,7 +172,8 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
             }
 
             if (edtList != null) {
-                presenter.sendList(edtList);
+                presenter.sendList(edtList , modelSpinners);
+                int a = 3;
             }
 
         });
@@ -206,7 +204,7 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
 
 
-    List<ModelSpinner> modelSpinners = new ArrayList<>();
+
     @Override
     public void setSpinner(Spinner spinnerRowParent, int position, String SpnRowParentTitleId, String SpnRowParentTitle) {
         List<String> listSpnDetail = new ArrayList<String>();
@@ -234,61 +232,79 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
             public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
 
 
-//                // text and id child spinner
-//                String txtChildContent = spinnerRowParent.getSelectedItem().toString();
+               // text and id child spinner
+                String txtChildContent = spinnerRowParent.getSelectedItem().toString();
+                int position2 = spinnerRowParent.getSelectedItemPosition();
+
+                // id and title parent spinner
+              String titleId =   App.productRegisterDetailDataList.data.get(position).id;
+              String titleContent =   App.productRegisterDetailDataList.data.get(position).title;
+
+
+
+                if(!txtChildContent.equals("انتخاب کنید"))
+                modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
+
+//               if(modelSpinners==null ||modelSpinners.size()==0){
+//                   modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
+//               }else{
+//
+////                   modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
+//
+//                       for (ModelSpinner a: modelSpinners) {
+//
+//                           if(a.getSpnId().equals(titleId)){
+////                               modelSpinners.clear();
+//                               modelSpinners.remove(modelSpinners.get(0));
+//                               modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
+//                               Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
+//
+//                           }else{
+////                               modelSpinners.clear();
+//                               modelSpinners.remove(modelSpinners.get(0));
+//                               modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
+//                               Toast.makeText(context, "not", Toast.LENGTH_SHORT).show();
+//                           }
+//
+//                       }
+//               }
+                int a = 5;
+
+
+
+
+
+
+
+//
+//                //////////////////////////////////meisam////////////////////////////////////////////
+//                db = Room.databaseBuilder(context, AppDatabase.class, "detail")
+//                        .allowMainThreadQueries()
+//                        .build();
+//
+//                // to get a list of id of selected spnItems
 //                int position2 = spinnerRowParent.getSelectedItemPosition();
 //
-//                // id and title parent spinner
-//              String titleId =   App.productRegisterDetailDataList.data.get(position).id;
-//              String titleContent =   App.productRegisterDetailDataList.data.get(position).title;
+//                if (firstCheck <= position) {
+////                    myModelSavesArray.add(new SendDataId(App.productRegisterDetailDataList.data.get(position).option.get(position2).id, position));
 //
+//                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position, App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
 //
+//                    db.detailDAO().insertAll(myModelSaveDB);
 //
-//
-//                if(modelSpinners.){
-//
-//                }else{
-//                    modelSpinners.add(new ModelSpinner(titleId,txtChildContent));
 //                }
 //
 //
-//                int a = 5;
+//                if (firstCheck > position) {
+//                    for (MyModelSaveDB model : db.detailDAO().getAllMyModelSaveDB())
+//                        if (model.getSpnId() == position) {
+//                            db.detailDAO().deleteItem(model);
+//                            MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position, App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
+//                            db.detailDAO().insertAll(myModelSaveDB);
+//                        }
+//                }
 //
-
-
-
-
-
-
-
-                //////////////////////////////////meisam////////////////////////////////////////////
-                db = Room.databaseBuilder(context, AppDatabase.class, "detail")
-                        .allowMainThreadQueries()
-                        .build();
-
-                // to get a list of id of selected spnItems
-                int position2 = spinnerRowParent.getSelectedItemPosition();
-
-                if (firstCheck <= position) {
-//                    myModelSavesArray.add(new SendDataId(App.productRegisterDetailDataList.data.get(position).option.get(position2).id, position));
-
-                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position, App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
-
-                    db.detailDAO().insertAll(myModelSaveDB);
-
-                }
-
-
-                if (firstCheck > position) {
-                    for (MyModelSaveDB model : db.detailDAO().getAllMyModelSaveDB())
-                        if (model.getSpnId() == position) {
-                            db.detailDAO().deleteItem(model);
-                            MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position, App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
-                            db.detailDAO().insertAll(myModelSaveDB);
-                        }
-                }
-
-                firstCheck++;
+//                firstCheck++;
 
 
             }

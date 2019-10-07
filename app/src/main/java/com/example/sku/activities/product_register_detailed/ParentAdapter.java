@@ -71,6 +71,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
 
 
 
+
         String type = model.type;
         if (type.equals("dropdown")) {
             holder.rlSpn_row_parent_registerDatail.setVisibility(View.VISIBLE);
@@ -84,6 +85,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
 
         if (type.equals("text")) {
             holder.editText.setVisibility(View.VISIBLE);
+
             holder.rlSpn_row_parent_registerDatail.setVisibility(View.GONE);
 
             holder.editText.addTextChangedListener(new TextWatcher() {
@@ -123,6 +125,9 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
     public int getItemCount() {
         return productRegisterDetailDataList.data.size();
     }
+
+
+
 
 
     public String[] getEdtStrings() {

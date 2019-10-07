@@ -1,10 +1,11 @@
 package com.example.sku.activities.product_register_detailed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
+import com.example.sku.activities.photo_activity.PhotoActivity;
 import com.example.sku.helpers.App;
-import com.example.sku.models.option_create.OptionCreate;
 import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
 import com.example.sku.models.product_register_detail.ProductRegisterDetail_SendData;
@@ -97,19 +98,28 @@ public class Model implements Contract.Model {
 
 
     @Override
-//    public void requestSendList(List<SendDataId> senddata) {
-    public void requestSendList(List<EditTextContents> editTextContents) {
+
+    public void requestSendList(List<EditTextContents> editTextContents, List<ModelSpinner> modelSpinners) {
+
+        EditTextContentsList editTextContentsList = new EditTextContentsList();
+        editTextContentsList.setEditTextContentsList(editTextContents);
+        editTextContentsList.setModelSpinnerList(modelSpinners);
+        editTextContentsList.setProductId(productId);
+
 
         APIService apiService = APIClient.getClient().create(APIService.class);
-//        Call<ProductDetailInfoParent> call = apiService.get_option_create(sendData);
-//        Call<OptionCreate> call = apiService.get_option_create(editTextContents);
-        Call<Boolean> call = apiService.get_option_create(editTextContents, productId);
+        Call<Boolean> call = apiService.get_option_create(editTextContentsList);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
 
                 if(response.code()==200){
                     Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
+
+                    boolean a = response.body().booleanValue();
+                    context.startActivity(new Intent(context, PhotoActivity.class));
+
+
                 }else{
                     Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show();
                 }

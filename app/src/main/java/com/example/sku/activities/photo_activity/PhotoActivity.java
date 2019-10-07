@@ -12,8 +12,10 @@ import com.example.sku.R;
 import com.example.sku.activities.main.MainActivity;
 import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.listeners.IPickResult;
 
-public class PhotoActivity extends PersianAppcompatActivity {
+public class PhotoActivity extends PersianAppcompatActivity implements IPickResult {
 
     BroadcastReceiver connectivityReceiver = null;
     @Override
@@ -32,6 +34,28 @@ public class PhotoActivity extends PersianAppcompatActivity {
         };
     }
 
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public void onPickResult(PickResult r) {
+
+    }
+
+
+
+
+
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -43,4 +67,6 @@ public class PhotoActivity extends PersianAppcompatActivity {
         unregisterReceiver(connectivityReceiver);
         super.onDestroy();
     }
+
+
 }

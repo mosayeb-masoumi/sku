@@ -9,6 +9,9 @@ public class EditTextContents {
     public EditTextContents() {
     }
 
+
+
+
     public EditTextContents(String id, String title, String content) {
         this.id = id;
         this.title = title;

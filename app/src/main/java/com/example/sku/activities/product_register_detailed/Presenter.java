@@ -57,8 +57,8 @@ public class Presenter implements Contract.Presenter {
 
 
     @Override
-    public void sendList(List<EditTextContents> editTextContents) {
+    public void sendList(List<EditTextContents> editTextContents, List<ModelSpinner> modelSpinners) {
 
-        model.requestSendList(editTextContents);
+        model.requestSendList(editTextContents,modelSpinners);
     }
 }

@@ -28,7 +28,7 @@ public interface Contract {
 
          void setSpinner(Spinner spinnerRowParent, int position ,String SpnRowParentTitleId,String SpnRowParentTitle);
 
-        void sendList(List<EditTextContents> editTextContents);
+        void sendList(List<EditTextContents> editTextContents, List<ModelSpinner> modelSpinners);
     }
 
     interface Model{
@@ -39,6 +39,6 @@ public interface Contract {
 
         void requestRegisterDetailInfo(String productId);
 
-        void requestSendList(List<EditTextContents> senddata);
+        void requestSendList(List<EditTextContents> senddata, List<ModelSpinner> modelSpinners);
     }
 }

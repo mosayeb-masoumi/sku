@@ -1,7 +1,6 @@
 package com.example.sku.services;
 
-import com.example.sku.activities.product_register_detailed.EditTextContents;
-import com.example.sku.activities.product_register_detailed.SendDataId;
+import com.example.sku.activities.product_register_detailed.EditTextContentsList;
 import com.example.sku.models.barcode_check.BarcodeCheck;
 import com.example.sku.models.barcode_check.BarcodeCheckSendData;
 import com.example.sku.models.barcode_list.BarcodeProductsList;
@@ -11,7 +10,6 @@ import com.example.sku.models.city.CityList;
 import com.example.sku.models.city.CitySendData;
 import com.example.sku.models.login.LoginResult;
 import com.example.sku.models.login.LoginSendData;
-import com.example.sku.models.option_create.OptionCreate;
 import com.example.sku.models.product_register.TotalSpnLists;
 import com.example.sku.models.product_register.TotalSpnListsSendData;
 import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
@@ -29,19 +27,12 @@ import com.example.sku.models.sub_categoryList_spn.SubCategoryList2;
 import com.example.sku.models.sub_categoryList_spn.SubCategoryList2SendData;
 
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.Query;
 
 public interface APIService {
 
@@ -131,12 +122,27 @@ public interface APIService {
 
 
 
+    //main
+//    @Headers({"Authorization: Bearer user1@sku.com"})
+//    @Multipart
+////    @FormUrlEncoded
+//    @POST("Option/Create")
+//    Call<Boolean> get_option_create(@Part("editTextContents") List<EditTextContents> editTextContents,
+//                                    @Part("modelSpinner") List<ModelSpinner> modelSpinners,
+//                                    @Part("productId") String productId);
+
+
+//    @Headers({"Authorization: Bearer user1@sku.com"})
+//    @Multipart
+////    @FormUrlEncoded
+//    @POST("Option/Create")
+//    Call<Boolean> get_option_create(@Part("editTextContents") EditTextContentsList editTextContentsList,
+//                                    @Part("modelSpinner") ModelSpinnerList modelSpinnerList,
+//                                    @Part("productId") String productId);
+
+
     @Headers({"Authorization: Bearer user1@sku.com"})
-    @Multipart
     @POST("Option/Create")
-//    Call<OptionCreate> get_option_create(@Body List<SendDataId> sendDataId);
-//    Call<Boolean> get_option_create(@Body List<EditTextContents> editTextContents);
-    Call<Boolean> get_option_create(@Part("editTextContents") List<EditTextContents> editTextContents,
-                                    @Part("productId") String productId);
+    Call<Boolean> get_option_create(@Body EditTextContentsList editTextContentsList);
 
 }
