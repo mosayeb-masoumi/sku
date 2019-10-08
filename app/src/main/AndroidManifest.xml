@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.photo_activity.PhotoActivity"></activity>
+        <activity android:name=".activities.qrcode.ScanActivity"></activity>
+        <activity android:name=".activities.photo_activity.PhotoActivity" />
         <activity android:name=".activities.product_register_detailed.ProductRegisterDetailActivity" />
         <activity android:name=".activities.product_mainlist_registerproduct.RegisterProduct_ProductMainList" />
         <activity android:name=".activities.barcode_list.BarcodeListActivity" />
@@ -43,7 +44,6 @@
             android:name=".activities.qrcode.QRcodeScaner"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.com.vansuita.pickimage.provider"
@@ -54,8 +54,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/picker_provider_paths" />
         </provider>
-
-
     </application>
 
 </manifest>

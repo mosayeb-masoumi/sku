@@ -46,6 +46,8 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
 
         edtStrings = new String[productRegisterDetailDataList.data.size()];
 
+//        setHasStableIds(true);
+
     }
 
 
@@ -127,6 +129,17 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
     }
 
 
+    // add below method to remove the bug swipe editText getText
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    // add below method to remove the bug swipe editText getText
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
 
 

@@ -68,7 +68,7 @@ public class Model implements Contract.Model {
 
             @Override
             public void onFailure(Call<LoginResult> call, Throwable t) {
-//               Toast.makeText(context, ""+t.getMessage().toString(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(context, ""+t.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 String error1 = "java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $";
                 if(t.getMessage().toString().equals(error1))
                     Toaster.shorter("The selected email is invalid.");

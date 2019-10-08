@@ -1,11 +1,17 @@
 package com.example.sku.activities.qrcode;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.graphics.PixelFormat;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -13,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.sku.R;
 import com.example.sku.activities.photo_activity.PhotoActivity;
@@ -48,6 +55,8 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
         context = this;
         presenter.attachView(context, this);
 
+
+
         //check network broadcast reciever
         GeneralTools tools = GeneralTools.getInstance();
         connectivityReceiver = new BroadcastReceiver() {
@@ -65,7 +74,20 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
         setTitle("اسکنر");
 
 
-        btnScanner.setOnClickListener(v -> startActivity(new Intent(QRCodeActivity.this, QRcodeScaner.class)));
+//        btnScanner.setOnClickListener(v -> startActivity(new Intent(QRCodeActivity.this, QRcodeScaner.class)));
+        btnScanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED ){
+
+                    requestCameraPermision();
+
+                }else{
+//                    turnOnGPS();
+                    startActivity(new Intent(QRCodeActivity.this,ScanActivity.class));
+                }
+            }
+        });
 
         btRegisterScannerResult.setOnClickListener(v -> {
             if(edtQR.getText().toString().equals("")){
@@ -74,6 +96,11 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
             presenter.btnRegisterPressed(edtQR.getText().toString());
         });
 
+    }
+
+    private void requestCameraPermision() {
+        ActivityCompat.requestPermissions(this
+                ,new String[]{Manifest.permission.CAMERA},1234);
     }
 
 
@@ -116,5 +143,20 @@ public class QRCodeActivity extends PersianAppcompatActivity implements Contract
     protected void onDestroy() {
         unregisterReceiver(connectivityReceiver);
         super.onDestroy();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1234:
+                if(grantResults[0]==PackageManager.PERMISSION_GRANTED ){
+
+                    startActivity(new Intent(QRCodeActivity.this,ScanActivity.class));
+                }
+
+            default:
+                super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        }
     }
 }

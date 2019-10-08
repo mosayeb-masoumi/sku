@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -31,14 +32,23 @@ public class QRcodeScaner extends AppCompatActivity implements ZXingScannerView.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         context = QRcodeScaner.this;
         activity = QRcodeScaner.this;
         setTitle("بارکد اسکنر");
 
+
+
+//        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+//        mScannerView.setAspectTolerance(0.5f);
+
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         mScannerView = new ZXingScannerView(context);
+
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
         setContentView(mScannerView);
+
         int currentapiVersion = Build.VERSION.SDK_INT;
         if (currentapiVersion >= Build.VERSION_CODES.M) {
             if (checkPermission()) {

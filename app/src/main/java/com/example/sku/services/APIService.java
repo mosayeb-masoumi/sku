@@ -20,6 +20,7 @@ import com.example.sku.models.product_register_send.ProductRegisterSend_SendData
 import com.example.sku.models.province.ProvinceList;
 import com.example.sku.models.register_shop.RegisterShop;
 import com.example.sku.models.register_shop.RegisterShopSendData;
+import com.example.sku.models.send_pics.SendPics;
 import com.example.sku.models.shop.ShopList;
 import com.example.sku.models.sub_brandList_spn.SubBrandList;
 import com.example.sku.models.sub_brandList_spn.SubBrandListSendData;
@@ -144,5 +145,10 @@ public interface APIService {
     @Headers({"Authorization: Bearer user1@sku.com"})
     @POST("Option/Create")
     Call<Boolean> get_option_create(@Body EditTextContentsList editTextContentsList);
+
+
+    @Headers({"Authorization: Bearer user1@sku.com"})
+    @POST("Upload/Create")
+    Call<Boolean> send_pics(@Body SendPics sendPics);
 
 }

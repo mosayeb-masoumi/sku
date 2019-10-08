@@ -53,14 +53,14 @@
                     android:layout_height="wrap_content"
                     android:text=" - "
                     android:textColor="@color/colorBlueText"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="خانواده محصول : "
                     android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
             </LinearLayout>
 
             <LinearLayout
@@ -75,14 +75,14 @@
                     android:layout_height="wrap_content"
                     android:text=" - "
                     android:textColor="@color/colorBlueText"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="فروشگاه : "
                     android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -104,14 +104,14 @@
                     android:layout_height="wrap_content"
                     android:text=" - "
                     android:textColor="@color/colorBlueText"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="زیرگروه : "
                     android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,14 +126,14 @@
                     android:layout_height="wrap_content"
                     android:text=" - "
                     android:textColor="@color/colorBlueText"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="گروه : "
                     android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -155,14 +155,14 @@
                     android:layout_height="wrap_content"
                     android:text=" - "
                     android:textColor="@color/colorBlueText"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="زیر برند : "
                     android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
 
@@ -178,14 +178,14 @@
                     android:layout_height="wrap_content"
                     android:text=" - "
                     android:textColor="@color/colorBlueText"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="برند : "
                     android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -199,17 +199,17 @@
             <TextView
                 android:id="@+id/txt_owner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text=" - "
                 android:textColor="@color/colorBlueText"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_11ssp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="تولید کننده یا وارد کننده : "
                 android:textColor="@color/colorTextDark"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_11ssp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -217,7 +217,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_productRedisterDetailed"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_220sdp"
+        android:layout_height="@dimen/_200sdp"
         android:layout_below="@+id/llinfo" />
 
     <RelativeLayout
@@ -226,7 +226,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/recyclerView_productRedisterDetailed"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_35sdp"
         android:layout_marginBottom="@dimen/_5sdp">
 
         <Button

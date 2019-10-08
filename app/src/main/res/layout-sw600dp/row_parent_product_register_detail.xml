@@ -8,6 +8,7 @@
     android:focusableInTouchMode="true"
     android:focusable="true"
     android:descendantFocusability="beforeDescendants"
+
     android:layout_height="wrap_content">
 
 
@@ -19,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_11sdp"
             android:textColor="@color/colorTextDark"
             android:layout_marginEnd="@dimen/_10sdp"
             android:id="@+id/row_txtTitleTypeTextParent"
@@ -40,6 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:background="@drawable/spiner_background"
             android:gravity="center"
 
@@ -47,7 +50,8 @@
 
             android:inputType="textEmailAddress"
             android:maxLength="40"
-            android:padding="5dp"
+            android:padding="10dp"
+            android:paddingBottom="5dp"
             android:textColor="@color/colorTextDark"
             android:textColorHint="@color/colorText"
             android:textDirection="ltr"
