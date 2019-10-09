@@ -47,24 +47,7 @@
 
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etAddBrand"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:background="@drawable/bg_input_layout"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:hint="برند"
-                android:inputType="text"
-                android:maxLength="50"
-                android:padding="10dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/colorTextDark"
-                android:textColorHint="@color/colorText"
-                android:textDirection="ltr"
-                android:textSize="@dimen/_13ssp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,7 +81,8 @@
                     <Spinner
                         android:id="@+id/spnCategoty"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
                         android:focusable="true"
                         android:focusableInTouchMode="true">
 
@@ -106,44 +90,6 @@
                     </Spinner>
                 </RelativeLayout>
             </LinearLayout>
-
-
-            <EditText
-                android:id="@+id/etAddCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:background="@drawable/bg_input_layout"
-                android:gravity="center"
-                android:hint="گروه"
-                android:inputType="text"
-                android:maxLength="50"
-                android:padding="10dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/colorTextDark"
-                android:textColorHint="@color/colorText"
-                android:textDirection="ltr"
-                android:textSize="@dimen/_13ssp" />
-
-            <EditText
-                android:id="@+id/etAddSubCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:background="@drawable/bg_input_layout"
-                android:gravity="center"
-                android:hint="زیرگروه"
-                android:inputType="text"
-                android:maxLength="50"
-                android:padding="10dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/colorTextDark"
-                android:textColorHint="@color/colorText"
-                android:textDirection="ltr"
-                android:textSize="@dimen/_13ssp" />
 
 
             <LinearLayout
@@ -180,8 +126,9 @@
                     <Spinner
                         android:id="@+id/spnSubCategory"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
+                        android:layout_centerInParent="true"
                         android:focusableInTouchMode="true">
 
                         <requestFocus />
@@ -189,12 +136,92 @@
                 </RelativeLayout>
             </LinearLayout>
 
+            <EditText
+                android:id="@+id/etAddCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/spiner_background"
+                android:gravity="center"
+                android:hint="گروه"
+                android:inputType="text"
+                android:maxLength="50"
+                android:padding="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/colorTextDark"
+                android:textColorHint="@color/colorText"
+                android:textDirection="ltr"
+                android:textSize="@dimen/_13ssp" />
+
+            <EditText
+                android:id="@+id/etAddSubCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/spiner_background"
+                android:gravity="center"
+                android:hint="زیرگروه"
+                android:inputType="text"
+                android:maxLength="50"
+                android:padding="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/colorTextDark"
+                android:textColorHint="@color/colorText"
+                android:textDirection="ltr"
+                android:textSize="@dimen/_13ssp" />
+
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llSpnSubCategory"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="@dimen/_5sdp"-->
+                <!--android:layout_marginTop="@dimen/_3sdp"-->
+                <!--android:layout_marginEnd="@dimen/_5sdp"-->
+                <!--android:orientation="vertical"-->
+                <!--android:visibility="gone">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="ریز گروه"-->
+                    <!--android:textColor="@color/colorsecondarytext"-->
+                    <!--android:textSize="@dimen/_13ssp"-->
+                    <!--android:textStyle="bold" />-->
+
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/rlSpnSubCategory"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/_30sdp"-->
+                    <!--android:layout_below="@+id/txt_shop"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_marginTop="@dimen/_1sdp"-->
+                    <!--android:layout_marginBottom="@dimen/_3sdp"-->
+                    <!--android:background="@drawable/spiner_background"-->
+                    <!--android:layoutDirection="rtl"-->
+                    <!--android:padding="@dimen/_3sdp">-->
+
+                    <!--<Spinner-->
+                        <!--android:id="@+id/spnSubCategory"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:focusable="true"-->
+                        <!--android:focusableInTouchMode="true">-->
+
+                        <!--<requestFocus />-->
+                    <!--</Spinner>-->
+                <!--</RelativeLayout>-->
+            <!--</LinearLayout>-->
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:orientation="vertical">
 
@@ -222,8 +249,9 @@
                     <Spinner
                         android:id="@+id/SpnCompany"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
+                        android:layout_centerInParent="true"
                         android:focusableInTouchMode="true">
 
                         <requestFocus />
@@ -232,14 +260,14 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/etAddCompany"
+                android:id="@+id/etAddOwner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:background="@drawable/bg_input_layout"
+                android:background="@drawable/spiner_background"
                 android:gravity="center"
-                android:hint="کمپانی را وارد نمایید"
+                android:hint="تولید کننده یا وارد کننده"
                 android:inputType="text"
                 android:maxLength="50"
                 android:padding="10dp"
@@ -254,7 +282,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:orientation="vertical">
 
@@ -282,39 +310,40 @@
                     <Spinner
                         android:id="@+id/SpnOwner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
+                        android:layout_centerInParent="true"
                         android:focusableInTouchMode="true">
 
                         <requestFocus />
                     </Spinner>
                 </RelativeLayout>
+                <EditText
+                    android:id="@+id/etAddCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spiner_background"
+                    android:gravity="center"
+                    android:hint="کمپانی را وارد نمایید"
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:padding="10dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/colorTextDark"
+                    android:textColorHint="@color/colorText"
+                    android:textDirection="ltr"
+                    android:textSize="@dimen/_13ssp" />
+
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/etAddOwner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:background="@drawable/bg_input_layout"
-                android:gravity="center"
-                android:hint="تولید کننده یا وارد کننده"
-                android:inputType="text"
-                android:maxLength="50"
-                android:padding="10dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/colorTextDark"
-                android:textColorHint="@color/colorText"
-                android:textDirection="ltr"
-                android:textSize="@dimen/_13ssp" />
+
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:orientation="vertical">
 
@@ -342,41 +371,20 @@
                     <Spinner
                         android:id="@+id/spnBrand"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
+                        android:layout_centerInParent="true"
                         android:focusableInTouchMode="true">
 
                         <requestFocus />
                     </Spinner>
                 </RelativeLayout>
             </LinearLayout>
-
-            <EditText
-                android:id="@+id/etAddSubBrand"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:background="@drawable/bg_input_layout"
-                android:gravity="center"
-                android:hint="زیر برند"
-                android:inputType="text"
-                android:maxLength="50"
-                android:padding="10dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/colorTextDark"
-                android:textColorHint="@color/colorText"
-                android:textDirection="ltr"
-                android:textSize="@dimen/_13ssp" />
-
-
             <LinearLayout
                 android:id="@+id/llSpnSubBrand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -405,21 +413,60 @@
                     <Spinner
                         android:id="@+id/spnSubBrand"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
+                        android:layout_centerInParent="true"
                         android:focusableInTouchMode="true">
 
                         <requestFocus />
                     </Spinner>
                 </RelativeLayout>
             </LinearLayout>
+            <EditText
+                android:id="@+id/etAddBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/spiner_background"
+                android:gravity="center"
+                android:hint="برند"
+                android:inputType="text"
+                android:maxLength="50"
+                android:padding="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/colorTextDark"
+                android:textColorHint="@color/colorText"
+                android:textDirection="ltr"
+                android:textSize="@dimen/_13ssp" />
+            <EditText
+                android:id="@+id/etAddSubBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/spiner_background"
+                android:gravity="center"
+                android:hint="زیر برند"
+                android:inputType="text"
+                android:maxLength="50"
+                android:padding="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/colorTextDark"
+                android:textColorHint="@color/colorText"
+                android:textDirection="ltr"
+                android:textSize="@dimen/_13ssp" />
+
+
+
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:orientation="vertical">
 
@@ -447,7 +494,7 @@
                     <Spinner
                         android:id="@+id/spnCountry"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
                         android:focusableInTouchMode="true">
 
@@ -464,7 +511,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:background="@drawable/bg_input_layout"
+                android:background="@drawable/spiner_background"
                 android:gravity="center"
                 android:hint="قیمت را وارد نمایید"
                 android:inputType="number"

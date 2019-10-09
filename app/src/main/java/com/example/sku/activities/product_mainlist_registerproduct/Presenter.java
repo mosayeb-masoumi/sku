@@ -15,7 +15,7 @@ public class Presenter implements Contract.Presenter {
     private Contract.Model model = new Model();
 
 
-    boolean status = true;
+
 
     @Override
     public void attachView(Context context, Contract.View view) {
@@ -102,6 +102,7 @@ public class Presenter implements Contract.Presenter {
                                    int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition,
                                    int spnSubBrandPosition, int spnCompanyPosition, int spnCountryPosition) {
 
+        boolean status = true;
 
         if (spnCategoryPosition == 0) {
 
@@ -115,19 +116,26 @@ public class Presenter implements Contract.Presenter {
             } else if (edtSubCategoty.equals("")) {
                 view.setErrorEdtSubCategory("لطفا زیرگروه را تایپ نمایید");
                 status = false;
-            } else {
-                status = true;
             }
         }
+
+        if(spnSubCategoryPosition == -1){
+            if(edtSubCategoty.equals("")){
+                view.setErrorEdtSubCategory("لطفا زیرگروه را تایپ نمایید");
+                status = false;
+            }
+        }
+
 
         if (spnOwnerPosition == 0) {
             if (edtOwner.equals("")) {
                 view.setErrorEdtOwner("لطفا تولیدکننده یا وارد کننده را تایپ نمایید");
                 status = false;
-            } else {
-                status = true;
             }
         }
+
+
+
         if (spnBrandPosition == 0) {
             if (edtBrand.equals("") && edtSubBrand.equals("")) {
                 view.setErrorEdtBrand("لطفا برند را تایپ نمایید");
@@ -142,44 +150,44 @@ public class Presenter implements Contract.Presenter {
             } else if (edtOwner.equals("")) {
                 view.setErrorEdtOwner("لطفا تولیدکننده یا وارد کننده را تایپ نمایید");                                ///////////////////////////
                 status = false;
-            } else if (edtCategory.equals("")) {
-                view.setErrorEdtCategory("لطفا گروه را تایپ نمایید");
-                status = false;
-            } else if (edtSubCategoty.equals("")) {
+            }
+
+            else if (edtSubCategoty.equals("")) {
                 view.setErrorEdtSubCategory("لطفا زیرگروه را تایپ نمایید");
                 status = false;
-            } else {
-                status = true;
             }
 
         }
 
-        if(spnCompanyPosition == 0){
+        if(spnSubBrandPosition == -1){
+            if(edtSubBrand.equals("")){
+                view.setErrorEdtSubBrand("لطفا زیربرند را تایپ نمایید");
+                status = false;
+            }
+        }
+
+
+
+        if (spnCompanyPosition == 0) {
             if (edtProducer.equals("")) {
                 view.setErrorEdtCompany("لطفا کمپانی را وارد نمایید");
                 status = false;
-            }else{
-                status = true;
             }
         }
 
-//        if (spnCategoryPosition != 0) {
-//            status = true;
-//        }
-//        if (spnOwnerPosition != 0) {
-//            status = true;
-//        }
-//        if (spnBrandPosition != 0) {
-//            status = true;
-//        }
-//
-//        if (spnCompanyPosition != 0) {
-//            status = true;
-//        }
-        if(edtCost.equals("") || edtCost.isEmpty()){
+
+        if (edtCost.equals("") || edtCost.isEmpty()) {
             view.setErrorEdtCost("لطفا قیمت را وارد نمایید");
             status = false;
         }
+
+
+
+
+
+
+
+
 
 
         if (App.idSpnFamily.equals("")) {
@@ -189,7 +197,7 @@ public class Presenter implements Contract.Presenter {
             context.startActivity(new Intent(context, MainActivity.class));
             Toast.makeText(context, "لطفا فروشگاه را انتخاب کنید", Toast.LENGTH_SHORT).show();
 
-        } else if (status) {
+        }  if (status) {
             view.hideBtn();
             model.requestRegisterProduct(edtCategory, edtSubCategoty, edtOwner, edtBrand, edtSubBrand, edtProducer, edtCost,
                     spnCategoryPosition, spnSubCategoryPosition, spnOwnerPosition, spnBrandPosition,

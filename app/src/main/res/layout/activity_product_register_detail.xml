@@ -133,7 +133,8 @@
                     android:layout_height="wrap_content"
                     android:text="گروه : "
                     android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize=
+                        "@dimen/_13ssp" />
 
             </LinearLayout>
         </LinearLayout>

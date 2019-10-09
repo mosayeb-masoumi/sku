@@ -10,23 +10,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.sku.R;
 import com.example.sku.helpers.Converter;
 import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
+import com.example.sku.models.product_register_detail.ModelTest;
+import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.enums.EPickType;
 import com.vansuita.pickimage.listeners.IPickResult;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PhotoActivity extends PersianAppcompatActivity implements Contract.View, IPickResult {
+    public static ProductDetailInfoParent modelInfo;
     Contract.Presenter presenter = new Presenter();
     Context context;
 
@@ -51,11 +59,35 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
     @BindView(R.id.img3)
     ImageView img3;
 
-    String strBm1 = "", strBm2="", strBm3="", strBm4="";
+    String strBm1 = "", strBm2 = "", strBm3 = "", strBm4 = "";
     @BindView(R.id.btSndpics)
     Button btSndpics;
     @BindView(R.id.pbSndpics)
     ProgressBar pbSndpics;
+    @BindView(R.id.txt_categoryProduct_photoes)
+    TextView txtCategoryProductPhotoes;
+    @BindView(R.id.txt_shop_photoes)
+    TextView txtShopPhotoes;
+    @BindView(R.id.txt_subCategory_photoes)
+    TextView txtSubCategoryPhotoes;
+    @BindView(R.id.txt_category_photoes)
+    TextView txtCategoryPhotoes;
+    @BindView(R.id.txt_subBrand_photoes)
+    TextView txtSubBrandPhotoes;
+    @BindView(R.id.txt_brand_photoes)
+    TextView txtBrandPhotoes;
+    @BindView(R.id.txt_owner_photoes)
+    TextView txtOwnerPhotoes;
+    @BindView(R.id.llinfoPhotos)
+    LinearLayout llinfoPhotos;
+    @BindView(R.id.img1_delete)
+    ImageView img1Delete;
+    @BindView(R.id.img2_delete)
+    ImageView img2Delete;
+    @BindView(R.id.img4_delete)
+    ImageView img4Delete;
+    @BindView(R.id.img3_delete)
+    ImageView img3Delete;
 
 
     @Override
@@ -66,6 +98,7 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
 
         context = this;
         presenter.attachView(context, this);
+
 
         //check network broadcast reciever
         GeneralTools tools = GeneralTools.getInstance();
@@ -96,16 +129,36 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
         });
 
 
-        btSndpics.setOnClickListener(v -> presenter.btSndPicsPressed(strBm1,strBm2,strBm3,strBm4));
+        btSndpics.setOnClickListener(v -> presenter.btSndPicsPressed(strBm1, strBm2, strBm3, strBm4));
+
+
+
+
+        img1Delete.setOnClickListener(v -> {
+            strBm1 = "";
+            img1.setImageDrawable(null);
+        });
+        img2Delete.setOnClickListener(v -> {
+            strBm2 = "";
+            img2.setImageDrawable(null);
+        });
+        img3Delete.setOnClickListener(v -> {
+            strBm3="";
+            img3.setImageDrawable(null);
+        });
+        img4Delete.setOnClickListener(v -> {
+            strBm4="";
+            img4.setImageDrawable(null);
+        });
 
     }
+
 
     private void choose_pic() {
         PickSetup setup = new PickSetup()
                 .setTitle("settitle")
                 .setProgressText("progress text")
                 .setPickTypes(EPickType.CAMERA)
-                .setFlip(true)
                 .setSystemDialog(true);
         PickImageDialog.build(setup).show(this);
     }
@@ -154,11 +207,7 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
+
 
     @Override
     protected void onDestroy() {
@@ -178,7 +227,18 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
         pbSndpics.setVisibility(View.GONE);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        txtShopPhotoes.setText(modelInfo.data.getShop());
+        txtCategoryProductPhotoes.setText(modelInfo.data.getCategory());
+        txtCategoryPhotoes.setText(modelInfo.data.getSubCategory());
+        txtSubCategoryPhotoes.setText(modelInfo.data.getSubCategory2());
+        txtBrandPhotoes.setText(modelInfo.data.getBrand());
+        txtSubBrandPhotoes.setText(modelInfo.data.getSubBrand());
+        txtOwnerPhotoes.setText(modelInfo.data.getOwner());
+    }
 }
 
 

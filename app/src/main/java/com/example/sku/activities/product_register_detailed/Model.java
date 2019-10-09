@@ -51,7 +51,7 @@ public class Model implements Contract.Model {
                     String productId = sendData.getId();
                     presenter.productRegisterDetailDataListResult(1, productId);
                 } else if(response.code()==204){
-                    Toast.makeText(context, "take pic", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "take pic", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     presenter.productRegisterDetailDataListResult(-4, productId);
@@ -82,7 +82,8 @@ public class Model implements Contract.Model {
             @Override
             public void onResponse(Call<ProductDetailInfoParent> call, Response<ProductDetailInfoParent> response) {
                 if (response.code() == 200) {
-                    App.productDetailInfoParent = response.body();
+//                    App.productDetailInfoParent = response.body();
+                    presenter.setDetailInfoParent(response.body());
                     presenter.productDetailInfoResult(1);
                 } else {
                     presenter.productDetailInfoResult(-4);

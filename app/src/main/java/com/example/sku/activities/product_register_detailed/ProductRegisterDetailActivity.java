@@ -7,20 +7,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sku.R;
 import com.example.sku.activities.photo_activity.PhotoActivity;
@@ -29,12 +25,14 @@ import com.example.sku.activities.product_register_detailed.database.MyModelSave
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
+import com.example.sku.models.product_register_detail.ModelTest;
+import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -104,6 +102,16 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         context = this;
         presenter.attachView(context, this);
 
+
+
+
+
+
+
+
+
+
+
         //check network broadcast reciever
         GeneralTools tools = GeneralTools.getInstance();
         connectivityReceiver = new BroadcastReceiver() {
@@ -154,17 +162,11 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
                     String id = App.productRegisterDetailDataList.data.get(j).id;
                     String title = App.productRegisterDetailDataList.data.get(j).title;
 
-
-//                    String content1 = stringList.get(j);
-
                     if (stringList.get(j)== null) {
                         content = "ندارد";
                     }else{
                         content =stringList.get(j);
                     }
-
-
-//                    String content = edt.getText().toString();
 
                     edtList.add(new EditTextContents(id, title, content));
                 }
@@ -173,7 +175,7 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
             if (edtList != null) {
                 presenter.sendList(edtList , modelSpinners);
-                int a = 3;
+
             }
 
         });
@@ -188,16 +190,7 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         recyclerViewProductRedisterDetailed.setAdapter(adapter);
     }
 
-    @Override
-    public void setDetailInfo() {
-        txtShop.setText(App.productDetailInfoParent.data.getShop());
-        txtCategoryProduct.setText(App.productDetailInfoParent.data.getCategory());
-        txtCategory.setText(App.productDetailInfoParent.data.getSubCategory());
-        txtSubCategory.setText(App.productDetailInfoParent.data.getSubCategory2());
-        txtBrand.setText(App.productDetailInfoParent.data.getBrand());
-        txtSubBrand.setText(App.productDetailInfoParent.data.getSubBrand());
-        txtOwner.setText(App.productDetailInfoParent.data.getOwner());
-    }
+
 
 
 
@@ -268,7 +261,7 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 //
 //                       }
 //               }
-                int a = 5;
+//                int a = 5;
 
 
 
@@ -314,6 +307,21 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
             }
         });
+    }
+
+    @Override
+    public void setDetailInfo(ProductDetailInfoParent response) {
+        txtShop.setText(response.data.getShop());
+        txtCategoryProduct.setText(response.data.getCategory());
+        txtCategory.setText(response.data.getSubCategory());
+        txtSubCategory.setText(response.data.getSubCategory2());
+        txtBrand.setText(response.data.getBrand());
+        txtSubBrand.setText(response.data.getSubBrand());
+        txtOwner.setText(response.data.getOwner());
+
+
+        PhotoActivity.modelInfo = response;
+
     }
 
     @Override

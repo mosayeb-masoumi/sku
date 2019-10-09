@@ -35,7 +35,7 @@ public class App extends Application {
     public static SubCategoryList2 subCategoryList2 = new SubCategoryList2();
 
     public static ProductRegisterDetailDataList productRegisterDetailDataList = new ProductRegisterDetailDataList();
-    public static ProductDetailInfoParent productDetailInfoParent= new ProductDetailInfoParent();
+//    public static ProductDetailInfoParent productDetailInfoParent= new ProductDetailInfoParent();
 
 
     public static String idSpnFamily = "";

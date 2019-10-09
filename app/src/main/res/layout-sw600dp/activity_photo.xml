@@ -5,62 +5,301 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.photo_activity.PhotoActivity">
-    
-    
+
+
+
+    <LinearLayout
+        android:id="@+id/llinfoPhotos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_product_register_detailed"
+        android:layout_margin="@dimen/_5sdp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/txt_categoryProduct_photoes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=" - "
+                    android:textColor="@color/colorBlueText"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="خانواده محصول : "
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="@dimen/_13ssp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/txt_shop_photoes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textColor="@color/colorBlueText"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="فروشگاه : "
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/txt_subCategory_photoes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textColor="@color/colorBlueText"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="زیرگروه : "
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="@dimen/_13ssp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/txt_category_photoes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textColor="@color/colorBlueText"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="گروه : "
+                    android:textColor="@color/colorTextDark"
+                    android:textSize=
+                        "@dimen/_13ssp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/txt_subBrand_photoes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textColor="@color/colorBlueText"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="زیر برند : "
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/txt_brand_photoes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textColor="@color/colorBlueText"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="برند : "
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/txt_owner_photoes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:textColor="@color/colorBlueText"
+                android:textSize="@dimen/_13ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="تولید کننده یا وارد کننده : "
+                android:textColor="@color/colorTextDark"
+                android:textSize="@dimen/_13ssp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/ll_pics1"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_height="@dimen/_110sdp"
+        android:layout_below="@+id/llinfoPhotos"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_height="@dimen/_130sdp"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/_5sdp"
-            app:cardCornerRadius="@dimen/_20sdp"
+            android:orientation="vertical"
             android:layout_weight="1">
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_11sdp"
                     android:layout_centerInParent="true"
-                    android:id="@+id/rl_camera2"
-                    android:layout_height="@dimen/_50sdp">
-                    <ImageView
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/add_a_photo"/>
-                </RelativeLayout>
-
+                    android:text="@string/top_view"/>
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerInside"
-                    android:id="@+id/img2"/>
+                    android:layout_width="35dp"
+                    android:id="@+id/img2_delete"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_delete"/>
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="@dimen/_20sdp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/rl_camera2"
+                        android:layout_height="@dimen/_50sdp">
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/add_a_photo"/>
+                    </RelativeLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/img2"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_centerInParent="true"
+                android:text="@string/barcode_view"/>
+
+            <ImageView
+                android:layout_width="35dp"
+                android:id="@+id/img1_delete"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_delete"/>
+        </RelativeLayout>
+
 
         <android.support.v7.widget.CardView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_2sdp"
-            app:cardCornerRadius="@dimen/_20sdp"
-            android:layout_weight="1">
+            app:cardCornerRadius="@dimen/_20sdp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <RelativeLayout
                     android:layout_width="@dimen/_50sdp"
-                    android:id="@+id/rl_camera1"
                     android:layout_centerInParent="true"
+                    android:id="@+id/rl_camera1"
                     android:layout_height="@dimen/_50sdp">
                     <ImageView
                         android:layout_width="@dimen/_30sdp"
@@ -70,31 +309,56 @@
                 </RelativeLayout>
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/img1"
                     android:scaleType="centerCrop"
-                    android:id="@+id/img1"/>
+                    android:layout_height="match_parent" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+    </LinearLayout>
         
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_height="@dimen/_130sdp"
         android:layout_below="@+id/ll_pics1"
-        android:layout_height="@dimen/_110sdp"
         android:orientation="horizontal">
 
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_centerInParent="true"
+                android:text="@string/price"/>
+
+            <ImageView
+                android:layout_width="35dp"
+                android:id="@+id/img4_delete"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_delete"/>
+        </RelativeLayout>
         <android.support.v7.widget.CardView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/_5sdp"
-            app:cardCornerRadius="@dimen/_20sdp"
-            android:layout_weight="1">
+            app:cardCornerRadius="@dimen/_20sdp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -113,17 +377,44 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:id="@+id/img4"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_centerInParent="true"
+                android:text="@string/main_view"/>
+
+            <ImageView
+                android:layout_width="35dp"
+                android:id="@+id/img3_delete"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_delete"/>
+        </RelativeLayout>
 
         <android.support.v7.widget.CardView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_5sdp"
-            app:cardCornerRadius="@dimen/_20sdp"
-            android:layout_weight="1">
+            app:cardCornerRadius="@dimen/_20sdp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -146,9 +437,8 @@
                     android:id="@+id/img3"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
     </LinearLayout>
-
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rlButtons"
@@ -180,6 +470,5 @@
             android:indeterminateTint="@color/colorAccent"
             android:visibility="gone" />
     </RelativeLayout>
-
 
 </RelativeLayout>

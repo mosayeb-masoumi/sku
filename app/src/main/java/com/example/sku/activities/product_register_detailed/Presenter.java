@@ -5,6 +5,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.sku.R;
+import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class Presenter implements Contract.Presenter {
     public void productDetailInfoResult(int result) {
 
         if(result==1){
-            view.setDetailInfo();
+
         }else if(result==-4){
             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
         }else if(result==-5){
@@ -60,5 +61,10 @@ public class Presenter implements Contract.Presenter {
     public void sendList(List<EditTextContents> editTextContents, List<ModelSpinner> modelSpinners) {
 
         model.requestSendList(editTextContents,modelSpinners);
+    }
+
+    @Override
+    public void setDetailInfoParent(ProductDetailInfoParent response) {
+        view.setDetailInfo(response);
     }
 }
