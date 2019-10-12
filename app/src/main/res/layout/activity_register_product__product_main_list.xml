@@ -247,7 +247,7 @@
                     android:padding="@dimen/_3sdp">
 
                     <Spinner
-                        android:id="@+id/SpnCompany"
+                        android:id="@+id/SpnProducer_importer"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:focusable="true"
@@ -260,7 +260,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/etAddOwner"
+                android:id="@+id/etAddProducer_importer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -308,7 +308,7 @@
                     android:padding="@dimen/_3sdp">
 
                     <Spinner
-                        android:id="@+id/SpnOwner"
+                        android:id="@+id/SpnOwner_company"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:focusable="true"
@@ -319,7 +319,7 @@
                     </Spinner>
                 </RelativeLayout>
                 <EditText
-                    android:id="@+id/etAddCompany"
+                    android:id="@+id/etAddCompany_owner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/spiner_background"
@@ -504,6 +504,14 @@
             </LinearLayout>
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="قیمت"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textColor="@color/colorsecondarytext"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
             <EditText
                 android:id="@+id/etAddCost"
                 android:layout_width="match_parent"

@@ -48,7 +48,6 @@ public class Model implements Contract.Model {
                     App.totalSpnLists = response.body();
                     presenter.responseResult(1);
                 } else {
-                    Toast.makeText(context, "" + response.message(), Toast.LENGTH_SHORT).show();
                     presenter.responseResult(-4);
                 }
             }
@@ -68,8 +67,6 @@ public class Model implements Contract.Model {
 
         SubBrandListSendData subBrandListSendData = new SubBrandListSendData();
         subBrandListSendData.setId(spnBrandId);
-//        subBrandListSendData.setId("0595e679-d71a-40f5-a19e-19c7e89ba60c");
-
 
         APIService apiService = APIClient.getClient().create(APIService.class);
         Call<SubBrandList> call = apiService.getSubBrandList(subBrandListSendData);
@@ -123,59 +120,70 @@ public class Model implements Contract.Model {
     }
 
     @Override
-    public void requestRegisterProduct(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand,
-                                       String edtProducer, String edtCost,
-                                       int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition,
-                                       int spnBrandPosition, int spnSubBrandPosition, int spnCompanyPosition, int spnCountryPosition) {
+    public void requestRegisterProduct(String edtCategory, String edtSubCategoty, String edtProducer, String edtCompany_owner, String edtBrand,
+                                       String edtSubBrand, String edtCost,
+                                       int spnCategoryPosition, int spnSubCategoryPosition, int spnProducer_importerPosition,
+                                       int spnOwner_companyPosition, int spnBrandPosition, int spnSubBrandPosition, int spnCountryPosition) {
 
         ProductRegisterSend_SendData sendData = new ProductRegisterSend_SendData();
         sendData.setId(App.idSpnFamily);
         sendData.setShop_id(App.idSpnShop);
 
-        if (spnCategoryPosition != 0) {
+        //////////////////////////////////////////
+        if (spnCategoryPosition == 0) {
+            sendData.setNew_category(edtCategory);
+            sendData.setNew_sub_category(edtSubCategoty);
+        }
+        if(spnCategoryPosition!=0 && spnSubCategoryPosition == 0){
             sendData.setCategory_id(App.totalSpnLists.data.subCategory.get(spnCategoryPosition).id);
+            sendData.setNew_sub_category(edtSubCategoty);
         }
-
-        if (spnOwnerPosition != 0) {
-            sendData.setOwner_id(App.totalSpnLists.data.owner.get(spnOwnerPosition).id);
-        }
-
-        if (spnBrandPosition != 0) {
-            sendData.setBrand_id(App.totalSpnLists.data.brand.get(spnBrandPosition).id);
-        }
-
-        if (spnCompanyPosition != 0) {
-            sendData.setCompany_id(App.totalSpnLists.data.company.get(spnCompanyPosition).id);
-        } else {
-            sendData.setNew_company(edtProducer);
-        }
-
-
-        sendData.setCountry_id(App.totalSpnLists.data.country.get(spnCompanyPosition).id);
-        sendData.setPrice(edtCost);
-
-        sendData.setNew_category(edtCategory);
-
-
-        if (spnSubCategoryPosition == 0 || spnSubCategoryPosition == -1) {
-//
-        } else {
+        if(spnCategoryPosition!=0 && spnSubCategoryPosition != 0){
+            sendData.setCategory_id(App.totalSpnLists.data.subCategory.get(spnCategoryPosition).id);
             sendData.setSub_category_id(App.subCategoryList2.data.get(spnSubCategoryPosition).id);
         }
 
-        sendData.setNew_sub_category(edtSubCategoty);
-        sendData.setNew_owner(edtOwner);
+        ////////////////////////////////////////////////
 
-        if (spnSubBrandPosition == 0 || spnSubBrandPosition == -1) {
-//
+
+        if (spnProducer_importerPosition == 0) {
+           sendData.setNew_owner(edtProducer);
         } else {
+            sendData.setOwner_id(App.totalSpnLists.data.owner.get(spnProducer_importerPosition).id);
+        }
+
+
+        ////////////////////////
+        if (spnOwner_companyPosition == 0) {
+            sendData.setNew_company(edtCompany_owner);
+        } else {
+            sendData.setCompany_id(App.totalSpnLists.data.company.get(spnOwner_companyPosition).id);
+        }
+
+      /////////////////////////////
+
+        if (spnBrandPosition == 0) {
+            sendData.setNew_brand(edtBrand);
+            sendData.setNew_sub_brand(edtSubBrand);
+        }
+        if(spnBrandPosition!=0 && spnSubBrandPosition == 0){
+            sendData.setBrand_id(App.totalSpnLists.data.brand.get(spnBrandPosition).id);
+            sendData.setNew_sub_brand(edtSubBrand);
+        }
+        if(spnBrandPosition!=0 && spnSubBrandPosition != 0){
+            sendData.setBrand_id(App.totalSpnLists.data.brand.get(spnBrandPosition).id);
             sendData.setSub_brand_id(App.subBrandList.data.get(spnSubBrandPosition).id);
         }
 
-        sendData.setNew_sub_brand(edtSubBrand);
-        sendData.setNew_brand(edtBrand);
+//////////////////////////
+        sendData.setCountry_id(App.totalSpnLists.data.country.get(spnCountryPosition).id);
+        sendData.setPrice(edtCost);
 
         sendData.setBarcode(App.barcodeResult);
+
+
+
+
 
         APIService apiService = APIClient.getClient().create(APIService.class);
         Call<ProductRegisterSend> call = apiService.getProductRegisterSend(sendData);
@@ -191,6 +199,8 @@ public class Model implements Contract.Model {
                     presenter.productRegisterSendResult(-4);
                 }
             }
+
+
 
             @Override
             public void onFailure(Call<ProductRegisterSend> call, Throwable t) {

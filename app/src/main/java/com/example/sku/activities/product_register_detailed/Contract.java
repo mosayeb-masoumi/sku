@@ -43,7 +43,7 @@ public interface Contract {
 
         void viewLoade();
 
-        void requestRegisterDetailInfo(String productId);
+        void requestRegisterDetailInfo(String productId, boolean ok204);
 
         void requestSendList(List<EditTextContents> senddata, List<ModelSpinner> modelSpinners);
     }

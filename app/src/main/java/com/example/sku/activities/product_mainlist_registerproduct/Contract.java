@@ -3,7 +3,7 @@ package com.example.sku.activities.product_mainlist_registerproduct;
 import android.content.Context;
 
 public interface Contract {
-    interface View{
+    interface View {
 
         void hideLoading();
 
@@ -45,7 +45,7 @@ public interface Contract {
 
     interface Presenter {
 
-        void attachView (Context context,View view);
+        void attachView(Context context, View view);
 
         void viewLoaded();
 
@@ -59,15 +59,16 @@ public interface Contract {
 
         void responseResultSpnSubCategoryList2(int result);
 
-        void btnRegisterPressed(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand,
-                                String edtProducer, String edtCost, int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition, int spnSubBrandPosition, int spnCompanyPosition, int spnCountryPosition);
+        void btnRegisterPressed(String edtCategory, String edtSubCategoty, String edtProducer, String edtCompany_owner, String edtBrand, String edtSubBrand, String edtCost,
+                                int spnCategoryPosition, int spnSubCategoryPosition, int spnProducer_importerPosition,
+                                int spnOwner_companyPosition, int spnBrandPosition, int spnSubBrandPosition, int spnCountryPosition);
 
         void productRegisterSendResult(int result);
     }
 
-    interface Model{
+    interface Model {
 
-        void attachPresenter (Presenter presenter , Context context);
+        void attachPresenter(Presenter presenter, Context context);
 
         void requestSpnLists();
 
@@ -75,6 +76,8 @@ public interface Contract {
 
         void requestSpnSubCategory(String spnCategoryId);
 
-        void requestRegisterProduct(String edtCategory, String edtSubCategoty, String edtOwner, String edtBrand, String edtSubBrand, String edtProducer, String edtCost, int spnCategoryPosition, int spnSubCategoryPosition, int spnOwnerPosition, int spnBrandPosition, int spnSubBrandPosition, int spnCompanyPosition, int spnCountryPosition);
+        void requestRegisterProduct(String edtCategory, String edtSubCategoty, String edtProducer, String edtCompany_owner, String edtBrand, String edtSubBrand, String edtCost,
+                                    int spnCategoryPosition, int spnSubCategoryPosition, int spnProducer_importerPosition,
+                                    int spnOwner_companyPosition,int spnBrandPosition, int spnSubBrandPosition, int spnCountryPosition);
     }
 }

@@ -42,8 +42,10 @@ public class Model implements Contract.Model {
             public void onResponse(Call<BarcodeProductsList> call, Response<BarcodeProductsList> response) {
                 if(response.code()==200){
 
-                        App.barcodeProductsList = response.body();
-                        presenter.barcodeProductsList(1);
+//                        App.barcodeProductsList = response.body();
+                        presenter.setRecyclereView(response.body());
+//                        presenter.barcodeProductsList(1);
+
 
                 }else{
                     Toast.makeText(context, "serverError", Toast.LENGTH_SHORT).show();

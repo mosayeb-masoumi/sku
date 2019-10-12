@@ -28,7 +28,7 @@ public class App extends Application {
     public static ProvinceList provinceList = new ProvinceList();
     public static CityList cityList = new CityList();
     public static CategoryList categoryList = new CategoryList();
-    public static BarcodeProductsList barcodeProductsList = new BarcodeProductsList();
+//    public static BarcodeProductsList barcodeProductsList = new BarcodeProductsList();
     public static TotalSpnLists totalSpnLists = new TotalSpnLists();
 
     public static SubBrandList subBrandList = new SubBrandList();

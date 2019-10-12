@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.example.sku.R;
 import com.example.sku.activities.product_mainlist_registerproduct.RegisterProduct_ProductMainList;
 import com.example.sku.activities.qrcode.QRCodeActivity;
-import com.example.sku.activities.qrcode.QRcodeScaner;
+import com.example.sku.models.barcode_list.BarcodeProductsList;
 
 public class Presenter implements Contract.Presenter {
     private Context context;
@@ -38,18 +38,26 @@ public class Presenter implements Contract.Presenter {
 
     @Override
     public void viewLoaded() {
+        view.showLoading();
         model.requestBarcodeProductList();
     }
 
     @Override
     public void barcodeProductsList(int result) {
 
-        if(result == 1){
-            view.setRecyclerview();
-        }else if(result==-4){
+//        if(result == 1){
+//            view.setRecyclerview(barcodeProductsList);
+//        }else
+            if(result==-4){
             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
         }else if(result==-5){
             Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void setRecyclereView(BarcodeProductsList barcodeProductsList) {
+        view.stopLoading();
+        view.setRecyclerview(barcodeProductsList);
     }
 }

@@ -2,12 +2,18 @@ package com.example.sku.activities.barcode_list;
 
 import android.content.Context;
 
+import com.example.sku.models.barcode_list.BarcodeProductsList;
+
 public interface Contract {
     interface View{
 
         void hideBtn();
 
-        void setRecyclerview();
+        void setRecyclerview(BarcodeProductsList barcodeProductsList);
+
+        void showLoading();
+
+        void stopLoading();
     }
 
     interface Presenter {
@@ -21,6 +27,8 @@ public interface Contract {
         void viewLoaded();
 
         void barcodeProductsList(int result);
+
+        void setRecyclereView(BarcodeProductsList barcodeProductsList);
     }
 
     interface Model{

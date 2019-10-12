@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/rl_root"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
@@ -35,6 +35,7 @@
     </android.support.v7.widget.Toolbar>
 
     <ImageView
+        android:id="@+id/img_rahbar"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="@dimen/_75sdp"
         android:layout_below="@id/toolbar"
@@ -42,10 +43,41 @@
         android:src="@drawable/rahbarlogo1" />
 
 
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ll_info"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_below="@+id/img_rahbar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_11ssp"
+            android:text="choose shop"
+            android:gravity="end"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:id="@+id/txtChooseShop"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_11ssp"
+            android:text="choose shop"
+            android:gravity="end"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:id="@+id/txtChooseProduct"/>
+
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_below="@+id/ll_info">
 
 
         <LinearLayout
@@ -53,15 +85,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_newShop"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
-                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_button"
                 android:text="فروشگاه جدید"
                 android:textColor="@color/white"
@@ -72,6 +103,7 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_weight="1">
+
                 <Button
                     android:id="@+id/btnShop"
                     android:layout_width="match_parent"
@@ -108,8 +140,8 @@
                 android:id="@+id/btn_newFamily"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
-                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_button"
                 android:text="خانواده جدید"
                 android:textColor="@color/white"
@@ -143,15 +175,7 @@
 
 
             </RelativeLayout>
-            <!--<Button-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="@dimen/_50sdp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@drawable/bg_button"-->
-            <!--android:text="انتخاب خانواده"-->
-            <!--android:id="@+id/btn_family"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="@dimen/_12ssp" />-->
+
         </LinearLayout>
 
         <Button
@@ -161,11 +185,11 @@
             android:layout_below="@+id/ll2"
             android:layout_margin="@dimen/_5sdp"
             android:layout_weight="1"
-            android:visibility="gone"
             android:background="@drawable/bg_button"
             android:text="ثبت بارکد"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp" />
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone" />
 
 
     </RelativeLayout>

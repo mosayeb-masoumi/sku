@@ -37,8 +37,8 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
     AVLoadingIndicatorView avi;
     @BindView(R.id.btnReister)
     Button btnReister;
-    @BindView(R.id.SpnOwner)
-    Spinner SpnOwner;
+    @BindView(R.id.SpnOwner_company)
+    Spinner spnOwner_company;
     @BindView(R.id.rlSpnOwner)
     RelativeLayout rlSpnOwner;
     @BindView(R.id.spnBrand)
@@ -63,8 +63,8 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
     LinearLayout llSpnSubCategory;
     @BindView(R.id.etAddCategory)
     EditText etAddCategory;
-    @BindView(R.id.etAddOwner)
-    EditText etAddOwner;
+    @BindView(R.id.etAddProducer_importer)
+    EditText etAddProducer_importer;
     @BindView(R.id.etAddBrand)
     EditText etAddBrand;
     @BindView(R.id.toolbar_registerproduct)
@@ -75,12 +75,12 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
     EditText etAddSubBrand;
     @BindView(R.id.pbRegisterProducts)
     ProgressBar pbRegisterProducts;
-    @BindView(R.id.SpnCompany)
-    Spinner SpnCompany;
+    @BindView(R.id.SpnProducer_importer)
+    Spinner spnProducer_importer;
     @BindView(R.id.rlSpnCompany)
     RelativeLayout rlSpnCompany;
-    @BindView(R.id.etAddCompany)
-    EditText etAddCompany;
+    @BindView(R.id.etAddCompany_owner)
+    EditText etAddCompanyOwner;
     @BindView(R.id.spnCountry)
     Spinner spnCountry;
     @BindView(R.id.rlSpnCountry)
@@ -117,24 +117,25 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
 
             String edtCategory = etAddCategory.getText().toString();
             String edtSubCategoty = etAddSubCategory.getText().toString();
-            String edtOwner = etAddOwner.getText().toString();
+            String edtProducer = etAddProducer_importer.getText().toString();
+            String edtCompany_owner = etAddCompanyOwner.getText().toString();
             String edtBrand = etAddBrand.getText().toString();
             String edtSubBrand = etAddSubBrand.getText().toString();
-            String edtProducer = etAddCompany.getText().toString();
             String edtCost = etAddCost.getText().toString();
 
             int spnCategoryPosition = spnCategoty.getSelectedItemPosition();
             int spnSubCategoryPosition = spnSubCategory.getSelectedItemPosition();
-            int spnOwnerPosition = SpnOwner.getSelectedItemPosition();
+            int spnProducer_importerPosition = spnProducer_importer.getSelectedItemPosition();
+            int spnOwner_companyPosition = spnOwner_company.getSelectedItemPosition();
             int spnBrandPosition = spnBrand.getSelectedItemPosition();
             int spnSubBrandPosition = spnSubBrand.getSelectedItemPosition();
-            int spnCompanyPosition = SpnCompany.getSelectedItemPosition();
+
             int spnCountryPosition = spnCountry.getSelectedItemPosition();
 
 
-            presenter.btnRegisterPressed(edtCategory, edtSubCategoty, edtOwner, edtBrand, edtSubBrand,edtProducer,edtCost,
-                    spnCategoryPosition, spnSubCategoryPosition, spnOwnerPosition,
-                    spnBrandPosition, spnSubBrandPosition,spnCompanyPosition,spnCountryPosition);
+            presenter.btnRegisterPressed(edtCategory, edtSubCategoty, edtProducer, edtCompany_owner, edtBrand,edtSubBrand,edtCost,
+                    spnCategoryPosition, spnSubCategoryPosition, spnProducer_importerPosition,
+                    spnOwner_companyPosition, spnBrandPosition,spnSubBrandPosition,spnCountryPosition);
 
         });
     }
@@ -159,18 +160,18 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
             ownerList.add(App.totalSpnLists.data.owner.get(i).title);
         }
 
-        ArrayAdapter<String> spnCityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ownerList);
-        spnCityAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
-        SpnOwner.setAdapter(spnCityAdapter);
+        ArrayAdapter<String> spnOwnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ownerList);
+        spnOwnerAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spnOwner_company.setAdapter(spnOwnerAdapter);
 
-        SpnOwner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnOwner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    etAddCompany.setVisibility(View.VISIBLE);
+                    etAddCompanyOwner.setVisibility(View.VISIBLE);
                     stopAnim();
                 } else {
-                    etAddCompany.setVisibility(View.GONE);
+                    etAddCompanyOwner.setVisibility(View.GONE);
                 }
             }
 
@@ -358,19 +359,19 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
         for (int i = 0; i < App.totalSpnLists.data.company.size(); i++) {
             companyList.add(App.totalSpnLists.data.company.get(i).title);
         }
-        ArrayAdapter<String> spnCompanyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, companyList);
-        spnCompanyAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
-        SpnCompany.setAdapter(spnCompanyAdapter);
+        ArrayAdapter<String> spnProducerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, companyList);
+        spnProducerAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spnProducer_importer.setAdapter(spnProducerAdapter);
 
-        SpnCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnProducer_importer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 startAnim();
                 if (position == 0) {
-                    etAddOwner.setVisibility(View.VISIBLE);
+                    etAddProducer_importer.setVisibility(View.VISIBLE);
                     stopAnim();
                 } else {
-                    etAddOwner.setVisibility(View.GONE);
+                    etAddProducer_importer.setVisibility(View.GONE);
                     stopAnim();
                 }
             }
@@ -389,7 +390,7 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
 
     @Override
     public void setErrorEdtCompany(String strError) {
-        etAddCompany.setError(strError);
+        etAddCompanyOwner.setError(strError);
     }
 
 
@@ -411,7 +412,7 @@ public class RegisterProduct_ProductMainList extends PersianAppcompatActivity im
 
     @Override
     public void setErrorEdtOwner(String strError) {
-        etAddOwner.setError(strError);
+        etAddProducer_importer.setError(strError);
     }
 
     @Override

@@ -25,6 +25,7 @@ import com.example.sku.activities.product_register_detailed.database.MyModelSave
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
+import com.example.sku.helpers.RxBus;
 import com.example.sku.models.product_register_detail.ModelTest;
 import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 
@@ -320,7 +321,9 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         txtOwner.setText(response.data.getOwner());
 
 
-        PhotoActivity.modelInfo = response;
+//        PhotoActivity.modelInfo = response;
+
+        RxBus.publish(response);
 
     }
 

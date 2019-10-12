@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -59,14 +60,23 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     @BindView(R.id.pb_family)
     ProgressBar pbFamily;
 
-    String idSpnShop;
-    String idSpnFamily;
+    String idSpnShop , strShopSpn;
+    String idSpnFamily,strProductSpn;
     @BindView(R.id.pb_chooseshop)
     ProgressBar pbChooseshop;
     @BindView(R.id.rl_root)
     RelativeLayout rlRoot;
 
-    Boolean chooseShop=false,chooseFamily=false;
+    Boolean chooseShop = false, chooseFamily = false;
+    @BindView(R.id.txtChooseShop)
+    TextView txtChooseShop;
+    @BindView(R.id.txtChooseProduct)
+    TextView txtChooseProduct;
+    @BindView(R.id.ll_info)
+    LinearLayout llInfo;
+
+
+
 
 
 //    EditText edtQR;
@@ -120,7 +130,6 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         });
 
     }
-
 
 
     public void inflateChooseFamily() {
@@ -212,7 +221,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         dialog.setTitle("Title...");
 
         Spinner spnFamily = dialog.findViewById(R.id.spinnerChooseFamily);
-        Button btnRegisterChooseFamily  = dialog.findViewById(R.id.btRegisterChooseFamily);
+        Button btnRegisterChooseFamily = dialog.findViewById(R.id.btRegisterChooseFamily);
         ProgressBar pbFamily = dialog.findViewById(R.id.pbRegisterChooseFamily);
 
 
@@ -232,6 +241,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
                 int spnFamilyPosition = spnFamily.getSelectedItemPosition();
                 idSpnFamily = App.categoryList.data.get(spnFamilyPosition).getId();
                 App.idSpnFamily = idSpnFamily;
+                strProductSpn = spnFamily.getSelectedItem().toString();
             }
 
             @Override
@@ -240,10 +250,10 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
             }
         });
 
-        btnRegisterChooseFamily .setOnClickListener(v -> {
+        btnRegisterChooseFamily.setOnClickListener(v -> {
 
             App.idSpnFamily = idSpnFamily;
-            chooseFamily=true;
+            chooseFamily = true;
             checkVisibilityBtnRgsBarcode();
             //todo we can save it in sharePref too
 //             Cache.setString("idSpnFamily",idSpnFamily);
@@ -279,6 +289,8 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
                 int spnShopPosition = spnShop.getSelectedItemPosition();
                 idSpnShop = App.shopList.data.get(spnShopPosition).getId();
                 App.idSpnShop = idSpnShop;
+                strShopSpn = spnShop.getSelectedItem().toString();
+
             }
 
             @Override
@@ -288,7 +300,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         });
         btRegisterChooseShop.setOnClickListener(v -> {
             App.idSpnShop = idSpnShop;
-            chooseShop=true;
+            chooseShop = true;
             checkVisibilityBtnRgsBarcode();
             dialog.dismiss();
         });
@@ -297,10 +309,14 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     }
 
     private void checkVisibilityBtnRgsBarcode() {
-        if(chooseShop && chooseFamily){
+        if (chooseShop && chooseFamily) {
             btnRegisterBarCode.setVisibility(View.VISIBLE);
-        }else{
+            llInfo.setVisibility(View.VISIBLE);
+            txtChooseShop.setText(  "انتخاب فروشگاه :"+ " "+strShopSpn);
+            txtChooseShop.setText(  "خانواده محصول :"+ " "+strProductSpn);
+        } else {
             btnRegisterBarCode.setVisibility(View.GONE);
+            llInfo.setVisibility(View.GONE);
         }
     }
 

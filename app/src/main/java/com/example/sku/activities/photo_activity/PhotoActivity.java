@@ -19,6 +19,7 @@ import com.example.sku.R;
 import com.example.sku.helpers.Converter;
 import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
+import com.example.sku.helpers.RxBus;
 import com.example.sku.models.product_register_detail.ModelTest;
 import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 import com.vansuita.pickimage.bean.PickResult;
@@ -32,9 +33,13 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class PhotoActivity extends PersianAppcompatActivity implements Contract.View, IPickResult {
-    public static ProductDetailInfoParent modelInfo;
+
+
     Contract.Presenter presenter = new Presenter();
     Context context;
 
@@ -89,6 +94,9 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
     @BindView(R.id.img3_delete)
     ImageView img3Delete;
 
+    //    public static ProductDetailInfoParent modelInfo;
+    Disposable disposable = new CompositeDisposable();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +106,17 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
 
         context = this;
         presenter.attachView(context, this);
+
+
+        RxBus.subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                if (o instanceof ProductDetailInfoParent) {
+                    ProductDetailInfoParent detailInfoParent = (ProductDetailInfoParent) o;
+                    setInfo(detailInfoParent);
+                }
+            }
+        });
 
 
         //check network broadcast reciever
@@ -132,8 +151,6 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
         btSndpics.setOnClickListener(v -> presenter.btSndPicsPressed(strBm1, strBm2, strBm3, strBm4));
 
 
-
-
         img1Delete.setOnClickListener(v -> {
             strBm1 = "";
             img1.setImageDrawable(null);
@@ -143,11 +160,11 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
             img2.setImageDrawable(null);
         });
         img3Delete.setOnClickListener(v -> {
-            strBm3="";
+            strBm3 = "";
             img3.setImageDrawable(null);
         });
         img4Delete.setOnClickListener(v -> {
-            strBm4="";
+            strBm4 = "";
             img4.setImageDrawable(null);
         });
 
@@ -207,11 +224,10 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
     }
 
 
-
-
     @Override
     protected void onDestroy() {
         unregisterReceiver(connectivityReceiver);
+        disposable.dispose(); //very important
         super.onDestroy();
     }
 
@@ -231,14 +247,20 @@ public class PhotoActivity extends PersianAppcompatActivity implements Contract.
     protected void onResume() {
         super.onResume();
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        txtShopPhotoes.setText(modelInfo.data.getShop());
-        txtCategoryProductPhotoes.setText(modelInfo.data.getCategory());
-        txtCategoryPhotoes.setText(modelInfo.data.getSubCategory());
-        txtSubCategoryPhotoes.setText(modelInfo.data.getSubCategory2());
-        txtBrandPhotoes.setText(modelInfo.data.getBrand());
-        txtSubBrandPhotoes.setText(modelInfo.data.getSubBrand());
-        txtOwnerPhotoes.setText(modelInfo.data.getOwner());
+
     }
+
+    private void setInfo(ProductDetailInfoParent detailInfoParent) {
+        txtShopPhotoes.setText(detailInfoParent.data.getShop());
+        txtCategoryProductPhotoes.setText(detailInfoParent.data.getCategory());
+        txtCategoryPhotoes.setText(detailInfoParent.data.getSubCategory());
+        txtSubCategoryPhotoes.setText(detailInfoParent.data.getSubCategory2());
+        txtBrandPhotoes.setText(detailInfoParent.data.getBrand());
+        txtSubBrandPhotoes.setText(detailInfoParent.data.getSubBrand());
+        txtOwnerPhotoes.setText(detailInfoParent.data.getOwner());
+    }
+
+
 }
 
 

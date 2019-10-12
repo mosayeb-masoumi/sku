@@ -14,6 +14,8 @@ public class Presenter implements Contract.Presenter {
     private Contract.View view;
     private Contract.Model model = new Model();
 
+    boolean ok204=false;
+
     @Override
     public void attachView(Context context, Contract.View view) {
         this.view = view;
@@ -30,8 +32,13 @@ public class Presenter implements Contract.Presenter {
     public void productRegisterDetailDataListResult(int result, String productId) {
         if(result==1){
             view.setRecyclerview();
-            model.requestRegisterDetailInfo(productId);
-        }else if(result==-4){
+            ok204=false;
+            model.requestRegisterDetailInfo(productId,ok204);
+        }else if(result == 204){
+            ok204=true;
+            model.requestRegisterDetailInfo(productId,ok204);
+        }
+        else if(result==-4){
             Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
         }else if(result==-5){
             Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();

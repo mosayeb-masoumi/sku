@@ -1,11 +1,13 @@
 package com.example.sku.activities.product_register_detailed;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.sku.activities.photo_activity.PhotoActivity;
 import com.example.sku.helpers.App;
+import com.example.sku.helpers.RxBus;
 import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
 import com.example.sku.models.product_register_detail.ProductRegisterDetail_SendData;
@@ -38,7 +40,6 @@ public class Model implements Contract.Model {
         ProductRegisterDetail_SendData sendData = new ProductRegisterDetail_SendData();
 
         sendData.setId(App.productId);
-//        sendData.setId("34b6cae58fbc4f57bcd7298dead76349");
 
         APIService apiService = APIClient.getClient().create(APIService.class);
         Call<ProductRegisterDetailDataList> call = apiService.getProductRegisterDetailDatalist(sendData);
@@ -51,7 +52,9 @@ public class Model implements Contract.Model {
                     String productId = sendData.getId();
                     presenter.productRegisterDetailDataListResult(1, productId);
                 } else if(response.code()==204){
+                    presenter.productRegisterDetailDataListResult(204, productId);
 //                    Toast.makeText(context, "take pic", Toast.LENGTH_SHORT).show();
+
                 }
                 else {
                     presenter.productRegisterDetailDataListResult(-4, productId);
@@ -66,7 +69,7 @@ public class Model implements Contract.Model {
     }
 
     @Override
-    public void requestRegisterDetailInfo(String productId) {
+    public void requestRegisterDetailInfo(String productId, boolean ok204) {
 
         ProductRegisterDetail_SendData sendData = new ProductRegisterDetail_SendData();
 
@@ -83,8 +86,16 @@ public class Model implements Contract.Model {
             public void onResponse(Call<ProductDetailInfoParent> call, Response<ProductDetailInfoParent> response) {
                 if (response.code() == 200) {
 //                    App.productDetailInfoParent = response.body();
-                    presenter.setDetailInfoParent(response.body());
-                    presenter.productDetailInfoResult(1);
+                    if(ok204){
+                        RxBus.publish(response.body());
+                        context.startActivity(new Intent(context,PhotoActivity.class));
+                        ((Activity)context).finish();
+
+                    }else{
+                        presenter.setDetailInfoParent(response.body());
+                        presenter.productDetailInfoResult(1);
+                    }
+
                 } else {
                     presenter.productDetailInfoResult(-4);
                 }
@@ -117,7 +128,7 @@ public class Model implements Contract.Model {
                 if(response.code()==200){
                     Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
 
-                    boolean a = response.body().booleanValue();
+//                    boolean a = response.body().booleanValue();
                     context.startActivity(new Intent(context, PhotoActivity.class));
 
 
