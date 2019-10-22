@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layoutDirection="rtl">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/_6sdp"
+        android:visibility="gone"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/txt13"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_48sdp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="ثبت فروشگاه جدید"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp" />
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txt13">
 
 
         <LinearLayout
             android:id="@+id/llInfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
@@ -35,22 +62,21 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/etFirstName"
+                android:id="@+id/edtShopName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_input_layout"
-                android:gravity="center"
-                android:hint="نام فروشگاه"
-                android:inputType="text"
-                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:padding="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/spiner_background"
+                android:gravity="center"
+                android:inputType="text"
+                android:padding="@dimen/_8sdp"
                 android:paddingBottom="@dimen/_3sdp"
                 android:textColor="@color/colorTextDark"
                 android:textColorHint="@color/colorText"
                 android:textDirection="rtl"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_12ssp" />
 
 
             <LinearLayout
@@ -71,23 +97,22 @@
 
 
             <EditText
-                android:id="@+id/etLastName"
+                android:id="@+id/edtShopAddress"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_input_layout"
-                android:gravity="center"
-                android:hint="نشانی"
-                android:inputType="text"
-                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:padding="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/spiner_background"
+                android:gravity="center"
+                android:inputType="text"
+                android:padding="@dimen/_8sdp"
                 android:paddingBottom="@dimen/_3sdp"
                 android:textColor="@color/colorTextDark"
                 android:textColorHint="@color/colorText"
                 android:textDirection="rtl"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_12ssp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,30 +131,29 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/phone"
+                android:id="@+id/edtShopTel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_input_layout"
-                android:gravity="center"
-                android:hint="تلفن"
-                android:inputType="text"
-                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:padding="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/spiner_background"
+                android:gravity="center"
+                android:inputType="text"
+                android:padding="@dimen/_8sdp"
                 android:paddingBottom="@dimen/_3sdp"
                 android:textColor="@color/colorTextDark"
                 android:textColorHint="@color/colorText"
                 android:textDirection="rtl"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_12ssp" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:orientation="vertical">
 
 
@@ -157,7 +181,7 @@
                     <Spinner
                         android:id="@+id/spinnerProvince"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
                         android:focusableInTouchMode="true">
 
@@ -169,9 +193,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:orientation="vertical">
 
 
@@ -199,7 +223,7 @@
                     <Spinner
                         android:id="@+id/spinnercity"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
                         android:focusableInTouchMode="true">
 
@@ -211,9 +235,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:orientation="vertical">
 
                 <TextView
@@ -240,7 +264,7 @@
                     <Spinner
                         android:id="@+id/spinnerArea"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:focusable="true"
                         android:focusableInTouchMode="true">
 
@@ -250,41 +274,54 @@
             </LinearLayout>
 
 
-
-
-            <RelativeLayout
-                android:id="@+id/rlButtons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/txtRayan"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp">
-
-                <Button
-                    android:id="@+id/btRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:background="@drawable/bg_button"
-                    android:foreground="?selectableItemBackground"
-                    android:text="ثبت"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold" />
-
-                <ProgressBar
-                    android:id="@+id/pbRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@drawable/bg_button"
-                    android:indeterminateTint="#fff"
-                    android:visibility="gone" />
-            </RelativeLayout>
         </LinearLayout>
+
     </ScrollView>
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView.Large"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_above="@+id/rlButtons"
+        android:visibility="visible"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_centerHorizontal="true"
+        app:indicatorColor="@color/colorAccent"
+        app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+
+
+    <RelativeLayout
+        android:id="@+id/rlButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_15sdp">
+
+        <Button
+            android:id="@+id/btRegister_newShop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button"
+            android:foreground="?selectableItemBackground"
+            android:text="ثبت"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="#fff"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/pbRegister__newShop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/bg_button"
+            android:indeterminateTint="@color/colorAccent"
+            android:visibility="gone" />
+    </RelativeLayout>
 </RelativeLayout>

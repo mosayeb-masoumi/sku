@@ -7,6 +7,9 @@ import com.example.sku.helpers.App;
 import com.example.sku.models.barcode_check.BarcodeCheckSendData;
 import com.example.sku.models.barcode_list.BarcodeProductsList;
 import com.example.sku.models.barcode_list.BarcodeSendData;
+import com.example.sku.models.category.CategoryList;
+import com.example.sku.network.Service;
+import com.example.sku.network.ServiceProvider;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
 
@@ -35,8 +38,14 @@ public class Model implements Contract.Model {
 
 
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<BarcodeProductsList> call = apiService.getBarcodeProductList(barcodeSendData);
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<BarcodeProductsList> call = apiService.getBarcodeProductList(barcodeSendData);
+
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<BarcodeProductsList> call = service.getBarcodeProductList(barcodeSendData);
+
+
         call.enqueue(new Callback<BarcodeProductsList>() {
             @Override
             public void onResponse(Call<BarcodeProductsList> call, Response<BarcodeProductsList> response) {

@@ -22,4 +22,9 @@
     <string name="barcode_view">بارکد</string>
     <string name="price">قیمت</string>
     <string name="main_view">نمای اصلی</string>
+    <string name="action_reset">خروج</string>
+    <string name="sure_to_reset">آیا مطمین هستید که برنامه ریست شود؟</string>
+    <string name="cancel">انصراف</string>
+    <string name="update_available">بروزرسانی نسخه جدید موجود می باشد</string>
+    <string name="update">بروز رسانی</string>
 </resources>

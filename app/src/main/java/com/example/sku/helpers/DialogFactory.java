@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.sku.R;
@@ -14,6 +15,7 @@ import com.example.sku.R;
 public class DialogFactory {
 
     private Context context;
+
 
     public interface DialogFactoryInteraction{
 
@@ -68,4 +70,84 @@ public class DialogFactory {
 
         dialog.show();
     }
+
+
+
+    public void createResetDialog(DialogFactoryInteraction listener, View root) {
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.reset_dialog, (ViewGroup) root, false);
+        Button btnReset = customLayout.findViewById(R.id.btn_reset);
+        Button btnCancel = customLayout.findViewById(R.id.btn_cancel_reset);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onAcceptButtonClicked("");
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onDeniedButtonClicked(false);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+
+    public void createUpdateDialog(DialogFactoryInteraction listener, View root) {
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.update_dialog, (ViewGroup) root, false);
+        Button btnUpdate = customLayout.findViewById(R.id.btn_update);
+        Button btnCancel = customLayout.findViewById(R.id.btn_cancel_update);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onAcceptButtonClicked("");
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onDeniedButtonClicked(false);
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
+
 }

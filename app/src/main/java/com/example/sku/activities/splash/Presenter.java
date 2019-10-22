@@ -8,7 +8,9 @@ import android.content.IntentSender;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.Settings;
+import android.widget.Toast;
 
+import com.example.sku.R;
 import com.example.sku.activities.login.LoginActivity;
 import com.example.sku.helpers.Cache;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -94,7 +96,14 @@ public class Presenter implements Contract.Presenter {
         return true;
     }
 
-
+    @Override
+    public void loginResult(int result) {
+    if(result== -4){
+        Toast.makeText(context, R.string.serverFaield, Toast.LENGTH_SHORT).show();
+    }else if(result == -5){
+        Toast.makeText(context, R.string.connectionFaield, Toast.LENGTH_SHORT).show();
+    }
+    }
 
 
     private void gotoLogin() {

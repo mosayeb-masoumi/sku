@@ -50,6 +50,7 @@ public class LoginActivity extends PersianAppcompatActivity implements Contract.
     RelativeLayout rlButtons;
     @BindView(R.id.llLogin)
     RelativeLayout llLogin;
+
     String email, password;
 
     BroadcastReceiver connectivityReceiver = null;
@@ -73,9 +74,9 @@ public class LoginActivity extends PersianAppcompatActivity implements Contract.
 
         };
 
-        //todo test
-        etEmail.setText("user2@sku.com");
-        etPassword.setText("123456789");
+//        //todo test
+//        etEmail.setText("user2@sku.com");
+//        etPassword.setText("123456789");
 
 
         btLogin.setOnClickListener(v -> {

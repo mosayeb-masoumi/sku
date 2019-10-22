@@ -5,8 +5,11 @@ import android.widget.Toast;
 
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.Toaster;
+import com.example.sku.models.category.CategoryList;
 import com.example.sku.models.login.LoginResult;
 import com.example.sku.models.send_pics.SendPics;
+import com.example.sku.network.Service;
+import com.example.sku.network.ServiceProvider;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
 
@@ -36,12 +39,14 @@ public class Model implements Contract.Model {
         sendPics.setStrImg4(strBm4);
         sendPics.setProductId(App.productId);
 
+
 //        APIService apiService = APIClient.getClient().create(APIService.class);
 //        Call<Boolean> call = apiService.send_pics(sendPics);
-//        call.enqueue(new Callback<LoginResult>() {
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<Boolean> call = apiService.send_pics(sendPics);
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<Boolean> call = service.send_pics(sendPics);
+
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

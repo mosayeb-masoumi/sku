@@ -8,9 +8,13 @@ import android.widget.Toast;
 import com.example.sku.activities.photo_activity.PhotoActivity;
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.RxBus;
+import com.example.sku.models.category.CategoryList;
 import com.example.sku.models.product_register_detail.ProductDetailInfoParent;
 import com.example.sku.models.product_register_detail.ProductRegisterDetailDataList;
 import com.example.sku.models.product_register_detail.ProductRegisterDetail_SendData;
+import com.example.sku.models.product_register_send.ProductRegisterSend;
+import com.example.sku.network.Service;
+import com.example.sku.network.ServiceProvider;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
 
@@ -41,8 +45,12 @@ public class Model implements Contract.Model {
 
         sendData.setId(App.productId);
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<ProductRegisterDetailDataList> call = apiService.getProductRegisterDetailDatalist(sendData);
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<ProductRegisterDetailDataList> call = apiService.getProductRegisterDetailDatalist(sendData);
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<ProductRegisterDetailDataList> call = service.getProductRegisterDetailDatalist(sendData);
+
         call.enqueue(new Callback<ProductRegisterDetailDataList>() {
             @Override
             public void onResponse(Call<ProductRegisterDetailDataList> call, Response<ProductRegisterDetailDataList> response) {
@@ -79,8 +87,12 @@ public class Model implements Contract.Model {
 ;
 
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<ProductDetailInfoParent> call = apiService.getProductDetailInfoParent(sendData);
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<ProductDetailInfoParent> call = apiService.getProductDetailInfoParent(sendData);
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<ProductDetailInfoParent> call = service.getProductDetailInfoParent(sendData);
+
         call.enqueue(new Callback<ProductDetailInfoParent>() {
             @Override
             public void onResponse(Call<ProductDetailInfoParent> call, Response<ProductDetailInfoParent> response) {
@@ -118,9 +130,14 @@ public class Model implements Contract.Model {
         editTextContentsList.setModelSpinnerList(modelSpinners);
         editTextContentsList.setProductId(productId);
 
+//
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<Boolean> call = apiService.get_option_create(editTextContentsList);
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<Boolean> call = apiService.get_option_create(editTextContentsList);
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<Boolean> call = service.get_option_create(editTextContentsList);
+
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

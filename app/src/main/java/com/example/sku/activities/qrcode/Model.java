@@ -12,6 +12,9 @@ import com.example.sku.models.barcode_check.BarcodeCheck;
 import com.example.sku.models.barcode_check.BarcodeCheckSendData;
 import com.example.sku.models.barcode_list.BarcodeProductsList;
 import com.example.sku.models.barcode_list.BarcodeSendData;
+import com.example.sku.models.category.CategoryList;
+import com.example.sku.network.Service;
+import com.example.sku.network.ServiceProvider;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
 
@@ -35,10 +38,15 @@ public class Model implements Contract.Model {
 
         BarcodeCheckSendData barcodeCheckSendData= new BarcodeCheckSendData();
         barcodeCheckSendData.setCode(barcodResult);
-//        barcodeCheckSendData.setCode("QuaggaJS");
 
-        APIService  apiService = APIClient.getClient().create(APIService.class);
-        Call<BarcodeCheck> call=apiService.getBarcodeCheck(barcodeCheckSendData);
+
+//        APIService  apiService = APIClient.getClient().create(APIService.class);
+//        Call<BarcodeCheck> call=apiService.getBarcodeCheck(barcodeCheckSendData);
+
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<BarcodeCheck> call = service.getBarcodeCheck(barcodeCheckSendData);
+
         call.enqueue(new Callback<BarcodeCheck>() {
             @Override
             public void onResponse(Call<BarcodeCheck> call, Response<BarcodeCheck> response) {

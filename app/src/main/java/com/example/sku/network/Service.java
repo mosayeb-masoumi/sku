@@ -1,4 +1,4 @@
-package com.example.sku.services;
+package com.example.sku.network;
 
 import com.example.sku.activities.product_register_detailed.EditTextContentsList;
 import com.example.sku.models.barcode_check.BarcodeCheck;
@@ -29,7 +29,6 @@ import com.example.sku.models.sub_brandList_spn.SubBrandListSendData;
 import com.example.sku.models.sub_categoryList_spn.SubCategoryList2;
 import com.example.sku.models.sub_categoryList_spn.SubCategoryList2SendData;
 
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -37,15 +36,14 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
-public interface APIService {
-
-    @POST("Login")
+public interface Service {
+    @POST("Logins")
     Call<LoginResult> getLogin(@Body LoginSendData sendData);
 
 
     //    @Headers({"Accept: application/json"})
     @GET("Shop")
-    Call<ShopList> getShoplist(@Header("Authorization") String BearerToken);
+    Call<ShopList> getShoplist();
 
     //mes
 //    @Headers({"Authorization: Bearer user1@sku.com"})
@@ -153,5 +151,8 @@ public interface APIService {
     @POST("Upload/Create")
     Call<Boolean> send_pics(@Body SendPics sendPics);
 
+
+    @POST("Category/Create")
+    Call<RegisterCategory> getRegisterCategory(@Body RegisterCategorySendData registerCategorySendData);
 
 }

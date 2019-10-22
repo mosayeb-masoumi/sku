@@ -58,20 +58,7 @@
             android:layout_marginTop="@dimen/_100sdp"
             android:layout_height="wrap_content">
 
-            <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
 
-                <!--<Button-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:background="@drawable/bg_button"-->
-                    <!--android:layout_marginStart="@dimen/_80sdp"-->
-                    <!--android:textColor="@color/white"-->
-                    <!--android:textSize="@dimen/_15ssp"-->
-                    <!--android:layout_marginEnd="@dimen/_80sdp"-->
-                    <!--android:text="شروع"/>-->
-            <!--</RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -100,22 +87,6 @@
 
         </RelativeLayout>
 
-
     </RelativeLayout>
-
-    <!--<ImageView-->
-        <!--android:id="@+id/ivBackground"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:layout_above="@id/vFooter"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:src="@drawable/bg_splash"/>-->
-
-    <!--<View-->
-        <!--android:id="@+id/vFooter"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="#000"/>-->
 
 </RelativeLayout>

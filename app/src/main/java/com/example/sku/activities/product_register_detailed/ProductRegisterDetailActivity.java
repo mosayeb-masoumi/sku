@@ -20,8 +20,8 @@ import android.widget.TextView;
 
 import com.example.sku.R;
 import com.example.sku.activities.photo_activity.PhotoActivity;
-import com.example.sku.activities.product_register_detailed.database.AppDatabase;
-import com.example.sku.activities.product_register_detailed.database.MyModelSaveDB;
+//import com.example.sku.activities.product_register_detailed.database.AppDatabase;
+//import com.example.sku.activities.product_register_detailed.database.MyModelSaveDB;
 import com.example.sku.helpers.App;
 import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
@@ -41,8 +41,6 @@ import butterknife.ButterKnife;
 public class ProductRegisterDetailActivity extends PersianAppcompatActivity implements Contract.View {
     Contract.Presenter presenter = new Presenter();
     Context context;
-
-    ParentAdapter adapter;
 
     @BindView(R.id.toolbar_product_register_detailed)
     Toolbar toolbarProductRegisterDetailed;
@@ -68,31 +66,9 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
     ProgressBar pbRegisterDetail;
 
     BroadcastReceiver connectivityReceiver = null;
-
-    AppDatabase db;
-    List<MyModelSaveDB> myModelSaveDBS;
-
-
-    //
-//    String strSpnId;
-    ArrayList<Integer> listChildPosition = new ArrayList<>();
-    ArrayList<Integer> listParentPosition = new ArrayList<>();
-
-    ArrayList<String> listSpnId = new ArrayList<>();
-    ArrayList<String> mainListSpnId = new ArrayList<>();
+    ParentAdapter adapter;
     Spinner spinner;
-
-    List<SendDataId> myModelSavesArray = new ArrayList<SendDataId>();
-    SendDataId mModel;
-    List<Integer> poslist = new ArrayList<>();
-
-    int firstCheck = 0;
-
-    int positioncopy;
-
-
     String content;
-
     List<ModelSpinner> modelSpinners = new ArrayList<>() ;
 
     @Override
@@ -102,16 +78,6 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         ButterKnife.bind(this);
         context = this;
         presenter.attachView(context, this);
-
-
-
-
-
-
-
-
-
-
 
         //check network broadcast reciever
         GeneralTools tools = GeneralTools.getInstance();
@@ -125,29 +91,7 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
         presenter.viewLoaded();
 
-
-        db = Room.databaseBuilder(context, AppDatabase.class, "detail")
-                .allowMainThreadQueries()
-                .build();
-        db.detailDAO().deleteAll();
-
-
-
-
-
         btnRegisterDetail.setOnClickListener(v -> {
-
-            List<MyModelSaveDB> listdata = new ArrayList<>();
-
-            listdata = db.detailDAO().getAllMyModelSaveDB();
-
-            List<SendDataId> senddata = new ArrayList<>();
-            for (MyModelSaveDB m : listdata) {
-                senddata.add(new SendDataId(m.getValue()));
-            }
-
-//            // to get RecyclerView EditTexts
-//            EditText edt = findViewById(R.id.row_edtTitleTypeTextParent);
 
             String[] edtStrings = adapter.edtStrings;
             List<String> stringList = new ArrayList<String>(Arrays.asList(edtStrings));
@@ -176,12 +120,9 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
 
             if (edtList != null) {
                 presenter.sendList(edtList , modelSpinners);
-
             }
 
         });
-
-
     }
 
     @Override
@@ -190,13 +131,6 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         adapter = new ParentAdapter(App.productRegisterDetailDataList, getApplicationContext(), (Presenter) presenter);
         recyclerViewProductRedisterDetailed.setAdapter(adapter);
     }
-
-
-
-
-
-
-
 
 
     @Override
@@ -218,13 +152,9 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
         spinner = spinnerRowParent;
 
 
-
-
-
         spinnerRowParent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
-
 
                // text and id child spinner
                 String txtChildContent = spinnerRowParent.getSelectedItem().toString();
@@ -235,72 +165,17 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
               String titleContent =   App.productRegisterDetailDataList.data.get(position).title;
 
 
+                if(modelSpinners.size()>0) {
+                    for (int i = 0; i < modelSpinners.size(); i++) {
+                        if (modelSpinners.get(i).getSpnId().equals(titleId)) {
+                            modelSpinners.remove(i);
+                        }
+                    }
+                }
 
-                if(!txtChildContent.equals("انتخاب کنید"))
-                modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
-
-//               if(modelSpinners==null ||modelSpinners.size()==0){
-//                   modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
-//               }else{
-//
-////                   modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
-//
-//                       for (ModelSpinner a: modelSpinners) {
-//
-//                           if(a.getSpnId().equals(titleId)){
-////                               modelSpinners.clear();
-//                               modelSpinners.remove(modelSpinners.get(0));
-//                               modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
-//                               Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
-//
-//                           }else{
-////                               modelSpinners.clear();
-//                               modelSpinners.remove(modelSpinners.get(0));
-//                               modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
-//                               Toast.makeText(context, "not", Toast.LENGTH_SHORT).show();
-//                           }
-//
-//                       }
-//               }
-//                int a = 5;
-
-
-
-
-
-
-
-//
-//                //////////////////////////////////meisam////////////////////////////////////////////
-//                db = Room.databaseBuilder(context, AppDatabase.class, "detail")
-//                        .allowMainThreadQueries()
-//                        .build();
-//
-//                // to get a list of id of selected spnItems
-//                int position2 = spinnerRowParent.getSelectedItemPosition();
-//
-//                if (firstCheck <= position) {
-////                    myModelSavesArray.add(new SendDataId(App.productRegisterDetailDataList.data.get(position).option.get(position2).id, position));
-//
-//                    MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position, App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
-//
-//                    db.detailDAO().insertAll(myModelSaveDB);
-//
-//                }
-//
-//
-//                if (firstCheck > position) {
-//                    for (MyModelSaveDB model : db.detailDAO().getAllMyModelSaveDB())
-//                        if (model.getSpnId() == position) {
-//                            db.detailDAO().deleteItem(model);
-//                            MyModelSaveDB myModelSaveDB = new MyModelSaveDB(position, App.productRegisterDetailDataList.data.get(position).option.get(position2).id);
-//                            db.detailDAO().insertAll(myModelSaveDB);
-//                        }
-//                }
-//
-//                firstCheck++;
-
-
+                if(!txtChildContent.equals("انتخاب کنید")){
+                        modelSpinners.add(new ModelSpinner(position,titleId,txtChildContent));
+                }
             }
 
             @Override
@@ -309,6 +184,8 @@ public class ProductRegisterDetailActivity extends PersianAppcompatActivity impl
             }
         });
     }
+
+
 
     @Override
     public void setDetailInfo(ProductDetailInfoParent response) {

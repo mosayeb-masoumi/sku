@@ -1,5 +1,6 @@
 package com.example.sku.activities.main;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,10 +14,14 @@ import android.os.Handler;
 import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -25,9 +30,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sku.R;
+import com.example.sku.activities.qrcode.QRCodeActivity;
+import com.example.sku.activities.splash.SplashActivity;
 import com.example.sku.helpers.App;
+import com.example.sku.helpers.Cache;
+import com.example.sku.helpers.DialogFactory;
 import com.example.sku.helpers.GeneralTools;
 import com.example.sku.helpers.PersianAppcompatActivity;
+import com.example.sku.models.city.CityList;
+import com.example.sku.models.province.ProvinceList;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +72,8 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     @BindView(R.id.pb_family)
     ProgressBar pbFamily;
 
-    String idSpnShop , strShopSpn;
-    String idSpnFamily,strProductSpn;
+    String idSpnShop, strShopSpn="";
+    String idSpnFamily, strProductSpn="";
     @BindView(R.id.pb_chooseshop)
     ProgressBar pbChooseshop;
     @BindView(R.id.rl_root)
@@ -76,10 +88,20 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     LinearLayout llInfo;
 
 
+    DialogFactory dialogFactory;
+    @BindView(R.id.img_rahbar)
+    ImageView imgRahbar;
+    @BindView(R.id.ll1)
+    LinearLayout ll1;
+    @BindView(R.id.ll2)
+    LinearLayout ll2;
+
+    Button btn_register_category;
+    ProgressBar pb_register_category;
+
+    Dialog newShopDialog, newCategoryDialog;
 
 
-
-//    EditText edtQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +113,10 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         presenter.attachView(context, this);
 
 
+        //initial Dialog factory
+        dialogFactory = new DialogFactory(MainActivity.this);
+
+
         //check network broadcast reciever
         GeneralTools tools = GeneralTools.getInstance();
         connectivityReceiver = new BroadcastReceiver() {
@@ -100,13 +126,11 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
             }
 
         };
-//        edtQR=findViewById(R.id.edtQRcode);
 
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         toolbar.setTitle("داشبورد");
-
         txtToolbarMain.setText(App.loginResult.result.getEmail());
 //        presenter.loadView();
 
@@ -115,7 +139,8 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
             inflateNewCategory();
         });
         btnNewShop.setOnClickListener(v -> {
-            presenter.btnNewShopPressed();
+            //for inflating newShop dialog
+            presenter.requestProvinceData();
         });
         btnFamily.setOnClickListener(v -> {
             inflateChooseFamily();
@@ -129,6 +154,150 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
             presenter.btnRegiserCodePressed();
         });
 
+
+
+
+        presenter.checkUpdate();
+
+
+
+    }
+
+
+    @Override
+    public void setNewShopDialog(ProvinceList provincelist) {
+        newShopDialog = new Dialog(context);
+        newShopDialog.setContentView(R.layout.inflate_alert_new_shop);
+
+        EditText edtShopName = newShopDialog.findViewById(R.id.edtShopName);
+        EditText edtShopAddress = newShopDialog.findViewById(R.id.edtShopAddress);
+        EditText edtShopTel = newShopDialog.findViewById(R.id.edtShopTel);
+        Spinner spinnerProvince = newShopDialog.findViewById(R.id.spinnerProvince);
+        Spinner spinnercity = newShopDialog.findViewById(R.id.spinnercity);
+        Spinner spinnerArea = newShopDialog.findViewById(R.id.spinnerArea);
+        Button btnRegister = newShopDialog.findViewById(R.id.btRegister_newShop);
+        ProgressBar pbRegister = newShopDialog.findViewById(R.id.pbRegister__newShop);
+        AVLoadingIndicatorView avi = newShopDialog.findViewById(R.id.avi);
+
+        List<String> provinceList = new ArrayList<>();
+        for (int i = 0; i < provincelist.data.size(); i++) {
+            provinceList.add(provincelist.data.get(i).getProvince());
+        }
+
+        String[] spinnerAreaData = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        ArrayAdapter<String> spnAreaAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerAreaData);
+        spnAreaAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spinnerArea.setAdapter(spnAreaAdapter);
+
+        ArrayAdapter<String> spnProvinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, provinceList);
+        spnProvinceAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spinnerProvince.setAdapter(spnProvinceAdapter);
+
+
+        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                avi.show();
+
+                int positionProvince = spinnerProvince.getSelectedItemPosition();
+                presenter.requestDataSpnCity(spinnercity, positionProvince, provincelist, avi);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnRegister.setVisibility(View.GONE);
+                pbRegister.setVisibility(View.VISIBLE);
+                if (!edtShopName.getText().toString().equals("") && !edtShopAddress.getText().toString().equals("") &&
+                        !edtShopTel.getText().toString().equals("") && (spinnerProvince.getSelectedItem().toString() != "")
+                        && (spinnercity.getSelectedItem().toString() != "") && (spinnerArea.getSelectedItem().toString() != "")) {
+
+                    btnRegister.setVisibility(View.GONE);
+                    pbRegister.setVisibility(View.VISIBLE);
+                    Cache.setBoolean("chooseShop",true);
+                    presenter.btNewShopClicked(edtShopName.getText().toString(), edtShopAddress.getText().toString()
+                            , edtShopTel.getText().toString(), spinnerProvince.getSelectedItemPosition(),
+                            spinnercity.getSelectedItemPosition(), spinnerArea.getSelectedItemPosition(), btnRegister, pbRegister, newShopDialog);
+                } else {
+                    Toast.makeText(context, "لطفا فیلد ها را پر نمایید", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+        newShopDialog.show();
+
+    }
+
+    @Override
+    public void setSpinerCity(CityList cityList, Spinner spinnercity, AVLoadingIndicatorView avi) {
+
+        avi.hide();
+        List<String> cityLists = new ArrayList<>();
+        for (int i = 0; i < cityList.data.size(); i++) {
+            cityLists.add(cityList.data.get(i).getCity());
+        }
+
+        ArrayAdapter<String> spnCityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cityLists);
+        spnCityAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+        spinnercity.setAdapter(spnCityAdapter);
+
+
+    }
+
+    @Override
+    public void showBtnRegisterNewShop(Button btnRegister, ProgressBar pbRegister, boolean b, Dialog newShopDialog, String edtShopName) {
+        btnRegister.setVisibility(View.VISIBLE);
+        pbRegister.setVisibility(View.GONE);
+        newShopDialog.dismiss();
+//        strShopSpn = edtShopName;
+        Cache.setString("strShop",edtShopName);
+        chooseShop = true;
+        if (b) {
+            checkVisibilityBtnRgsBarcode();
+        }
+
+
+    }
+
+    @Override
+    public void newFamilyRegistered(Dialog newCategoryDialog, String title) {
+        newCategoryDialog.dismiss();
+        chooseFamily = true;
+//        strProductSpn = title;
+        Cache.setString("strCategory",title);
+        checkVisibilityBtnRgsBarcode();
+    }
+
+    @Override
+    public void showUpdateDialog() {
+
+        dialogFactory.createUpdateDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... strings) {
+
+                if(presenter.storagePermissionGranted()){
+                    presenter.updateApp();
+                }else{
+                    presenter.requestStoragePermission();
+                }
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean cancel_dialog) {
+                exitApp();
+            }
+        },rlRoot);
     }
 
 
@@ -137,53 +306,34 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     }
 
 
-//    public void inflateChooseShop() {
-//
-//        final Dialog dialog = new Dialog(context);
-//        dialog.setContentView(R.layout.inflate_choose_shop);
-//        dialog.setTitle("Title...");
-//
-//        List<String> listSpnChooseShop = new ArrayList<String>();
-//        for (int i = 0; i < App.shopList.data.size(); i++) {
-//            listSpnChooseShop.add(App.shopList.data.get(i).name);
-//        }
-//
-//        Spinner spnShop = dialog.findViewById(R.id.spinnerChooseShop);
-//        Button btnShop = dialog.findViewById(R.id.btRegisterChooseShop);
-//        ProgressBar pbShop = dialog.findViewById(R.id.pbRegisterChooseShop);
-//
-//        ArrayAdapter<String> spnChooseShopAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSpnChooseShop);
-//        spnChooseShopAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
-//        spnShop.setAdapter(spnChooseShopAdapter);
-//
-//        spnShop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                int spnShopPosition = spnShop.getSelectedItemPosition();
-//                idSpnShop = App.shopList.data.get(spnShopPosition).getId();
-//                App.idSpnShop = idSpnShop;
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//        btnShop.setOnClickListener(v -> {
-//            App.idSpnShop = idSpnShop;
-//            dialog.dismiss();
-//        });
-//
-//        dialog.show();
-//    }
-
     private void inflateNewCategory() {
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.inflate_alert_new_family);
-        dialog.setTitle("Title...");
+        newCategoryDialog = new Dialog(context);
+        newCategoryDialog.setContentView(R.layout.inflate_alert_new_family);
+
+        EditText edtTitle = newCategoryDialog.findViewById(R.id.edtTitle_inflate_new_family);
+        EditText edtDesctiption = newCategoryDialog.findViewById(R.id.edtDesc_inflate_new_family);
+        btn_register_category = newCategoryDialog.findViewById(R.id.btRegisterChooseFamily);
+        pb_register_category = newCategoryDialog.findViewById(R.id.pbRegisterChooseFamily);
 
 
-        dialog.show();
+        btn_register_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = edtTitle.getText().toString();
+                String description = edtDesctiption.getText().toString();
+                if (title.equals("") || description.equals("")) {
+                    Toast.makeText(context, "لطفا فیلدها را پر نمایید", Toast.LENGTH_SHORT).show();
+                } else {
+                    presenter.registerNewCategory(title, description, newCategoryDialog);
+
+                    Cache.setBoolean("chooseFamily",true);
+                }
+
+
+            }
+        });
+
+        newCategoryDialog.show();
     }
 
 
@@ -218,7 +368,6 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     public void setFamilySpinner() {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.inflate_choose_family);
-        dialog.setTitle("Title...");
 
         Spinner spnFamily = dialog.findViewById(R.id.spinnerChooseFamily);
         Button btnRegisterChooseFamily = dialog.findViewById(R.id.btRegisterChooseFamily);
@@ -241,7 +390,9 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
                 int spnFamilyPosition = spnFamily.getSelectedItemPosition();
                 idSpnFamily = App.categoryList.data.get(spnFamilyPosition).getId();
                 App.idSpnFamily = idSpnFamily;
+                Cache.setString("idFamily",idSpnFamily);
                 strProductSpn = spnFamily.getSelectedItem().toString();
+                Cache.setString("strCategory",strProductSpn);
             }
 
             @Override
@@ -254,6 +405,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 
             App.idSpnFamily = idSpnFamily;
             chooseFamily = true;
+            Cache.setBoolean("chooseFamily",true);
             checkVisibilityBtnRgsBarcode();
             //todo we can save it in sharePref too
 //             Cache.setString("idSpnFamily",idSpnFamily);
@@ -289,7 +441,9 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
                 int spnShopPosition = spnShop.getSelectedItemPosition();
                 idSpnShop = App.shopList.data.get(spnShopPosition).getId();
                 App.idSpnShop = idSpnShop;
+                Cache.setString("idShop",idSpnShop);
                 strShopSpn = spnShop.getSelectedItem().toString();
+                Cache.setString("strShop",strShopSpn);
 
             }
 
@@ -301,6 +455,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         btRegisterChooseShop.setOnClickListener(v -> {
             App.idSpnShop = idSpnShop;
             chooseShop = true;
+            Cache.setBoolean("chooseShop",true);
             checkVisibilityBtnRgsBarcode();
             dialog.dismiss();
         });
@@ -308,17 +463,7 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
         dialog.show();
     }
 
-    private void checkVisibilityBtnRgsBarcode() {
-        if (chooseShop && chooseFamily) {
-            btnRegisterBarCode.setVisibility(View.VISIBLE);
-            llInfo.setVisibility(View.VISIBLE);
-            txtChooseShop.setText(  "انتخاب فروشگاه :"+ " "+strShopSpn);
-            txtChooseShop.setText(  "خانواده محصول :"+ " "+strProductSpn);
-        } else {
-            btnRegisterBarCode.setVisibility(View.GONE);
-            llInfo.setVisibility(View.GONE);
-        }
-    }
+
 
     @Override
     public void hideBtnChooseShop() {
@@ -330,6 +475,25 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
     public void showBtnChooseshop() {
         btnShop.setVisibility(View.VISIBLE);
         pbChooseshop.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideBtnRegisterNewCategory() {
+        btn_register_category.setVisibility(View.GONE);
+        pb_register_category.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showBtnRegisterNewCategory() {
+        btn_register_category.setVisibility(View.VISIBLE);
+        pb_register_category.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setSpinnerArea(String[] spinnerAreaData) {
+//        ArrayAdapter<String> spinnerAreaAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerAreaData);
+//        spinnerAreaAdapter.setDropDownViewResource(android.R.layout.simple_list_item_activated_1);
+//        spinnerArea.setAdapter(spinnerAreaAdapter);
     }
 
 
@@ -353,9 +517,15 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
             case 1:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+                    startActivity(new Intent(MainActivity.this, QRCodeActivity.class));
                 } else {
                     Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
                 }
+                break;
+
+            case 555:
+                presenter.updateApp();
+                break;
 
         }
 
@@ -366,10 +536,89 @@ public class MainActivity extends PersianAppcompatActivity implements Contract.V
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_reset) {
+            dialogFactory.createResetDialog(new DialogFactory.DialogFactoryInteraction() {
+                @Override
+                public void onAcceptButtonClicked(String... strings) {
+                    Cache.setString("email","");
+                    Cache.setString("password","");
+
+                    Cache.setString("idShop", "");
+                    Cache.setString("idFamily", "");
+                    Cache.setString("strShop", "");
+                    Cache.setString("strCategory", "");
+                    startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                    (MainActivity.this).finish();
+                }
+
+                @Override
+                public void onDeniedButtonClicked(boolean cancel_dialog) {
+
+                }
+            },rlRoot);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private void checkVisibilityBtnRgsBarcode() {
+//        if (chooseShop && chooseFamily) {
+//        if (Cache.getBoolean("chooseShop") && Cache.getBoolean("chooseFamily")) {
+        String strShop = Cache.getString("strShop");
+        String strCategory = Cache.getString("strCategory");
+        if (!strShop.equals("") && !strCategory.equals("")) {
+            btnRegisterBarCode.setVisibility(View.VISIBLE);
+            llInfo.setVisibility(View.VISIBLE);
+            txtChooseShop.setText("انتخاب فروشگاه :" + " " + Cache.getString("strShop"));
+            txtChooseProduct.setText("خانواده محصول :" + " " + Cache.getString("strCategory"));
+        } else {
+            btnRegisterBarCode.setVisibility(View.GONE);
+            llInfo.setVisibility(View.GONE);
+        }
+    }
+
+
+
+
+
+    @Override
     protected void onResume() {
         super.onResume();
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        btnRegisterBarCode.setVisibility(View.GONE);
+//        if(!strShopSpn.equals("") && !strProductSpn.equals("")){
+
+//        String strShop=Cache.getString("strShop");
+//        String strCategory = Cache.getString("strCategory");
+//        if(!strShop.equals("") && !strCategory.equals("")){
+        String strShop = Cache.getString("strShop");
+        String strCategory = Cache.getString("strCategory");
+        if (!strShop.equals("") && !strCategory.equals("")) {
+            btnRegisterBarCode.setVisibility(View.VISIBLE);
+            llInfo.setVisibility(View.VISIBLE);
+
+            txtChooseShop.setText(String.format("انتخاب فروشگاه : %s", Cache.getString("strShop")));
+            txtChooseProduct.setText(String.format("خانواده محصول : %s", Cache.getString("strCategory")));
+
+
+        }else{
+            btnRegisterBarCode.setVisibility(View.GONE);
+            llInfo.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

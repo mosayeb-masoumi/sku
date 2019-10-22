@@ -15,6 +15,8 @@ import com.example.sku.helpers.GpsTracker;
 import com.example.sku.helpers.Toaster;
 import com.example.sku.models.login.LoginResult;
 import com.example.sku.models.login.LoginSendData;
+import com.example.sku.network.Service;
+import com.example.sku.network.ServiceProvider;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
 
@@ -44,8 +46,11 @@ public class Model implements Contract.Model {
         senddata.lat = strLat;
         senddata.lng = strLng;
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<LoginResult> call = apiService.getLogin(senddata);
+
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<LoginResult> call = service.getLogin(senddata);
+
         call.enqueue(new Callback<LoginResult>() {
             @Override
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
@@ -58,21 +63,16 @@ public class Model implements Contract.Model {
 
                 }else {
 
-                    if (response.code() == 403){
-                        Toaster.shorter("رمز صحیح نمی باشد");
-                    }else{
+
                         Toaster.shorter("خطا در ارتباط با سرور");
-                    }
+                    presenter.loginResult(-4);
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResult> call, Throwable t) {
-               Toast.makeText(context, ""+t.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                String error1 = "java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $";
-                if(t.getMessage().toString().equals(error1))
-                    Toaster.shorter("The selected email is invalid.");
-//                presenter.loginResult(-5);
+
+                presenter.loginResult(-5);
             }
         });
 

@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.sku.activities.product_register_detailed.ProductRegisterDetailActivity;
 import com.example.sku.helpers.App;
+import com.example.sku.models.category.CategoryList;
 import com.example.sku.models.product_register.TotalSpnLists;
 import com.example.sku.models.product_register.TotalSpnListsSendData;
 import com.example.sku.models.product_register_send.ProductRegisterSend;
@@ -14,6 +15,8 @@ import com.example.sku.models.sub_brandList_spn.SubBrandList;
 import com.example.sku.models.sub_brandList_spn.SubBrandListSendData;
 import com.example.sku.models.sub_categoryList_spn.SubCategoryList2;
 import com.example.sku.models.sub_categoryList_spn.SubCategoryList2SendData;
+import com.example.sku.network.Service;
+import com.example.sku.network.ServiceProvider;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
 
@@ -39,8 +42,14 @@ public class Model implements Contract.Model {
         TotalSpnListsSendData totalSpnListsSendData = new TotalSpnListsSendData();
         totalSpnListsSendData.setId(App.idSpnFamily);
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<TotalSpnLists> call = apiService.getMainSpnLists(totalSpnListsSendData);
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<TotalSpnLists> call = apiService.getMainSpnLists(totalSpnListsSendData);
+
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<TotalSpnLists> call = service.getMainSpnLists(totalSpnListsSendData);
+
+
         call.enqueue(new Callback<TotalSpnLists>() {
             @Override
             public void onResponse(Call<TotalSpnLists> call, Response<TotalSpnLists> response) {
@@ -68,8 +77,13 @@ public class Model implements Contract.Model {
         SubBrandListSendData subBrandListSendData = new SubBrandListSendData();
         subBrandListSendData.setId(spnBrandId);
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<SubBrandList> call = apiService.getSubBrandList(subBrandListSendData);
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<SubBrandList> call = apiService.getSubBrandList(subBrandListSendData);
+
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<SubBrandList> call = service.getSubBrandList(subBrandListSendData);
+
         call.enqueue(new Callback<SubBrandList>() {
             @Override
             public void onResponse(Call<SubBrandList> call, Response<SubBrandList> response) {
@@ -96,8 +110,13 @@ public class Model implements Contract.Model {
         SubCategoryList2SendData subCategoryList2SendData = new SubCategoryList2SendData();
         subCategoryList2SendData.setId(spnCategoryId);
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<SubCategoryList2> call = apiService.getSubCategoryList2(subCategoryList2SendData);
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<SubCategoryList2> call = apiService.getSubCategoryList2(subCategoryList2SendData);
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<SubCategoryList2> call = service.getSubCategoryList2(subCategoryList2SendData);
+
+
         call.enqueue(new Callback<SubCategoryList2>() {
             @Override
             public void onResponse(Call<SubCategoryList2> call, Response<SubCategoryList2> response) {
@@ -182,11 +201,13 @@ public class Model implements Contract.Model {
         sendData.setBarcode(App.barcodeResult);
 
 
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<ProductRegisterSend> call = apiService.getProductRegisterSend(sendData);
 
 
+        Service service = new ServiceProvider(context).getmService();
+        Call<ProductRegisterSend> call = service.getProductRegisterSend(sendData);
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<ProductRegisterSend> call = apiService.getProductRegisterSend(sendData);
         call.enqueue(new Callback<ProductRegisterSend>() {
             @Override
             public void onResponse(Call<ProductRegisterSend> call, Response<ProductRegisterSend> response) {

@@ -1,8 +1,8 @@
-package com.example.sku.models.register_shop;
+package com.example.sku.models.register_categoty;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterShop {
+public class RegisterCategory {
     @SerializedName("id")
     public String id;
 

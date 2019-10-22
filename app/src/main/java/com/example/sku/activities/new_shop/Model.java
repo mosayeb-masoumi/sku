@@ -9,6 +9,9 @@ import com.example.sku.models.city.CitySendData;
 import com.example.sku.models.province.ProvinceList;
 import com.example.sku.models.register_shop.RegisterShop;
 import com.example.sku.models.register_shop.RegisterShopSendData;
+import com.example.sku.models.shop.ShopList;
+import com.example.sku.network.Service;
+import com.example.sku.network.ServiceProvider;
 import com.example.sku.services.APIClient;
 import com.example.sku.services.APIService;
 
@@ -30,8 +33,12 @@ public class Model implements Contract.Model {
 
     @Override
     public void requestProvinceData() {
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<ProvinceList> call = apiService.getProvinceList();
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<ProvinceList> call = apiService.getProvinceList();
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<ProvinceList> call = service.getProvinceList();
+
         call.enqueue(new Callback<ProvinceList>() {
             @Override
             public void onResponse(Call<ProvinceList> call, Response<ProvinceList> response) {
@@ -60,8 +67,12 @@ public class Model implements Contract.Model {
         CitySendData citySendData = new CitySendData();
         citySendData.setId(App.provinceList.data.get(position).id);
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<CityList> call = apiService.getCityList(citySendData);
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<CityList> call = apiService.getCityList(citySendData);
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<CityList> call = service.getCityList(citySendData);
+
         call.enqueue(new Callback<CityList>() {
             @Override
             public void onResponse(Call<CityList> call, Response<CityList> response) {
@@ -100,8 +111,13 @@ public class Model implements Contract.Model {
         registerShopSendData.region = String.valueOf(areaItemPosition);
 
 
-        APIService apiService = APIClient.getClient().create(APIService.class);
-        Call<RegisterShop> call = apiService.getRegisterShop(registerShopSendData);
+//        APIService apiService = APIClient.getClient().create(APIService.class);
+//        Call<RegisterShop> call = apiService.getRegisterShop(registerShopSendData);
+
+        Service service = new ServiceProvider(context).getmService();
+        Call<RegisterShop> call = service.getRegisterShop(registerShopSendData);
+
+
         call.enqueue(new Callback<RegisterShop>() {
             @Override
             public void onResponse(Call<RegisterShop> call, Response<RegisterShop> response) {
